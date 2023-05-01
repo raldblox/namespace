@@ -1,2 +1,3 @@
-# namespace
+# NAMESPACE
+
 namespacing for everyone
