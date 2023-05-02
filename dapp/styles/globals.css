@@ -18,3 +18,12 @@ body {
   color: var(--primary-text);
   background: var(--background);
 }
+
+@layer components {
+  main {
+    @apply flex min-h-screen flex-col items-center justify-between px-10 py-24 gap-24 lg:p-24;
+  }
+  ul li {
+    @apply hover:bg-gray-800 hover:text-white px-2 py-1 rounded-lg transition-colors motion-reduce:transform-none;
+  }
+}
