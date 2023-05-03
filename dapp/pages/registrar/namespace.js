@@ -60,12 +60,12 @@ const namespace = () => {
                     </h2>
                     <div className={`m-0 w-full grid text-sm gap-2`}>
                         <select
+                            disabled={name != "name"}
                             id="badge-class"
                             value={chain}
                             onChange={(e) => setChain(e.target.value)}
                             className="w-full py-2 px-4"
                         >
-
                             <option value="">--Select Blockchain Network--</option>
                             <option value="ethereum">Ethereum</option>
                             <option value="cic">CIC Chain Mainnet</option>
@@ -102,7 +102,7 @@ const namespace = () => {
                         className='z-50 py-2 px-4 font-bold text-left border bg-white w-full' placeholder='insert name'
                     />
                     {!valid ?
-                        <button disabled={!name} className='z-50 py-2 mt-2 px-4 font-bold text-left border bg-white w-full' onClick={checkVAlidity}>
+                        chain != "chain" && name != "name" && <button disabled={!name} className='z-50 py-2 mt-2 px-4 font-bold text-left border bg-white w-full' onClick={checkVAlidity}>
                             {loading ? "Checking" : "Check"} Validity
                         </button> :
                         <p className={`m-0 mt-2 max-w-[30ch] text-sm opacity-50`}>
@@ -150,7 +150,7 @@ const namespace = () => {
                     {chain != "chain" && name != "name" && space != "space" && valid &&
                         <>
                             <button className='z-50 py-2 px-4 font-bold text-left border bg-white w-full'>
-                                Mint for
+                                Mint for{' '}
                                 {chain == "cic" && "1 $CIC"}
                                 {chain == "polygon" && "1 $MATIC"}
                                 {chain == "mumbai" && "0.1 $MATIC"}

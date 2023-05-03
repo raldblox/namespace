@@ -70,7 +70,7 @@ export default function Home() {
               </span>
             </h2>
             <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-              Build credibility and brand recognition by creating custom web3 space identity on blockchain of your choice.
+              Create web3 space identity for community, company or organization on the blockchain of your choice.
             </p>
           </Link>
 
@@ -86,7 +86,7 @@ export default function Home() {
               </span>
             </h2>
             <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-              Acquire a premium namespace or sell one of your own in a safe and decentralized nft marketplace.
+              Acquire premium names and spaces or sell one of yours in a safe and decentralized nft marketplace.
             </p>
           </Link>
 
