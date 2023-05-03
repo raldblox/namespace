@@ -13,13 +13,16 @@ export default function Home() {
           <nav className="fixed left-0 top-0 flex w-full justify-center border-b border-gray-300 bg-gradient-to-b from-zinc-100 py-2 backdrop-blur-2xl dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit lg:static lg:w-auto lg:rounded-xl lg:border lg:bg-gray-100 lg:p-2 lg:dark:bg-zinc-800/30">
             <ul className='flex gap-2'>
               <li>
-                <Link href="/">_home</Link>
+                <Link href="/">_nsMarket</Link>
               </li>
               <li>
                 <Link href="/">_nsBrowser</Link>
               </li>
               <li>
-                <Link href="/">_nsProfile</Link>
+                <Link href="/">_nsFile</Link>
+              </li>
+              <li>
+                <Link href="/">_nsLink</Link>
               </li>
             </ul>
           </nav>
@@ -45,13 +48,13 @@ export default function Home() {
             className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
           >
             <h2 className={`mb-3 text-2xl font-semibold`}>
-              Create name.space{' '}
+              Create names{' '}
               <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
                 -&gt;
               </span>
             </h2>
             <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-              Create a unique namespace by combining your chosen username with a custom root domain.
+              Create a unique name on the blockchain to cement your place on web3 and start joining spaces you like.
             </p>
           </Link>
 
@@ -61,13 +64,13 @@ export default function Home() {
 
           >
             <h2 className={`mb-3 text-2xl font-semibold`}>
-              Create .rootdomain{' '}
+              Create spaces{' '}
               <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
                 -&gt;
               </span>
             </h2>
             <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-              Build credibility and brand recognition on web3 by creating custom domain on blockchain of your choice.
+              Build credibility and brand recognition by creating custom web3 space identity on blockchain of your choice.
             </p>
           </Link>
 
@@ -83,14 +86,13 @@ export default function Home() {
               </span>
             </h2>
             <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-              Acquire a premium namespace or domain or sell one of your own in a safe and decentralized domain exchange.
+              Acquire a premium namespace or sell one of your own in a safe and decentralized nft marketplace.
             </p>
           </Link>
 
           <Link
             href="https://vercel.com/new?utm_source=create-next-app&utm_medium=default-template-tw&utm_campaign=create-next-app"
             className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-
           >
             <h2 className={`mb-3 text-2xl font-semibold`}>
               My namespaces{' '}
