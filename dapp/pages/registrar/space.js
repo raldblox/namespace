@@ -47,7 +47,7 @@ const spaces = () => {
             </div>
 
             <div className="relative flex flex-col place-items-center before:absolute before:h-[300px] before:w-[480px] before:-translate-x-1/2 before:rounded-full before:bg-gradient-radial before:from-white before:to-transparent before:blur-2xl before:content-[''] after:absolute after:-z-20 after:h-[180px] after:w-[240px] after:translate-x-1/3 after:bg-gradient-conic after:from-fuchsia-300 after:via-blue-200 after:blur-2xl after:content-[''] before:dark:bg-gradient-to-br before:dark:from-transparent before:dark:to-blue-700/10 after:dark:from-sky-900 after:dark:via-[#0141ff]/40 before:lg:h-[360px]">
-                <p className='lg:text-5xl text-3xl font-bold'>ns:{chain}/owner<span className='animate-pulse'>.{space}</span></p>
+                <p className='lg:text-5xl text-3xl font-bold'><span className='animate-pulse'>.{space}</span></p>
                 {org && visibility != "Empty" && <p className='mt-4 text-lg font-bold'>{org} Space</p>}
                 {description && visibility != "Empty" && <p className='max-w-[200px] text-center'>{description}</p>}
             </div>
@@ -57,14 +57,13 @@ const spaces = () => {
                     className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
                 >
                     <h2 className={`mb-3 text-2xl font-semibold`}>
-                        1. Choose network
+                        1. Choose Network
                         <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
 
                         </span>
                     </h2>
                     <div className={`m-0 w-full grid text-sm gap-2`}>
                         <select
-
                             id="badge-class"
                             value={chain}
                             onChange={(e) => setChain(e.target.value)}
@@ -102,7 +101,6 @@ const spaces = () => {
                     </h2>
 
                     <select
-                        disabled={chain == "chain"}
                         id="badge-class"
                         value={visibility}
                         onChange={(e) => setVisibility(e.target.value)}
@@ -128,29 +126,30 @@ const spaces = () => {
                     className="group rounded-lg z-50 border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
                 >
                     <h2 className={`mb-3 text-2xl font-semibold`}>
-                        3. Space details
+                        3. Space Details
                         <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
 
                         </span>
                     </h2>
-                    {visibility != "Empty" || "" && <input
-                        disabled={chain == "chain"}
-                        onChange={(e) => setOrg((e.target.value))}
-                        className='z-50 py-2 px-4 font-bold text-left border bg-white w-full' placeholder='space name'
-                    />}
-                    {visibility != "Empty" || "" && <input
-                        disabled={chain == "chain"}
-                        onChange={(e) => setDescription((e.target.value))}
-                        className='z-50 py-2 px-4 my-2 font-bold text-left border bg-white w-full' placeholder='space description'
-                    />}
+                    {visibility && visibility != ("Empty") && chain &&
+                        <>
+                            <input
+                                onChange={(e) => setOrg((e.target.value))}
+                                className='z-50 py-2 px-4 font-bold text-left border bg-white w-full' placeholder='space name'
+                            />
+                            <input
+                                onChange={(e) => setDescription((e.target.value))}
+                                className='z-50 py-2 px-4 my-2 font-bold text-left border bg-white w-full' placeholder='space description'
+                            />
+                        </>}
                     <input
-                        disabled={chain == "chain" || valid}
+                        disabled={valid}
                         onChange={(e) => setSpace((e.target.value))}
                         className='z-50 py-2 px-4  font-bold text-left border bg-white w-full' placeholder='space domain or symbol'
                     />
                     {!valid ?
-                        chain != "chain" && org != "Create" && space != "space" &&
-                        <button disabled={!org} className='z-50 py-2 mt-2 px-4 font-bold text-left border bg-white w-full' onClick={checkVAlidity}>
+                        space != "space" &&
+                        <button disabled={!space} className='z-50 py-2 mt-2 px-4 font-bold text-left border bg-white w-full' onClick={checkVAlidity}>
                             {loading ? "Checking" : "Check"} Space Availability
                         </button> :
                         <p className={`m-0 mt-2 w-full text-sm opacity-50`}>
@@ -162,7 +161,7 @@ const spaces = () => {
                     className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
                 >
                     <h2 className={`mb-3 text-2xl font-semibold`}>
-                        4. Mint to own it{' '}
+                        4. Mint to Own it{' '}
                         <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
 
                         </span>
