@@ -21,7 +21,7 @@ body {
 
 @layer components {
   main {
-    @apply flex min-h-screen flex-col items-center justify-between px-10 py-24 gap-24 lg:p-10 overflow-hidden;
+    @apply flex min-h-screen flex-col items-center justify-between px-8 py-24 gap-24 lg:p-10 overflow-hidden;
   }
   nav ul {
     @apply flex justify-between items-center gap-1;
