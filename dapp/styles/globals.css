@@ -27,9 +27,14 @@ body {
     @apply flex justify-between items-center gap-1;
   }
   ul li {
-    @apply hover:bg-gray-800 hover:text-white px-2 py-1 rounded-lg transition-colors motion-reduce:transform-none;
+    @apply dark:bg-transparent hover:bg-gray-800 hover:text-white px-2 py-1 rounded-lg transition-colors motion-reduce:transform-none;
   }
-  button {
-    @apply transition-colors motion-reduce:transform-none;
+  button,
+  select,
+  option,
+  input,
+  #badge-class {
+    @apply transition-colors motion-reduce:transform-none dark:bg-gray-900;
   }
+
 }

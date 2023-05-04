@@ -20,7 +20,7 @@ const names = () => {
         <main>
             <div className="z-10 w-full items-center justify-between font-mono text-base lg:flex">
                 <nav className="fixed left-0 top-0 flex w-full justify-center border-b border-gray-300 bg-gradient-to-b from-zinc-100 py-2 backdrop-blur-2xl dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit lg:static lg:w-auto lg:rounded-xl lg:border lg:bg-gray-100 lg:p-2 lg:dark:bg-zinc-800/30">
-                    <ul className='flex justify-between gap-2 w-full'>
+                    <ul className='flex justify-center gap-2 w-full'>
                         <li>
                             <Link href="/">Home</Link>
                         </li>
@@ -44,7 +44,7 @@ const names = () => {
                 </footer>
             </div>
 
-            <div className="relative flex place-items-center before:absolute before:h-[300px] before:w-[480px] before:-translate-x-1/2 before:rounded-full before:bg-gradient-radial before:from-white before:to-transparent before:blur-2xl before:content-[''] after:absolute after:-z-20 after:h-[180px] after:w-[240px] after:translate-x-1/3 after:bg-gradient-conic after:from-fuchsia-300 after:via-blue-200 after:blur-2xl after:content-[''] before:dark:bg-gradient-to-br before:dark:from-transparent before:dark:to-blue-700/10 after:dark:from-sky-900 after:dark:via-[#0141ff]/40 before:lg:h-[360px]">
+            <div className="relative flex place-items-center before:absolute before:h-[300px] before:w-[480px] before:-translate-x-1/2 before:rounded-full before:bg-gradient-radial before:from-white before:to-transparent before:blur-2xl before:content-[''] after:absolute after:-z-20 after:h-[180px] after:w-[240px] after:translate-x-1/3 after:bg-gradient-conic after:from-fuchsia-300 after:via-blue-200 after:blur-2xl after:content-[''] before:dark:bg-gradient-to-br before:dark:from-transparent before:dark:to-blue-700/10 after:dark:from-fuchsia-900 after:dark:via-[#0141ff]/40 before:lg:h-[360px]">
                 <p className='lg:text-5xl text-3xl font-bold'><span className='animate-pulse'>{name}</span>{space != "none" && <>.{space}</>}</p>
             </div>
 
@@ -99,10 +99,10 @@ const names = () => {
                     <input
                         disabled={chain == ("chain" || "") || valid}
                         onChange={(e) => setName((e.target.value))}
-                        className='z-50 py-2 px-4 font-bold text-left border bg-white w-full' placeholder='insert name'
+                        className='z-50 py-2 px-4 font-bold text-left border  w-full' placeholder='insert name'
                     />
                     {!valid ?
-                        chain != "chain" && name != "name" && <button disabled={!name} className='z-50 py-2 mt-2 px-4 font-bold text-left border bg-white w-full' onClick={checkVAlidity}>
+                        chain != "chain" && name != "name" && <button disabled={!name} className='z-50 py-2 mt-2 px-4 font-bold text-left border  w-full' onClick={checkVAlidity}>
                             {loading ? "Checking" : "Check"} Name Availability
                         </button> :
                         <p className={`m-0 mt-2 w-full text-sm opacity-50`}>
@@ -146,7 +146,7 @@ const names = () => {
                     </h2>
                     {chain != "chain" && name != "name" && space != "space" && valid &&
                         <>
-                            <button className='z-50 py-2 px-4 font-bold text-left border bg-white hover:bg-black hover:text-white  w-full'>
+                            <button className='z-50 py-2 px-4 font-bold text-left border  hover:bg-black hover:text-white  w-full'>
                                 Mint for{' '}
                                 {chain == "cic" && "1 $CIC"}
                                 {chain == "polygon" && "1 $MATIC"}

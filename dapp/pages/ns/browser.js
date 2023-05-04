@@ -23,8 +23,9 @@ const browser = () => {
                         </li>
                     </ul>
                 </nav>
-                <div className='flex pl-3 rounded-xl p-[3px] gap-3 bg-white border-gray-300 border w-full '>
-                    <Image src="/nscube.svg" height={10} width={20} priority />
+                <div className='flex pl-3 rounded-xl p-[3px] gap-3  border-gray-300 border w-full '>
+                    <Image src="/nscube.svg" height={10} width={20} priority className='dark:hidden' />
+                    <Image src="/nscube-wht.svg" height={10} width={20} priority className='hidden dark:flex' />
                     <input className='lg:text-2xl rounded-xl  w-full bg-gray-200 text-xl z-50 font-bold bg-transparent px-3 py-1' placeholder='ns:chain/' />
                 </div>
             </div>
