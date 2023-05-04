@@ -113,14 +113,15 @@ const spaces = () => {
                         <option value="Public" >Public Space</option>
                         <option value="Empty" >Empty Space</option>
                     </select>
-                    {visibility == "Public" && <p className='m-0 mt-2 max-w-[30ch] text-sm opacity-50'>
+                    {visibility == "Public" && <p className='m-0 mt-2 w-full text-sm opacity-50'>
                         <span className='font-bold'>{visibility} Space</span> allows anyone to connect to your space.
                     </p>}
-                    {visibility == "Private" && <p className='m-0 mt-2 max-w-[30ch] text-sm opacity-50'>
-                        <span className='font-bold'>{visibility} Space</span> allows you to add or whitelist
+                    {visibility == "Private" && <p className='m-0 mt-2 w-full text-sm opacity-50'>
+                        <span className='font-bold'>{visibility} Space</span> allows you to add, approve or whitelist
                         addresses before they can connect to your space.</p>}
-                    {visibility == "Empty" && <p className='m-0 mt-2 max-w-[30ch] text-sm opacity-50'>
-                        <span className='font-bold'>{visibility} Space</span> allows you to own just the space domain.</p>}
+                    {visibility == "Empty" && <p className='m-0 mt-2 w-full text-sm opacity-50'>
+                        <span className='font-bold'>{visibility} Space</span> allows you to own a
+                        space domain then use or sell it afterwards.</p>}
                 </div>
 
                 <div
@@ -152,7 +153,7 @@ const spaces = () => {
                         <button disabled={!org} className='z-50 py-2 mt-2 px-4 font-bold text-left border bg-white w-full' onClick={checkVAlidity}>
                             {loading ? "Checking" : "Check"} Space Availability
                         </button> :
-                        <p className={`m-0 mt-2 max-w-[30ch] text-sm opacity-50`}>
+                        <p className={`m-0 mt-2 w-full text-sm opacity-50`}>
                             <span className='font-bold'>.{space}</span> is valid and available.
                         </p>
                     }
@@ -175,7 +176,7 @@ const spaces = () => {
                                 {chain == "mumbai" && "0.1 $MATIC"}
                                 {chain == "arbitrum" && "1 $ARB"}
                             </button>
-                            <p className={`m-0 mt-2 max-w-[30ch] text-sm opacity-50`}>
+                            <p className={`m-0 mt-2 w-full text-sm opacity-50`}>
                                 <span className='font-bold'>{name}.{space}</span> is now ready to be minted on {chain} blockchain network. Own it before it's gone.
                             </p>
                         </>}

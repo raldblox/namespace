@@ -105,7 +105,7 @@ const names = () => {
                         chain != "chain" && name != "name" && <button disabled={!name} className='z-50 py-2 mt-2 px-4 font-bold text-left border bg-white w-full' onClick={checkVAlidity}>
                             {loading ? "Checking" : "Check"} Name Availability
                         </button> :
-                        <p className={`m-0 mt-2 max-w-[30ch] text-sm opacity-50`}>
+                        <p className={`m-0 mt-2 w-full text-sm opacity-50`}>
                             <span className='font-bold'>{name}</span> is valid and available.
                         </p>
                     }
@@ -133,7 +133,7 @@ const names = () => {
                         <option value="zoo" >Zoociety Space</option>
                         <option value="none">I will join later.</option>
                     </select>
-                    {valid && space != "none" && <p className='m-0 mt-2 max-w-[30ch] text-sm opacity-50'>{space == "space" && <>Give some space to <span className='font-bold'>{name}</span>. </>}You can manage and connect more spaces after your name is minted.</p>}
+                    {valid && space != "none" && <p className='m-0 mt-2 w-full text-sm opacity-50'>{space == "space" && <>Give some space to <span className='font-bold'>{name}</span>. </>}You can manage and connect more spaces after your name is minted.</p>}
                 </div>
                 <div
                     className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
@@ -154,7 +154,7 @@ const names = () => {
                                 {chain == "arbitrum" && "1 $ARB"}
                                 {chain == "ethereum" && "0.01 $ETH"}
                             </button>
-                            <p className={`m-0 mt-2 max-w-[30ch] text-sm opacity-50`}>
+                            <p className={`m-0 mt-2 w-full text-sm opacity-50`}>
                                 <span className='font-bold'>{name}{space != "none" && <>.{space}</>}</span> is now ready to be minted on {chain} blockchain network.
                             </p>
                         </>}
