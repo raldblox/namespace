@@ -131,7 +131,7 @@ const names = () => {
                         <option value="web3">Web3 Space</option>
                         <option value="blox" >Blox Space</option>
                         <option value="badges" >Badgify Space</option>
-                        <option value="zoo" >Zoociety Space</option>
+                        <option value="zoociety" >Zoociety Space</option>
                         <option value="none">I will join later.</option>
                     </select>
                     {valid && space != "none" && <p className='m-0 mt-2 w-full text-sm opacity-50'>{space == "space" && <>Give some space to <span className='font-bold'>{name}</span>. </>}You can manage and connect more spaces after your name is minted.</p>}
@@ -156,7 +156,7 @@ const names = () => {
                                 {chain == "ethereum" && "0.01 $ETH"}
                             </button>
                             <p className={`m-0 mt-2 w-full text-sm opacity-50`}>
-                                <span className='font-bold'>{name}{space != "none" && <>.{space}</>}</span> is now ready to be minted on {chain} blockchain network.
+                                <span className='font-bold'>{name}</span> is now ready to be minted {space != "none" && <>and connect to <span className='font-bold'>{space.toUpperCase()} Space</span></>} on {chain} blockchain network.
                             </p>
                         </>}
                 </div>

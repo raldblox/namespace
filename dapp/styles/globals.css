@@ -4,12 +4,12 @@
 
 :root {
   --primary-text: #000;
-  --background: #fff;
+  --background: #f5f5f7;
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --primary-text: #fff;
+    --primary-text: #f5f5f7;
     --background: #000;
   }
 }
@@ -24,7 +24,7 @@ body {
     @apply flex min-h-screen flex-col items-center justify-between px-8 py-24 gap-24 lg:p-10 overflow-hidden;
   }
   nav ul {
-    @apply flex justify-between items-center gap-1 mx-5;
+    @apply flex justify-between items-center gap-1 mx-5 lg:mx-0;
   }
   ul li {
     @apply dark:bg-transparent hover:bg-gray-800 hover:text-white px-2 py-1 rounded-lg transition-colors motion-reduce:transform-none;
@@ -36,5 +36,4 @@ body {
   #badge-class {
     @apply transition-colors motion-reduce:transform-none dark:bg-gray-900;
   }
-
 }
