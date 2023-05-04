@@ -39,7 +39,7 @@ const browser = () => {
                         Retrieve files
                     </h2>
                     <p className={`m-0 w-full text-sm opacity-50`}>
-                        Create a unique name on the blockchain to cement your place on web3 and start joining spaces you like.
+                       
                     </p>
                 </Link>
 
@@ -52,7 +52,7 @@ const browser = () => {
                         View shorten links
                     </h2>
                     <p className={`m-0 w-full text-sm opacity-50`}>
-                        Create web3 space identity for community, company or organization on the blockchain of your choice.
+                      
                     </p>
                 </Link>
                 <Link
@@ -64,7 +64,7 @@ const browser = () => {
                         View profile
                     </h2>
                     <p className={`m-0 w-full text-sm opacity-50`}>
-                        Acquire premium names and spaces or sell one of yours in a safe and decentralized open marketplace.
+                       
                     </p>
                 </Link>
                 <Link
@@ -75,7 +75,7 @@ const browser = () => {
                         Browse interactiveNFT
                     </h2>
                     <p className={`m-0 w-full text-sm opacity-50`}>
-                        Create tokenized site, forms, games, documents, books, or portfolio in a form of interactiveNFT and browse it straight to nsBrowser.
+                        {/* Create tokenized site, forms, games, documents, books, or portfolio in a form of interactiveNFT and browse it straight to nsBrowser. */}
                     </p>
                 </Link>
             </div>
