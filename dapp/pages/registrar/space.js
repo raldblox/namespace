@@ -22,7 +22,7 @@ const spaces = () => {
         <main>
             <div className="z-10 w-full items-center justify-between font-mono text-base lg:flex">
                 <nav className="fixed left-0 top-0 flex w-full justify-center border-b border-gray-300 bg-gradient-to-b from-zinc-100 py-2 backdrop-blur-2xl dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit lg:static lg:w-auto lg:rounded-xl lg:border lg:bg-gray-100 lg:p-2 lg:dark:bg-zinc-800/30">
-                    <ul className='flex justify-between gap-2 w-full'>
+                    <ul className='flex justify-center gap-2 w-full'>
                         <li>
                             <Link href="/">Home</Link>
                         </li>
