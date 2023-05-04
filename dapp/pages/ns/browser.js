@@ -39,7 +39,7 @@ const browser = () => {
                         Retrieve files
                     </h2>
                     <p className={`m-0 w-full text-sm opacity-50`}>
-                       
+
                     </p>
                 </Link>
 
@@ -52,7 +52,7 @@ const browser = () => {
                         View shorten links
                     </h2>
                     <p className={`m-0 w-full text-sm opacity-50`}>
-                      
+
                     </p>
                 </Link>
                 <Link
@@ -64,7 +64,7 @@ const browser = () => {
                         View profile
                     </h2>
                     <p className={`m-0 w-full text-sm opacity-50`}>
-                       
+
                     </p>
                 </Link>
                 <Link
