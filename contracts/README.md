@@ -12,18 +12,20 @@ npx hardhat run scripts/deploy.js
 
 ## FEATURE/S CHECKLIST
 
-- [ ] Create unique names of each addresses
-  - [ ] Each name has owner
-  - [ ] Each name connects to multiple spaces
-- [ ] Create spaces for communities or organizations
-  - [ ] Each space has owner and creator
+- [x] Create unique names of each addresses (`createName()`)
+  - [x] Each name has owner
+  - [x] Each name connects to multiple spaces
+  - [ ] Each name has encrypted storage per address
+  - [ ] Data stored by current owner only accessible by him/her
+- [x] Create spaces for communities or organizations (`createSpace()`)
+  - [x] Each space has owner or creator
   - [ ] Each name has domain for identification
-  - [ ] Each space holds names or members
+  - [x] Each space holds names or members
   - [ ] Spaces recieve portion of connection fees from members
   - [ ] Fund is withdrawable only by space owner
   - [ ] Space owner can add connection fees
   - [ ] Maximum %share is 50 percent of total fees
-- [ ] Create namespaces by connecting name to spaces
+- [x] Create namespaces by connecting name to spaces (`connectSpace()`)
   - [ ] Connecting to spaces incur fees set by space owners
   - [ ] Each namespace has dashboard or control room
   - [ ] Each namespace can link wallet addresses
