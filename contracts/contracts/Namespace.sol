@@ -3,9 +3,10 @@
 pragma solidity >=0.8.2 <0.9.0;
 
 import "./NamespaceToken.sol";
+import "./interfaces/INamespace.sol";
 import "@openzeppelin/contracts/utils/math/SafeMath.sol";
 
-contract Namespace {
+contract Namespace is INamespace {
     using SafeMath for uint256;
     address admin;
     uint256 private nameFee;
@@ -92,13 +93,15 @@ contract Namespace {
         string calldata _space,
         string calldata _orgname,
         string calldata _description
-    ) public payable {
+    ) public payable override {
         require(space.creator[_space] == msg.sender, "Not authorized");
         space.orgnames[_space] = _orgname;
         space.description[_space] = _description;
     }
 
-    function createName(string calldata _name) public payable returns (bool) {
+    function createName(
+        string calldata _name
+    ) public payable override returns (bool) {
         require(name.creator[_name] == address(0));
         require(msg.value >= nameFee, "Name creation fee not met");
         uint256 tokenId = token.mint(msg.sender, true);
@@ -113,7 +116,7 @@ contract Namespace {
         string calldata _space,
         string calldata _orgname,
         string calldata _description
-    ) public payable returns (bool) {
+    ) public payable override returns (bool) {
         require(space.creator[_space] == address(0), "Space already taken");
         require(msg.value >= spaceFee, "Space creation fee not met");
         uint256 tokenId = token.mint(msg.sender, true);
@@ -128,7 +131,7 @@ contract Namespace {
     function createNamespace(
         string calldata _name,
         string calldata _space
-    ) public payable {
+    ) public payable override {
         require(name.creator[_name] == address(0), "Name already taken.");
         require(space.creator[_space] != address(0), "Space doesn't exist");
         uint256 totalFees = connectFee.add(space.membershipFees[_space]).add(
@@ -143,7 +146,7 @@ contract Namespace {
     function connectSpace(
         string calldata _name,
         string calldata _space
-    ) public payable {
+    ) public payable override {
         require(space.creator[_space] != address(0), "Space doesn't exist");
         require(name.creator[_name] != address(0), "Name doesn't exist");
         require(
@@ -168,7 +171,7 @@ contract Namespace {
         string calldata _space,
         string memory _link,
         bool isName
-    ) public payable {
+    ) public payable override {
         address linkOwner;
         if (isName) {
             require(name.creator[_name] != address(0), "Name doesn't exist");
@@ -184,7 +187,7 @@ contract Namespace {
     function hasSpace(
         string calldata _name,
         string calldata _space
-    ) public view returns (bool) {
+    ) public view override returns (bool) {
         bool foundSpace = false;
         for (uint i = 0; i < name.spaces[_name].length; i++) {
             if (
@@ -212,25 +215,29 @@ contract Namespace {
 
     function getNameSpaces(
         string calldata _name
-    ) public view returns (string[] memory) {
+    ) public view override returns (string[] memory) {
         return name.spaces[_name];
     }
 
     function getSpaceNames(
         string calldata _name
-    ) public view returns (string[] memory) {
+    ) public view override returns (string[] memory) {
         return space.names[_name];
     }
 
-    function getAllNames() public view returns (string[] memory) {
+    function getAllNames() public view override returns (string[] memory) {
         return name.names;
+    }
+
+    function getAllSpaces() public view override returns (string[] memory) {
+        return space.spaces;
     }
 
     function getAllLinks(
         address owner,
         string memory _namespace,
         bool isName
-    ) public view returns (string[] memory) {
+    ) public view override returns (string[] memory) {
         if (isName) {
             return name.links[owner][_namespace];
         } else {
@@ -242,21 +249,21 @@ contract Namespace {
         return name.tokenIds[_name];
     }
 
-    function getAllSpaces() public view returns (string[] memory) {
-        return space.spaces;
-    }
-
     function getSpaceInfos(
         string memory _space
-    ) public view returns (string memory, string memory) {
+    ) public view override returns (string memory, string memory) {
         return (space.orgnames[_space], space.description[_space]);
     }
 
-    function resolveName(string memory _name) public view returns (address) {
+    function resolveName(
+        string memory _name
+    ) public view override returns (address) {
         return token.ownerOf(name.tokenIds[_name]);
     }
 
-    function resolveAddress(address owner) public view returns (string memory) {
+    function resolveAddress(
+        address owner
+    ) public view override returns (string memory) {
         return primaryNames[owner];
     }
 
