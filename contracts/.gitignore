@@ -9,3 +9,8 @@ typechain-types
 cache
 artifacts
 secrets.json
+
+Themer.sol
+Visualizer.sol
+nft.html
+name.svg

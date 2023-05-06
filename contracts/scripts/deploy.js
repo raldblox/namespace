@@ -1,33 +1,75 @@
 async function main() {
-    const [deployer] = await ethers.getSigners();
-    console.log("Deployer:", deployer.address);
-    console.log("Balance:", ethers.utils.formatEther(await deployer.getBalance()));
+  const [deployer] = await ethers.getSigners();
+  console.log("Deployer:", deployer.address);
+  console.log(
+    "Balance:",
+    ethers.utils.formatEther(await deployer.getBalance())
+  );
 
+  const Namespace = await ethers.getContractFactory("Namespace");
+  const namespace = await Namespace.deploy();
+  await namespace.deployed();
+  console.log("Namespace:", namespace.address);
 
-    const Namespace = await ethers.getContractFactory("Namespace");
-    const namespace = await Namespace.deploy();
-    await namespace.deployed();
-    console.log("Namespace:", namespace.address);
+  const Visualizer = await ethers.getContractFactory("Visualizer");
+  const visualizer = await Visualizer.deploy();
+  await visualizer.deployed();
+  console.log("Visualizer:", visualizer.address);
 
-    await namespace.createName("rald", { value: hre.ethers.utils.parseEther("1") });
-    await namespace.createSpace("blox", "Blox", "hello", { value: hre.ethers.utils.parseEther("1") });
-    await namespace.createSpace("badge", "Badgify", "digital badges", { value: hre.ethers.utils.parseEther("1") });
-    await namespace.connectSpace("rald", "blox", { value: hre.ethers.utils.parseEther("1") });
-    await namespace.connectSpace("rald", "badge", { value: hre.ethers.utils.parseEther("1") });
-    await namespace.createNamespace("hello", "blox", { value: hre.ethers.utils.parseEther("2") });
-    console.log("Token Supply:", await namespace.tokenSupply());
-    console.log("Token Address:", await namespace.tokenAddress());
-    console.log("Namespaces:", await namespace.getNameSpaces("rald"));
-    console.log("Name Owner:", await namespace.getNameCreator("rald"));
-    console.log("All Names:", await namespace.getAllNames());
-    console.log("All Spaces:", await namespace.getAllSpaces());
-    console.log("Space Info:", await namespace.getSpaceInfos("badge"));
+  const Themer = await ethers.getContractFactory("Themer");
+  const themer = await Themer.deploy();
+  await themer.deployed();
+  console.log("Themer:", themer.address);
+  console.log("Token Address:", await namespace.tokenAddress());
 
+  const token = await ethers.getContractAt(
+    "NamespaceToken",
+    await namespace.tokenAddress()
+  );
+
+  await token.setThemer(themer.address);
+  await token.setVisualizer(visualizer.address);
+
+  await namespace.createName("rald", deployer.address);
+  await namespace.createName("raldblox", deployer.address);
+  await namespace.createName("zoociety", deployer.address);
+  await namespace.createName("badgify", deployer.address);
+  await namespace.createName("namespace", deployer.address);
+
+  await namespace.createSpace(
+    deployer.address,
+    "blox",
+    "RALDBLOX",
+    "A space full of blo[x]",
+    "https://bafybeickbt4vfymptappwfxjmimoq46rwhwffr3kk23alzyvdhlcgvvdfm.ipfs.nftstorage.link/me.png"
+  );
+  await namespace.createSpace(
+    deployer.address,
+    "zoociety",
+    "ZOOCIETY",
+    "Synergistic Ecosystem of Emerging Technology",
+    "https://bafybeiby5fvekcrnn7ys4s4oxwlags4zr6jdiklplmpysvx7zksxhceg5m.ipfs.nftstorage.link/zoociety-blk-wht.png"
+  );
+  await namespace.createSpace(
+    deployer.address,
+    "badge",
+    "BADGIFY",
+    "We make awesome digital badges on the blockchain",
+    "https://bafybeiclziiusdzraqlvcrbtcko3yvsbanhcfuwpdzw7ii3ypm3zjnimni.ipfs.nftstorage.link/dark-blue.png"
+  );
+  await namespace.connectSpace("rald", "blox");
+  await namespace.connectSpace("rald", "badge");
+  await namespace.connectSpace("rald", "zoociety");
+  await namespace.connectSpace("raldblox", "badge");
+  await namespace.connectSpace("raldblox", "zoociety");
+  console.log("Token Supply:", await namespace.tokenSupply());
+  console.log("Member Count:", await namespace.getSpaceNames("blox"));
+  console.log("All Spaces:", await namespace.getAllSpaces());
 }
 
 main()
-    .then(() => process.exit(0))
-    .catch((error) => {
-        console.error(error);
-        process.exit(1);
-    });
+  .then(() => process.exit(0))
+  .catch((error) => {
+    console.error(error);
+    process.exit(1);
+  });
