@@ -6,11 +6,15 @@ async function main() {
     ethers.utils.formatEther(await deployer.getBalance())
   );
 
+  const namespaceMainnet = "0xfe409ca6CaB3fbBb7c7372F17d84c3E5A94D06E9"; // deployed on mainnet on remix
+  const namespace = await ethers.getContractAt("Namespace", namespaceMainnet);
+  console.log("Mainnet Namespace:", namespace.address);
+
   // Deploy Namespace Contract
-  const Namespace = await ethers.getContractFactory("Namespace");
-  const namespace = await Namespace.deploy();
-  await namespace.deployed();
-  console.log("Namespace:", namespace.address);
+  // const Namespace = await ethers.getContractFactory("Namespace");
+  // const namespace = await Namespace.deploy();
+  // await namespace.deployed();
+  // console.log("Namespace:", namespace.address);
 
   // Deploy Token Contract
   const NamespaceToken = await ethers.getContractFactory("NamespaceToken");
