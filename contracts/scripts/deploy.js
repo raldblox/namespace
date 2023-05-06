@@ -6,29 +6,36 @@ async function main() {
     ethers.utils.formatEther(await deployer.getBalance())
   );
 
+  // Deploy Namespace Contract
   const Namespace = await ethers.getContractFactory("Namespace");
   const namespace = await Namespace.deploy();
   await namespace.deployed();
   console.log("Namespace:", namespace.address);
 
+  // Deploy Token Contract
+  const NamespaceToken = await ethers.getContractFactory("NamespaceToken");
+  const token = await NamespaceToken.deploy(namespace.address);
+  await token.deployed();
+  console.log("Token:", token.address);
+
+  // Link Namespace to Token Contract
+  await namespace.setToken(token.address);
+
+  // Add NFT Themer to Token Contract
+  const Themer = await ethers.getContractFactory("Themer");
+  const themer = await Themer.deploy();
+  await themer.deployed();
+  console.log("Themer:", themer.address);
+
+  // Add NFT Visualizer to Token Contract
   const Visualizer = await ethers.getContractFactory("Visualizer");
   const visualizer = await Visualizer.deploy();
   await visualizer.deployed();
   console.log("Visualizer:", visualizer.address);
 
-  const Themer = await ethers.getContractFactory("Themer");
-  const themer = await Themer.deploy();
-  await themer.deployed();
-  console.log("Themer:", themer.address);
-  console.log("Token Address:", await namespace.tokenAddress());
-
-  const token = await ethers.getContractAt(
-    "NamespaceToken",
-    await namespace.tokenAddress()
-  );
-
   await token.setThemer(themer.address);
   await token.setVisualizer(visualizer.address);
+  console.log("Verify Token:", await namespace.tokenAddress());
 
   await namespace.createName("rald", deployer.address);
   await namespace.createName("raldblox", deployer.address);
@@ -75,7 +82,7 @@ async function main() {
   console.log("Token Supply:", await namespace.tokenSupply());
   console.log("Member Count:", await namespace.getSpaceNames("blox"));
   console.log("All Spaces:", await namespace.getAllSpaces());
-  // console.log("TOKEN URI:", await token.tokenURI(1));
+  console.log("TOKEN URI:", await token.tokenURI(1));
 }
 
 main()

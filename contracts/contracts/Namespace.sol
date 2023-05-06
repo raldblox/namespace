@@ -25,7 +25,7 @@ contract Namespace is INamespace {
         mapping(string => uint256) tokenIds;
         mapping(string => string[]) spaces;
         mapping(address => mapping(string => string[])) links; // @note map address to name.space to links
-        mapping(address => mapping(string => address[])) wallets; // @note map address to name.space to links
+        mapping(string => mapping(string => address)) wallets; // @note map address to name.space to address
     }
 
     struct Space {
@@ -42,7 +42,6 @@ contract Namespace is INamespace {
 
     Name private name;
     Space private space;
-
     NamespaceToken public token;
 
     mapping(address => string) primaryNames;
@@ -50,13 +49,16 @@ contract Namespace is INamespace {
 
     constructor() {
         admin = msg.sender;
-        token = new NamespaceToken(msg.sender);
         setFees(1 ether, 1 ether, 1 ether);
     }
 
     modifier onlyAdmin() {
         require(msg.sender == admin, "Caller is not an admin");
         _;
+    }
+
+    function setToken(address _new) external onlyAdmin {
+        token = NamespaceToken(_new);
     }
 
     function setFees(
@@ -106,7 +108,7 @@ contract Namespace is INamespace {
             "You do not own this name"
         );
         require(hasSpace(_name, _space), "");
-        name.wallets[_name][_space].push(_wallet);
+        name.wallets[_name][_space] = _wallet;
     }
 
     function isAdmin() internal view returns (bool) {

@@ -57,8 +57,9 @@ interface INamespace {
 contract NamespaceToken is ERC721 {
     using SafeMath for uint256;
     uint256 public totalSupply;
-    address admin;
-    address owner;
+    string private contractUri;
+    address private admin;
+    address public tokenizer;
 
     event NewToken(
         uint256 indexed tokenId,
@@ -71,8 +72,8 @@ contract NamespaceToken is ERC721 {
         _;
     }
 
-    modifier onlyOwner() {
-        require(msg.sender == owner, "Caller is not an admin");
+    modifier onlyTokenizer() {
+        require(msg.sender == tokenizer, "Caller is not the tokenizer");
         _;
     }
 
@@ -85,28 +86,29 @@ contract NamespaceToken is ERC721 {
     mapping(uint256 => string) colors;
     mapping(uint256 => string) bgs;
 
-    constructor(address _owner) ERC721("Name Space Token", "NST") {
-        owner = _owner; // deployer of contract is the owner
-        admin = msg.sender; // contract is the admin
+    constructor(address _namespace) ERC721("Name Space Token", "NST") {
+        tokenizer = _namespace; // namespace contract is the tokenizer
+        admin = msg.sender; // deployer is the admin
+        contractUri = '{"name":"namespace","description":"","image":"https://zoociety.xyz/assets/namespace.png","external_link":"","fee_recipient":""}';
+    }
+
+    function setContractUri(string memory _new) external onlyAdmin {
+        contractUri = _new;
     }
 
     function isAdmin() internal view returns (bool) {
         return admin == msg.sender;
     }
 
-    function isOwner() internal view returns (bool) {
-        return owner == msg.sender;
+    function isTokenizer() internal view returns (bool) {
+        return tokenizer == msg.sender;
     }
 
-    function setThemer(address _new) external onlyOwner {
+    function setThemer(address _new) external onlyAdmin {
         themer = IThemer(_new);
     }
 
-    function setNamespace(address _new) external onlyOwner {
-        namespace = INamespace(_new);
-    }
-
-    function setVisualizer(address _new) external onlyOwner {
+    function setVisualizer(address _new) external onlyAdmin {
         visualizer = IVisualizer(_new);
     }
 
@@ -114,8 +116,8 @@ contract NamespaceToken is ERC721 {
         uint256 tokenId,
         string memory color,
         string memory bg
-    ) external onlyOwner {
-        if (!isOwner()) {
+    ) external onlyAdmin {
+        if (!isAdmin()) {
             require(ownerOf(tokenId) == msg.sender);
         }
         colors[tokenId] = color;
@@ -126,13 +128,23 @@ contract NamespaceToken is ERC721 {
         string memory _name,
         address _owner,
         bool isName
-    ) public onlyAdmin returns (uint256) {
+    ) public onlyTokenizer returns (uint256) {
         totalSupply++;
         _safeMint(_owner, totalSupply);
         isNames[totalSupply] = isName;
         names[totalSupply] = _name;
         emit NewToken(totalSupply, _owner, isName ? "Name" : "Space");
         return totalSupply;
+    }
+
+    function contractURI() external view returns (string memory) {
+        return
+            string(
+                abi.encodePacked(
+                    "data:application/json;base64,",
+                    Base64.encode(bytes(abi.encodePacked(contractUri)))
+                )
+            );
     }
 
     function tokenURI(
@@ -146,7 +158,7 @@ contract NamespaceToken is ERC721 {
         string memory visualizer_ = generateVisualizer(tokenId);
         string memory description_ = isNames[tokenId]
             ? ""
-            : INamespace(admin).getSpaceInfos(names[tokenId]);
+            : INamespace(tokenizer).getSpaceInfos(names[tokenId]);
 
         return
             string(
@@ -178,7 +190,7 @@ contract NamespaceToken is ERC721 {
     function generateVisualizer(
         uint256 tokenId
     ) internal view returns (string memory) {
-        string memory spaces = INamespace(admin).getSpaces(names[tokenId]);
+        string memory spaces = INamespace(tokenizer).getSpaces(names[tokenId]);
         return
             visualizer.generate(
                 tokenId,
@@ -205,12 +217,12 @@ contract NamespaceToken is ERC721 {
                         (
                             isName
                                 ? (
-                                    INamespace(admin).getNameSpaces(
+                                    INamespace(tokenizer).getNameSpaces(
                                         names[tokenId]
                                     )
                                 ).length
                                 : (
-                                    INamespace(admin).getSpaceNames(
+                                    INamespace(tokenizer).getSpaceNames(
                                         names[tokenId]
                                     )
                                 ).length
@@ -227,7 +239,7 @@ contract NamespaceToken is ERC721 {
     function generateAttribute(
         uint256 tokenId
     ) internal view returns (string memory) {
-        return INamespace(admin).getAttribute(names[tokenId]);
+        return INamespace(tokenizer).getAttribute(names[tokenId]);
     }
 
     function generateName(
