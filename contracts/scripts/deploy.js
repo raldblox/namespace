@@ -57,14 +57,25 @@ async function main() {
     "We make awesome digital badges on the blockchain",
     "https://zoociety.xyz/assets/badgify.png"
   );
+  await namespace.createSpace(
+    deployer.address,
+    "space",
+    "namespace",
+    "Unleashing Potential of Digital Identity",
+    "https://zoociety.xyz/assets/namespace.png"
+  );
   await namespace.connectSpace("rald", "blox");
+  await namespace.connectSpace("rald", "space");
   await namespace.connectSpace("rald", "badge");
   await namespace.connectSpace("rald", "zoociety");
   await namespace.connectSpace("raldblox", "badge");
   await namespace.connectSpace("raldblox", "zoociety");
+  await namespace.connectSpace("raldblox", "space");
+  await token.setColor(1, "white", "blue");
   console.log("Token Supply:", await namespace.tokenSupply());
   console.log("Member Count:", await namespace.getSpaceNames("blox"));
   console.log("All Spaces:", await namespace.getAllSpaces());
+  // console.log("TOKEN URI:", await token.tokenURI(1));
 }
 
 main()

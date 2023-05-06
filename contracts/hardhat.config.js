@@ -1,7 +1,7 @@
 require("@nomicfoundation/hardhat-toolbox");
 require("@nomiclabs/hardhat-ethers");
 require("@nomiclabs/hardhat-etherscan");
-require('hardhat-contract-sizer');
+require("hardhat-contract-sizer");
 require("dotenv").config();
 
 const { mnemonic } = require("./secrets.json");
@@ -57,8 +57,8 @@ module.exports = {
       accounts: [process.env.PRIVATE_KEY],
     },
     mainnet: {
-      // timeout: 60000,
-      // gasPrice: 50000000000,
+      timeout: 60000,
+      gasPrice: 50000000000,
       url: process.env.ALCHEMY_MAINNET,
       accounts: [process.env.PRIVATE_KEY],
     },
