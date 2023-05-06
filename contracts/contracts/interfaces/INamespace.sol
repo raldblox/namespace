@@ -39,9 +39,19 @@ interface INamespace {
         string calldata _space
     ) external returns (bool);
 
+    function getTokenIds(string memory _name) external view returns (uint256);
+
     function getSpaceNames(
         string calldata _name
     ) external view returns (string[] memory);
+
+    function getSpaces(
+        string calldata _name
+    ) external view returns (string memory);
+
+    function getAttribute(
+        string calldata _name
+    ) external view returns (string memory);
 
     function getNameSpaces(
         string calldata _name
