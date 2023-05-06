@@ -41,21 +41,21 @@ async function main() {
     "blox",
     "RALDBLOX",
     "A space full of blo[x]",
-    "https://bafybeickbt4vfymptappwfxjmimoq46rwhwffr3kk23alzyvdhlcgvvdfm.ipfs.nftstorage.link/me.png"
+    "https://zoociety.xyz/assets/me.png"
   );
   await namespace.createSpace(
     deployer.address,
     "zoociety",
     "ZOOCIETY",
     "Synergistic Ecosystem of Emerging Technology",
-    "https://bafybeiby5fvekcrnn7ys4s4oxwlags4zr6jdiklplmpysvx7zksxhceg5m.ipfs.nftstorage.link/zoociety-blk-wht.png"
+    "https://zoociety.xyz/assets/zoociety.png"
   );
   await namespace.createSpace(
     deployer.address,
     "badge",
     "BADGIFY",
     "We make awesome digital badges on the blockchain",
-    "https://bafybeiclziiusdzraqlvcrbtcko3yvsbanhcfuwpdzw7ii3ypm3zjnimni.ipfs.nftstorage.link/dark-blue.png"
+    "https://zoociety.xyz/assets/badgify.png"
   );
   await namespace.connectSpace("rald", "blox");
   await namespace.connectSpace("rald", "badge");

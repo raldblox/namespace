@@ -24,7 +24,7 @@ interface IThemer {
         string memory
     ) external pure returns (string memory);
 
-    function name(string memory) external pure returns (string memory);
+    function name(string memory, bool) external pure returns (string memory);
 
     function count(uint256, bool) external pure returns (string memory);
 

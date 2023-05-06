@@ -281,8 +281,8 @@ contract Namespace is INamespace {
 
     function getSpaceInfos(
         string memory _space
-    ) public view returns (string memory, string memory) {
-        return (space.orgnames[_space], space.description[_space]);
+    ) public view returns (string memory) {
+        return space.description[_space];
     }
 
     function getSpaces(
@@ -342,7 +342,7 @@ contract Namespace is INamespace {
             return
                 string(
                     abi.encodePacked(
-                        '{"trait_type": "TokenType", "value": "Name"},{"trait_type": "Connected Spaces", "value": "',
+                        '{"trait_type": "Token Type", "value": "Name"},{"trait_type": "Connected Spaces", "value": "',
                         isName
                             ? Strings.toString((name.spaces[name_]).length)
                             : "",

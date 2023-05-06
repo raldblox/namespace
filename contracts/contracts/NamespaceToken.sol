@@ -26,7 +26,7 @@ interface INamespace {
 
     function getSpaceInfos(
         string memory _space
-    ) external view returns (string memory, string memory);
+    ) external view returns (string memory);
 
     function resolveName(string memory _name) external view returns (address);
 
@@ -49,7 +49,6 @@ interface INamespace {
 
 contract NamespaceToken is ERC721 {
     using SafeMath for uint256;
-    bool reentrancyLock = false;
     uint256 public totalSupply;
     address admin;
     address owner;
@@ -59,13 +58,6 @@ contract NamespaceToken is ERC721 {
         address indexed owner,
         string tokenType
     );
-
-    modifier noReentrant() {
-        require(!reentrancyLock, "Badgify: no reentrant");
-        reentrancyLock = true;
-        _;
-        reentrancyLock = false;
-    }
 
     modifier onlyAdmin() {
         require(msg.sender == admin, "Caller is not an admin");
@@ -127,13 +119,15 @@ contract NamespaceToken is ERC721 {
     function tokenURI(
         uint256 tokenId
     ) public view virtual override returns (string memory) {
-        require(_exists(tokenId), "BADGIFY: Nonexistent Token");
+        require(_exists(tokenId), "Nonexistent Token");
 
         string memory name_ = generateName(tokenId);
         string memory image_ = generateImage(tokenId);
         string memory attribute_ = generateAttribute(tokenId);
         string memory visualizer_ = generateVisualizer(tokenId);
-        string memory description_ = "";
+        string memory description_ = isNames[tokenId]
+            ? ""
+            : INamespace(admin).getSpaceInfos(names[tokenId]);
 
         return
             string(
@@ -187,7 +181,7 @@ contract NamespaceToken is ERC721 {
                     themer.style(colors[tokenId], bgs[tokenId]),
                     themer.tokenID(tokenId),
                     themer.chainNetwork(),
-                    themer.name(names[tokenId]),
+                    themer.name(names[tokenId], isName),
                     themer.count(
                         (
                             isName

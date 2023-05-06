@@ -59,7 +59,7 @@ interface INamespace {
 
     function getSpaceInfos(
         string memory _space
-    ) external view returns (string memory, string memory);
+    ) external view returns (string memory);
 
     function resolveName(string memory _name) external view returns (address);
 
