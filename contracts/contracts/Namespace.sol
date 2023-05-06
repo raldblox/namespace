@@ -1,3 +1,10 @@
+/**
+ *
+ * @title NAMESPACE
+ * @author raldblox.eth
+ *
+ */
+
 // SPDX-License-Identifier: MIT
 
 pragma solidity >=0.8.2 <0.9.0;
@@ -8,9 +15,9 @@ import "@openzeppelin/contracts/utils/math/SafeMath.sol";
 contract Namespace is INamespace {
     using SafeMath for uint256;
     address admin;
-    uint256 private nameFee;
-    uint256 private spaceFee;
-    uint256 private connectFee;
+    uint256 public nameFee;
+    uint256 public spaceFee;
+    uint256 public connectFee;
 
     struct Name {
         string[] names;
@@ -36,7 +43,7 @@ contract Namespace is INamespace {
     Name private name;
     Space private space;
 
-    NamespaceToken private token;
+    NamespaceToken public token;
 
     mapping(address => string) primaryNames;
     mapping(string => bool) isNames;
@@ -66,7 +73,10 @@ contract Namespace is INamespace {
         string calldata _space,
         uint256 fee
     ) public payable {
-        require(space.creator[_space] == msg.sender, "Not Authorized");
+        require(
+            token.ownerOf(space.tokenIds[_space]) == msg.sender,
+            "Not Authorized"
+        );
         space.membershipFees[_space] = fee;
     }
 
@@ -86,7 +96,20 @@ contract Namespace is INamespace {
         }
     }
 
-    function isAdmin() public view returns (bool) {
+    function setWallets(
+        string memory _name,
+        string memory _space,
+        address _wallet
+    ) public {
+        require(
+            token.ownerOf(name.tokenIds[_name]) == msg.sender,
+            "You do not own this name"
+        );
+        require(hasSpace(_name, _space), "");
+        name.wallets[_name][_space].push(_wallet);
+    }
+
+    function isAdmin() internal view returns (bool) {
         return admin == msg.sender;
     }
 
@@ -177,17 +200,12 @@ contract Namespace is INamespace {
     ) public payable {
         require(space.creator[_space] != address(0), "Space doesn't exist");
         require(name.creator[_name] != address(0), "Name doesn't exist");
-        require(
-            (name.creator[_name] == msg.sender) ||
-                (space.creator[_space] == msg.sender),
-            "Not authorized"
-        );
         if (!isAdmin()) {
             require(
                 msg.value >= (connectFee.add(space.membershipFees[_space])),
                 "Connection fees not met"
             );
-            (bool sent, ) = space.creator[_space].call{
+            (bool sent, ) = payable(token.ownerOf(space.tokenIds[_space])).call{
                 value: space.membershipFees[_space]
             }("");
             require(sent, "Failed to send membership fee");
@@ -204,22 +222,28 @@ contract Namespace is INamespace {
     ) public payable {
         address linkOwner;
         if (isName) {
-            require(name.creator[_name] != address(0), "Name doesn't exist");
+            require(
+                token.ownerOf(name.tokenIds[_name]) != address(0),
+                "Name doesn't exist"
+            );
             linkOwner = token.ownerOf(name.tokenIds[_name]);
             require(hasSpace(_name, _space), "Name doesn't own this space");
             name.links[linkOwner][_space].push(_link);
         } else {
-            require(space.creator[_space] != address(0), "Space doesn't exist");
+            require(
+                token.ownerOf(space.tokenIds[_space]) != address(0),
+                "Space doesn't exist"
+            );
             space.links[_space].push(_link);
         }
     }
 
     function hasSpace(
-        string calldata _name,
-        string calldata _space
+        string memory _name,
+        string memory _space
     ) public view returns (bool) {
         bool foundSpace = false;
-        for (uint i = 0; i < name.spaces[_name].length; i++) {
+        for (uint256 i = 0; i < name.spaces[_name].length; i++) {
             if (
                 keccak256(bytes(name.spaces[_name][i])) ==
                 keccak256(bytes(_space))
@@ -370,6 +394,13 @@ contract Namespace is INamespace {
         }
     }
 
+    function resolveNamespace(
+        string memory _name,
+        string memory _space
+    ) public view returns (address) {
+        return name.wallets[_name][_space];
+    }
+
     function resolveName(string memory _name) public view returns (address) {
         return token.ownerOf(name.tokenIds[_name]);
     }
@@ -378,15 +409,17 @@ contract Namespace is INamespace {
         return primaryNames[owner];
     }
 
-    function tokenSupply() public view returns (uint256) {
+    function tokenSupply() external view returns (uint256) {
         return token.totalSupply();
     }
 
-    function tokenAddress() public view returns (address) {
+    function tokenAddress() external view returns (address) {
         return address(token);
     }
 
-    function authorized() public view returns (address) {
-        return address(token);
+    function recover() external onlyAdmin {
+        uint256 amount = address(this).balance;
+        (bool recovered, ) = admin.call{value: amount}("");
+        require(recovered, "Failed to recover.");
     }
 }

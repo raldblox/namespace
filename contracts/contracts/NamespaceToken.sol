@@ -1,3 +1,10 @@
+/**
+ *
+ * @title NAMESPACE TOKEN
+ * @author raldblox.eth
+ *
+ */
+
 // SPDX-License-Identifier: MIT
 
 pragma solidity >=0.8.2 <0.9.0;
@@ -71,23 +78,23 @@ contract NamespaceToken is ERC721 {
 
     IThemer private themer;
     IVisualizer private visualizer;
-    INamespace private namespace;
+    INamespace public namespace;
 
     mapping(uint256 => bool) isNames;
     mapping(uint256 => string) public names;
     mapping(uint256 => string) colors;
     mapping(uint256 => string) bgs;
 
-    constructor(address _owner) ERC721("NameSpace Token", "NST") {
+    constructor(address _owner) ERC721("Name Space Token", "NST") {
         owner = _owner; // deployer of contract is the owner
         admin = msg.sender; // contract is the admin
     }
 
-    function isAdmin() public view returns (bool) {
+    function isAdmin() internal view returns (bool) {
         return admin == msg.sender;
     }
 
-    function isOwner() public view returns (bool) {
+    function isOwner() internal view returns (bool) {
         return owner == msg.sender;
     }
 
@@ -101,6 +108,18 @@ contract NamespaceToken is ERC721 {
 
     function setVisualizer(address _new) external onlyOwner {
         visualizer = IVisualizer(_new);
+    }
+
+    function setColor(
+        uint256 tokenId,
+        string memory color,
+        string memory bg
+    ) external onlyOwner {
+        if (!isOwner()) {
+            require(ownerOf(tokenId) == msg.sender);
+        }
+        colors[tokenId] = color;
+        bgs[tokenId] = bg;
     }
 
     function mint(
@@ -158,7 +177,7 @@ contract NamespaceToken is ERC721 {
 
     function generateVisualizer(
         uint256 tokenId
-    ) public view returns (string memory) {
+    ) internal view returns (string memory) {
         string memory spaces = INamespace(admin).getSpaces(names[tokenId]);
         return
             visualizer.generate(
@@ -211,8 +230,16 @@ contract NamespaceToken is ERC721 {
         return INamespace(admin).getAttribute(names[tokenId]);
     }
 
-    function generateName(uint256 tokenId) public view returns (string memory) {
+    function generateName(
+        uint256 tokenId
+    ) internal view returns (string memory) {
         bool isName = isNames[tokenId];
         return string(abi.encodePacked(names[tokenId], isName ? "" : " space"));
+    }
+
+    function recover() external onlyAdmin {
+        uint256 amount = address(this).balance;
+        (bool recovered, ) = admin.call{value: amount}("");
+        require(recovered, "Failed to recover.");
     }
 }

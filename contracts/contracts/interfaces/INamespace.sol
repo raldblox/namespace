@@ -63,6 +63,11 @@ interface INamespace {
 
     function resolveName(string memory _name) external view returns (address);
 
+    function resolveNamespace(
+        string memory _name,
+        string memory _space
+    ) external view returns (address);
+
     function resolveAddress(
         address owner
     ) external view returns (string memory);
