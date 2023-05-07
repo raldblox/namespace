@@ -415,10 +415,6 @@ contract Namespace is INamespace {
         return token.totalSupply();
     }
 
-    function tokenAddress() external view returns (address) {
-        return address(token);
-    }
-
     function recover() external onlyAdmin {
         uint256 amount = address(this).balance;
         (bool recovered, ) = admin.call{value: amount}("");

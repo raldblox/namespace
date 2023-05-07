@@ -59,7 +59,7 @@ contract NamespaceToken is ERC721, Ownable2Step {
     uint256 public totalSupply;
     string private contractUri;
     address private admin;
-    address public tokenizer;
+    address public namespace;
 
     event NewToken(
         uint256 indexed tokenId,
@@ -73,13 +73,12 @@ contract NamespaceToken is ERC721, Ownable2Step {
     }
 
     modifier onlyTokenizer() {
-        require(msg.sender == tokenizer, "Caller is not the tokenizer");
+        require(msg.sender == namespace, "Caller is not the namespace");
         _;
     }
 
     IThemer private themer;
     IVisualizer private visualizer;
-    INamespace public namespace;
 
     mapping(uint256 => bool) isNames;
     mapping(uint256 => string) public names;
@@ -100,7 +99,7 @@ contract NamespaceToken is ERC721, Ownable2Step {
     }
 
     function isTokenizer() internal view returns (bool) {
-        return tokenizer == msg.sender;
+        return namespace == msg.sender;
     }
 
     function setThemer(address _new) external onlyAdmin {
@@ -112,7 +111,7 @@ contract NamespaceToken is ERC721, Ownable2Step {
     }
 
     function setNamespace(address _new) external onlyAdmin {
-        tokenizer = _new;
+        namespace = _new;
     }
 
     function setColor(
@@ -161,7 +160,7 @@ contract NamespaceToken is ERC721, Ownable2Step {
         string memory visualizer_ = generateVisualizer(tokenId);
         string memory description_ = isNames[tokenId]
             ? ""
-            : INamespace(tokenizer).getSpaceInfos(names[tokenId]);
+            : INamespace(namespace).getSpaceInfos(names[tokenId]);
 
         return
             string(
@@ -193,7 +192,7 @@ contract NamespaceToken is ERC721, Ownable2Step {
     function generateVisualizer(
         uint256 tokenId
     ) internal view returns (string memory) {
-        string memory spaces = INamespace(tokenizer).getSpaces(names[tokenId]);
+        string memory spaces = INamespace(namespace).getSpaces(names[tokenId]);
         return
             visualizer.generate(
                 tokenId,
@@ -220,12 +219,12 @@ contract NamespaceToken is ERC721, Ownable2Step {
                         (
                             isName
                                 ? (
-                                    INamespace(tokenizer).getNameSpaces(
+                                    INamespace(namespace).getNameSpaces(
                                         names[tokenId]
                                     )
                                 ).length
                                 : (
-                                    INamespace(tokenizer).getSpaceNames(
+                                    INamespace(namespace).getSpaceNames(
                                         names[tokenId]
                                     )
                                 ).length
@@ -242,7 +241,7 @@ contract NamespaceToken is ERC721, Ownable2Step {
     function generateAttribute(
         uint256 tokenId
     ) internal view returns (string memory) {
-        return INamespace(tokenizer).getAttribute(names[tokenId]);
+        return INamespace(namespace).getAttribute(names[tokenId]);
     }
 
     function generateName(
