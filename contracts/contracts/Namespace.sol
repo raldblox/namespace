@@ -103,6 +103,7 @@ contract Namespace is INamespace {
         string memory _space,
         address _wallet
     ) public {
+        require(_wallet != address(0), "Wallet cannot be zero");
         require(
             token.ownerOf(name.tokenIds[_name]) == msg.sender,
             "You do not own this name"
@@ -143,6 +144,7 @@ contract Namespace is INamespace {
         string calldata _name,
         address _owner
     ) public payable returns (bool) {
+        require(_owner != address(0), "Owner cannot be zero");
         require(name.creator[_name] == address(0));
         if (!isAdmin()) {
             require(msg.value >= nameFee, "Name creation fee not met");
@@ -163,6 +165,7 @@ contract Namespace is INamespace {
         string calldata _description,
         string calldata _logo
     ) public payable returns (bool) {
+        require(_owner != address(0), "Owner cannot be zero");
         require(space.creator[_space] == address(0), "Space already taken");
         if (!isAdmin()) {
             require(msg.value >= spaceFee, "Space creation fee not met");
@@ -183,6 +186,7 @@ contract Namespace is INamespace {
         string calldata _name,
         string calldata _space
     ) public payable {
+        require(_owner != address(0), "Owner cannot be zero");
         require(name.creator[_name] == address(0), "Name already taken.");
         require(space.creator[_space] != address(0), "Space doesn't exist");
         if (!isAdmin()) {
@@ -386,6 +390,8 @@ contract Namespace is INamespace {
                         space.description[name_],
                         '"},{"trait_type": "Space Name", "value": "',
                         space.orgnames[name_],
+                        '"},{"trait_type": "Top Level Domain", "value": ".',
+                        name_,
                         '"},{"trait_type": "Membership Fee", "value": "',
                         Strings.toString(space.membershipFees[name_]),
                         '"},{"trait_type": "Members Count", "value": "',

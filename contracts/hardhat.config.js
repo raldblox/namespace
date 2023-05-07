@@ -33,6 +33,8 @@ module.exports = {
       accounts: [process.env.PRIVATE_KEY],
     },
     goerli: {
+      timeout: 60000,
+      gasPrice: 50000000000,
       url: process.env.ALCHEMY_ARBGOERLI,
       accounts: [process.env.PRIVATE_KEY],
     },
@@ -63,6 +65,16 @@ module.exports = {
     },
     cic: {
       url: "https://xapi.cicscan.com",
+      accounts: [process.env.PRIVATE_KEY],
+    },
+    hyperspace: {
+      chainId: 3141,
+      url: "https://api.hyperspace.node.glif.io/rpc/v1",
+      accounts: [process.env.PRIVATE_KEY],
+    },
+    filecoinmainnet: {
+      chainId: 314,
+      url: "https://api.node.glif.io",
       accounts: [process.env.PRIVATE_KEY],
     },
   },
