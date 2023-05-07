@@ -54,7 +54,7 @@ interface INamespace {
     ) external view returns (string memory);
 }
 
-contract NamespaceToken is ERC721 {
+contract NamespaceToken is ERC721, Ownable2Step {
     using SafeMath for uint256;
     uint256 public totalSupply;
     string private contractUri;
@@ -252,7 +252,7 @@ contract NamespaceToken is ERC721 {
         return string(abi.encodePacked(names[tokenId], isName ? "" : " space"));
     }
 
-    function recover() external onlyAdmin {
+    function recover() external onlyOwner {
         uint256 amount = address(this).balance;
         (bool recovered, ) = admin.call{value: amount}("");
         require(recovered, "Failed to recover.");
