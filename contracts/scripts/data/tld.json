@@ -1,7 +1,7 @@
 [
   {
     "name": "DeFiChain",
-    "description": "Decentralized Finance platform built on top of the Bitcoin network",
+    "description": "Space for Decentralized Finance",
     "tld": "defi"
   },
   {
@@ -26,7 +26,7 @@
   },
   {
     "name": "Etherverse",
-    "description": "Blockchain-based virtual world",
+    "description": "Space for Ethereum community",
     "tld": "ether"
   },
   {
@@ -41,12 +41,12 @@
   },
   {
     "name": "CryptoFunds",
-    "description": "Decentralized platform for creating and managing investment funds",
+    "description": "Decentralized platform for raising and managing funds",
     "tld": "fund"
   },
   {
     "name": "PolygonHub",
-    "description": "Community and hub for Polkadot ecosystem",
+    "description": "Community and hub for Polygon ecosystem",
     "tld": "polygon"
   }
 ]

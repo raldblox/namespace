@@ -31,7 +31,7 @@ interface INamespace {
         string calldata _name
     ) external view returns (string[] memory);
 
-    function getSpaceInfos(
+    function getSpaceInfo(
         string memory _space
     ) external view returns (string memory);
 
@@ -160,7 +160,7 @@ contract NamespaceToken is ERC721, Ownable2Step {
         string memory visualizer_ = generateVisualizer(tokenId);
         string memory description_ = isNames[tokenId]
             ? ""
-            : INamespace(namespace).getSpaceInfos(names[tokenId]);
+            : INamespace(namespace).getSpaceInfo(names[tokenId]);
 
         return
             string(

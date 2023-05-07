@@ -285,11 +285,11 @@ contract Namespace is INamespace {
         return space.names[_name];
     }
 
-    function getAllNames() public view returns (string[] memory) {
+    function getAllNames() external view returns (string[] memory) {
         return name.names;
     }
 
-    function getAllSpaces() public view returns (string[] memory) {
+    function getAllSpaces() external view returns (string[] memory) {
         return space.spaces;
     }
 
@@ -297,7 +297,7 @@ contract Namespace is INamespace {
         address owner,
         string memory _namespace,
         bool isName
-    ) public view returns (string[] memory) {
+    ) external view returns (string[] memory) {
         if (isName) {
             return name.links[owner][_namespace];
         } else {
@@ -305,14 +305,32 @@ contract Namespace is INamespace {
         }
     }
 
-    function getTokenIds(string memory _name) public view returns (uint256) {
+    function getTokenIds(string memory _name) external view returns (uint256) {
         return name.tokenIds[_name];
     }
 
-    function getSpaceInfos(
+    function getSpaceInfo(
         string memory _space
-    ) public view returns (string memory) {
+    ) external view returns (string memory) {
         return space.description[_space];
+    }
+
+    function getSpaceMembershipFee(
+        string memory _space
+    ) external view returns (uint256) {
+        return space.membershipFees[_space];
+    }
+
+    function getSpaceBanner(
+        string memory _space
+    ) external view returns (string memory) {
+        return space.orglogos[_space];
+    }
+
+    function getSpaceOrgname(
+        string memory _space
+    ) external view returns (string memory) {
+        return space.orgnames[_space];
     }
 
     function getSpaces(

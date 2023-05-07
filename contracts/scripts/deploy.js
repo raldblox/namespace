@@ -49,7 +49,7 @@ async function main() {
     deployer.address,
     "space",
     "namespace",
-    "Unleashing Potential of Digital Identity",
+    "Unleashing the Potential of Digital Identity",
     "https://zoociety.xyz/assets/namespace.png"
   );
   await namespace.createSpace(

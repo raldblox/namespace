@@ -57,7 +57,7 @@ interface INamespace {
         string calldata _name
     ) external view returns (string[] memory);
 
-    function getSpaceInfos(
+    function getSpaceInfo(
         string memory _space
     ) external view returns (string memory);
 
