@@ -9,6 +9,7 @@ REPORT_GAS=true npx hardhat test
 npx hardhat node
 npx hardhat run scripts/deploy.js
 npx hardhat run --network mumbai scripts/deploy.js
+npx hardhat run --network zkevm scripts/deploy.js
 npx hardhat run --network mainnet scripts/deploy.js
 npx hardhat verify --network mumbai [CONTRACT_ADDRESS]
 ```
@@ -40,10 +41,10 @@ npx hardhat verify --network mumbai [CONTRACT_ADDRESS]
 ### CONTRACT ADDRESSES
 
 - POLYGON MUMBAI
-  - Namespace: `0x577ca4ec6fc3d6E0621f91543a8b2d0C57382C37`
-  - Visualizer: `0x58b0105237BBa9e134Eb04B29D31b206e9F255b4`
-  - Themer: `0x7eCE7B493415c0fd5A72b5318C715C7002A14149`
-  - Token Address: `0x8aB53D891D65b7cC32c9d4f797d251Ff4A53ee39`
+  Namespace: 0x1444Db00d1038bd9a0D5952C3FEb16a23Ab84233
+  Token: 0x07001EaA10d6b835AACf9E11f56D6cbe0e2b5476
+  Themer: 0x5Fdf3BcBFCbf68C9AaC19276Ae952D441D86E98d
+  Visualizer: 0x27E69fe0Bc66E19Aa0D089edF90c3227c5eE5963
 - POLYGON MAINNET
   - Namespace: `0xfe409ca6CaB3fbBb7c7372F17d84c3E5A94D06E9`
   - Visualizer: ``

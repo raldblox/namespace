@@ -86,8 +86,7 @@ contract NamespaceToken is ERC721 {
     mapping(uint256 => string) colors;
     mapping(uint256 => string) bgs;
 
-    constructor(address _namespace) ERC721("Name Space Token", "NST") {
-        tokenizer = _namespace; // namespace contract is the tokenizer
+    constructor() ERC721("Name Space Token", "NST") {
         admin = msg.sender; // deployer is the admin
         contractUri = '{"name":"namespace","description":"","image":"https://zoociety.xyz/assets/namespace.png","external_link":"","fee_recipient":""}';
     }
@@ -110,6 +109,10 @@ contract NamespaceToken is ERC721 {
 
     function setVisualizer(address _new) external onlyAdmin {
         visualizer = IVisualizer(_new);
+    }
+
+    function setNamespace(address _new) external onlyAdmin {
+        tokenizer = _new;
     }
 
     function setColor(

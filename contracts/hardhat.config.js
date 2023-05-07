@@ -46,23 +46,21 @@ module.exports = {
     mumbai: {
       timeout: 60000,
       gasPrice: 50000000000,
-      url: process.env.ALCHEMY_MUMBAI,
+      url: process.env.INFURA_MUMBAI,
       accounts: [process.env.PRIVATE_KEY],
     },
     zkevmt: {
       timeout: 60000,
       gasPrice: 50000000000,
       url: process.env.ALCHEMY_ZKEVMT,
-
       accounts: [process.env.PRIVATE_KEY],
     },
     mainnet: {
       timeout: 60000,
       gasPrice: 50000000000,
-      url: process.env.ALCHEMY_MAINNET,
+      url: process.env.INFURA_MAINNET,
       accounts: [process.env.PRIVATE_KEY],
     },
-
     cic: {
       url: "https://xapi.cicscan.com",
       accounts: [process.env.PRIVATE_KEY],

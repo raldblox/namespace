@@ -8,21 +8,17 @@ async function main() {
     url: "https://gasstation-mainnet.matic.network/v2",
   });
 
-  console.log(
-    "MaxGas:",
-    (maxFeePerGas = ethers.utils.parseUnits(
-      Math.ceil(data.fast.maxFee) + "",
-      "gwei"
-    ))
+  const maxFeePerGas = ethers.utils.parseUnits(
+    Math.ceil(data.fast.maxFee) + "",
+    "gwei"
+  );
+  const maxPriorityFeePerGas = ethers.utils.parseUnits(
+    Math.ceil(data.fast.maxPriorityFee) + "",
+    "gwei"
   );
 
-  console.log(
-    "MaxFee:",
-    (maxPriorityFeePerGas = ethers.utils.parseUnits(
-      Math.ceil(data.fast.maxPriorityFee) + "",
-      "gwei"
-    ))
-  );
+  console.log("MaxGas:", ethers.utils.formatEther(maxFeePerGas), "ETH");
+  console.log("MaxFee:", ethers.utils.formatEther(maxPriorityFeePerGas), "ETH");
 
   console.log("Deployer:", deployer.address);
   console.log(
@@ -42,7 +38,7 @@ async function main() {
 
   // Deploy Token Contract
   const NamespaceToken = await ethers.getContractFactory("NamespaceToken");
-  const token = await NamespaceToken.deploy(namespace.address, {
+  const token = await NamespaceToken.deploy({
     maxFeePerGas,
     maxPriorityFeePerGas,
   });
@@ -51,6 +47,7 @@ async function main() {
 
   // Link Namespace to Token Contract
   await namespace.setToken(token.address);
+  await token.setNamespace(namespace.address);
 
   // Add NFT Themer to Token Contract
   const Themer = await ethers.getContractFactory("Themer");
