@@ -10,9 +10,9 @@ export default function Home() {
       <main
         className={`${inter.className}`}
       >
-        <div className="z-10 w-full items-center justify-between font-mono text-base lg:flex">
-          <nav className="fixed left-0 top-0 flex w-full justify-center border-b border-gray-300 bg-gradient-to-b from-zinc-100 py-2 backdrop-blur-2xl dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit lg:static lg:w-auto lg:rounded-xl lg:border lg:bg-gray-100 lg:p-2 lg:dark:bg-zinc-800/30">
-            <ul className='flex w-full justify-between'>
+        <div className="z-10 items-center justify-between w-full font-mono text-base lg:flex">
+          <nav className="fixed top-0 left-0 flex justify-center w-full py-2 border-b border-gray-300 bg-gradient-to-b from-zinc-100 backdrop-blur-2xl dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit lg:static lg:w-auto lg:rounded-xl lg:border lg:bg-gray-100 lg:p-2 lg:dark:bg-zinc-800/30">
+            <ul className='flex justify-between w-full'>
               <li className='hover:bg-transparent'>
                 <Image src="/namespace-cube.svg" height={50} width={150} priority className='dark:hidden' />
                 <Image src="/namespace-cube-wht.svg" height={50} width={150} priority className='hidden dark:flex' />
@@ -22,9 +22,9 @@ export default function Home() {
               </li>
             </ul>
           </nav>
-          <footer className="fixed bottom-0 left-0 flex h-32 w-full items-end justify-center bg-gradient-to-t from-white via-white dark:from-black dark:via-black lg:static lg:h-auto lg:w-auto lg:bg-none">
+          <footer className="fixed bottom-0 left-0 flex items-end justify-center w-full h-32 bg-gradient-to-t from-white via-white dark:from-black dark:via-black lg:static lg:h-auto lg:w-auto lg:bg-none">
             <a
-              className=" text-sm flex place-items-center gap-2 p-5 pointer-events-auto lg:p-0"
+              className="flex gap-2 p-5 text-sm pointer-events-auto place-items-center lg:p-0"
               href='https://www.zoociety.xyz'
               target="_blank"
               rel="noopener noreferrer"
@@ -36,15 +36,15 @@ export default function Home() {
         </div>
 
         <div className="relative flex place-items-center before:absolute before:h-[300px] before:w-[480px] before:-translate-x-1/2 before:rounded-full before:bg-gradient-radial before:from-white before:to-transparent before:blur-2xl before:content-[''] after:absolute after:-z-20 after:h-[180px] after:w-[240px] after:translate-x-1/3 after:bg-gradient-conic after:from-fuchsia-300 after:via-blue-200 after:blur-2xl after:content-[''] before:dark:bg-gradient-to-br before:dark:from-transparent before:dark:to-blue-700/10 after:dark:from-fuchsia-900 after:dark:via-[#0141ff]/40 before:lg:h-[360px]">
-          {/* <p className='lg:text-5xl text-4xl font-bold'><a className='z-50 text-transparent cursor-pointer' href='/admin'></a>namespace</p> */}
+          {/* <p className='text-4xl font-bold lg:text-5xl'><a className='z-50 text-transparent cursor-pointer' href='/admin'></a>namespace</p> */}
           <Image src="/namespace-cube.svg" height={150} width={350} priority className='dark:hidden' />
           <Image src="/namespace-cube-wht.svg" height={150} width={350} priority className='hidden dark:flex' />
         </div>
 
-        <div className="mb-24 p-2 rounded-xl w-full lg:p-2 border border-gray-500 gap-2 grid text-center lg:mb-0 lg:grid-cols-4 lg:text-left">
+        <div className="grid w-full gap-2 p-2 mb-24 text-center border border-gray-500 rounded-xl lg:p-2 lg:mb-0 lg:grid-cols-4 lg:text-left">
           <Link
             href="/registrar/name"
-            className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
+            className="px-5 py-4 transition-colors border border-transparent rounded-lg group hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
           >
             <h2 className={`mb-3 text-2xl font-semibold`}>
               Create name{' '}
@@ -53,13 +53,13 @@ export default function Home() {
               </span>
             </h2>
             <p className={`m-0 w-full text-sm opacity-50`}>
-              Create a unique name on the blockchain to cement your place on web3 and start connecting to spaces you like.
+              Create a unique name on the blockchain to cement your place on web3 and start connecting to spaces you like!
             </p>
           </Link>
 
           <Link
             href="/registrar/space"
-            className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
+            className="px-5 py-4 transition-colors border border-transparent rounded-lg group hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
 
           >
             <h2 className={`mb-3 text-2xl font-semibold`}>
@@ -69,13 +69,13 @@ export default function Home() {
               </span>
             </h2>
             <p className={`m-0 w-full text-sm opacity-50`}>
-              Create web3 space identity for community, company or organization on the blockchain of your choice.
+              Create web3 space identity for your community, company or organization on the blockchain of your choice.
             </p>
           </Link>
 
           <Link
             href="/"
-            className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
+            className="px-5 py-4 transition-colors border border-transparent rounded-lg group hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
 
           >
             <h2 className={`mb-3 text-2xl font-semibold`}>
@@ -90,7 +90,7 @@ export default function Home() {
           </Link>
           <Link
             href="/"
-            className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
+            className="px-5 py-4 transition-colors border border-transparent rounded-lg group hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
           >
             <h2 className={`mb-3 text-2xl font-semibold`}>
               My Dashboard{' '}
