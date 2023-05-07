@@ -1,20 +1,60 @@
+import { Context } from "@/context";
+import { mumbai } from "@/data/contracts";
+import { ethers } from "ethers";
 import Image from "next/image";
 import Link from "next/link";
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
+import tokenAbi from "/data/contractABI/token.json";
+import namespaceAbi from "/data/contractABI/namespace.json";
 
 const names = () => {
+  const {
+    connectWallet,
+    account,
+    namespace,
+    switchTestnet,
+    switchMainnet,
+    switchCicMainnet,
+    network,
+    distributed,
+    allSpaces,
+    spaceData,
+  } = useContext(Context);
   const [name, setName] = useState("name");
   const [chain, setChain] = useState("chain");
   const [space, setSpace] = useState("space");
   const [valid, setValid] = useState(false);
   const [loading, setLoading] = useState(false);
 
-  const checkVAlidity = () => {
+  const checkValidity = async () => {
     setLoading(true);
-    setTimeout(() => {
-      setValid(true);
-      setLoading(false);
-    }, 3000);
+    setValid(false);
+    try {
+      const { ethereum } = window;
+      if (ethereum) {
+        const provider = new ethers.providers.Web3Provider(ethereum);
+        const signer = provider.getSigner();
+        if (network === "Polygon Mumbai") {
+          console.log("checking tokenId...", mumbai.Namespace, name);
+          const contract = new ethers.Contract(
+            mumbai.Namespace,
+            namespaceAbi,
+            signer
+          );
+          const tokenId = await contract.getTokenIds(name);
+          console.log("tokenId:", name, tokenId);
+          if (tokenId == 0) {
+            setValid(true);
+            const allSpaces = await contract.getAllSpaces();
+          } else {
+            setValid("invalid");
+          }
+        }
+      }
+    } catch (error) {
+      console.log(error);
+    }
+    setLoading(false);
   };
 
   return (
@@ -40,12 +80,17 @@ const names = () => {
                 />
               </Link>
             </li>
+            {network && (
+              <li>
+                <Link href="/network">{network} Network</Link>
+              </li>
+            )}
             <li>
               <Link href="/ns/browser">nsBrowser</Link>
             </li>
           </ul>
         </nav>
-        <footer className="fixed bottom-0 left-0 flex items-end justify-center w-full h-48 bg-gradient-to-t from-white via-white dark:from-black dark:via-black lg:static lg:h-auto lg:w-auto lg:bg-none">
+        <footer className="fixed bottom-0 left-0 flex items-end justify-center w-full h-48 gap-3 bg-gradient-to-t from-white via-white dark:from-black dark:via-black lg:static lg:h-auto lg:w-auto lg:bg-none">
           <p
             className="flex gap-2 p-8 pointer-events-none place-items-center lg:pointer-events-auto lg:p-0"
             target="_blank"
@@ -78,7 +123,7 @@ const names = () => {
               className="w-full px-4 py-2"
             >
               <option value="">--Select Blockchain Network--</option>
-              <option value="ethereum">Ethereum</option>
+              <option value="ethereum">Ethereum Mainnet</option>
               <option value="cic">CIC Chain Mainnet</option>
               <option value="mumbai">Polygon Mumbai</option>
               <option value="polygon">Polygon Mainnet</option>
@@ -86,11 +131,9 @@ const names = () => {
               <option value="zkevm" disabled={true}>
                 Polygon zkEVM
               </option>
-
               <option value="optimism" disabled={true}>
                 Optimism
               </option>
-
               <option value="bsc" disabled={true}>
                 Binance Smart Chain
               </option>
@@ -104,47 +147,64 @@ const names = () => {
             <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none"></span>
           </h2>
           <input
-            disabled={chain == ("chain" || "") || valid}
+            disabled={chain == ("chain" || "") || (valid && valid != "invalid")}
             onChange={(e) => setName(e.target.value)}
             className="z-50 w-full px-4 py-2 font-bold text-left border"
             placeholder="insert name"
           />
-          {!valid ? (
-            chain != "chain" &&
-            name != "name" && (
-              <button
-                disabled={!name}
-                className="z-50 w-full px-4 py-2 mt-2 font-bold text-left border"
-                onClick={checkVAlidity}
-              >
-                {loading ? "Checking" : "Check"} Name Availability
-              </button>
-            )
-          ) : (
-            <p className={`m-0 mt-2 w-full text-sm opacity-50`}>
-              <span className="font-bold ">{name}</span> is valid and available.
-            </p>
+
+          {(!valid || valid == "invalid") && chain != "chain" && name && (
+            <button
+              disabled={!name}
+              className="z-50 w-full px-4 py-2 mt-2 font-bold text-left border"
+              onClick={checkValidity}
+            >
+              {loading ? "Checking" : "Check"} Name Availability
+            </button>
           )}
+          <>
+            {valid == "invalid" ? (
+              <p className={`m-0 mt-2 w-full text-sm opacity-50`}>
+                <span className="font-bold ">{name}</span> is not available.
+              </p>
+            ) : (
+              <p className={`m-0 mt-2 w-full text-sm opacity-50`}>
+                <span className="font-bold ">{name}</span> is valid and
+                available.
+              </p>
+            )}
+          </>
         </div>
         <div className="px-5 py-4 transition-colors border border-transparent rounded-lg group hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30">
           <h2 className={`mb-3 text-2xl font-semibold`}>
             3. Connect Space
             <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none"></span>
           </h2>
-          <select
-            disabled={!valid}
-            id="badge-class"
-            value={space}
-            onChange={(e) => setSpace(e.target.value)}
-            className="w-full px-4 py-2"
-          >
-            <option value="">--Select your space--</option>
-            <option value="web3">Web3 Space</option>
-            <option value="blox">Blox Space</option>
-            <option value="badges">Badgify Space</option>
-            <option value="zoociety">Zoociety Space</option>
-            <option value="none">I will join later.</option>
-          </select>
+
+          {allSpaces && (
+            <select
+              disabled={!valid || valid == "invalid"}
+              id="badge-class"
+              value={space}
+              onChange={(e) => setSpace(e.target.value)}
+              className="w-full px-4 py-2 text-sm"
+            >
+              {" "}
+              <option value="">--Select your space--</option>
+              <option value="none">--I'll will join later.--</option>
+              {spaceData.map((space, index) => {
+                return (
+                  <option value={space.tld} key={index}>
+                    <span className="font-bold">
+                      .{space.tld} | {space.member.length} space member/s
+                    </span>{" "}
+                    | {space.info}
+                  </option>
+                );
+              })}
+            </select>
+          )}
+
           {valid && space != "none" && (
             <p className="w-full m-0 mt-2 text-sm opacity-50">
               {space == "space" && (
@@ -176,9 +236,7 @@ const names = () => {
                 {space != "none" && (
                   <>
                     and connect to{" "}
-                    <span className="font-bold">
-                      {space.toUpperCase()} Space
-                    </span>
+                    <span className="font-bold">{space} space</span>
                   </>
                 )}{" "}
                 on {chain} blockchain network.
