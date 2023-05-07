@@ -6,8 +6,8 @@ export const polygon = {
 };
 
 export const mumbai = {
-  Token: "0xA7FDFb03768d1f2419c966c84C23Fe7B084f6541",
-  Namespace: "0xc135E331A5802ff98F0E21a7A02e3b9FaFF284EA",
+  Namespace: "0xA7FDFb03768d1f2419c966c84C23Fe7B084f6541",
+  Token: "0xc135E331A5802ff98F0E21a7A02e3b9FaFF284EA",
 };
 
 export const arbitrum = {
