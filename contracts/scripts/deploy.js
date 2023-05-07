@@ -1,3 +1,6 @@
+const fs = require("fs");
+const path = require("path");
+
 async function main() {
   const [deployer] = await ethers.getSigners();
   console.log("Deployer:", deployer.address);
@@ -40,19 +43,20 @@ async function main() {
 
   await token.setThemer(themer.address);
   await token.setVisualizer(visualizer.address);
-  console.log("Verify Token:", await namespace.tokenAddress());
 
-  await namespace.createName("rald", deployer.address);
-  await namespace.createName("raldblox", deployer.address);
-  await namespace.createName("zoociety", deployer.address);
-  await namespace.createName("badgify", deployer.address);
-  await namespace.createName("namespace", deployer.address);
-
+  // CREATE SPACES
+  await namespace.createSpace(
+    deployer.address,
+    "space",
+    "namespace",
+    "Unleashing Potential of Digital Identity",
+    "https://zoociety.xyz/assets/namespace.png"
+  );
   await namespace.createSpace(
     deployer.address,
     "blox",
-    "RALDBLOX",
-    "A space full of blo[x]",
+    "BLOXIE",
+    "A space full of blo[x]es",
     "https://zoociety.xyz/assets/me.png"
   );
   await namespace.createSpace(
@@ -69,13 +73,13 @@ async function main() {
     "We make awesome digital badges on the blockchain",
     "https://zoociety.xyz/assets/badgify.png"
   );
-  await namespace.createSpace(
-    deployer.address,
-    "space",
-    "namespace",
-    "Unleashing Potential of Digital Identity",
-    "https://zoociety.xyz/assets/namespace.png"
-  );
+
+  await namespace.createName("rald", deployer.address);
+  await namespace.createName("raldblox", deployer.address);
+  await namespace.createName("zoociety", deployer.address);
+  await namespace.createName("badgify", deployer.address);
+  await namespace.createName("namespace", deployer.address);
+
   await namespace.connectSpace("rald", "blox");
   await namespace.connectSpace("rald", "space");
   await namespace.connectSpace("rald", "badge");
@@ -83,11 +87,37 @@ async function main() {
   await namespace.connectSpace("raldblox", "badge");
   await namespace.connectSpace("raldblox", "zoociety");
   await namespace.connectSpace("raldblox", "space");
-  await token.setColor(1, "white", "blue");
+
+  await token.setColor(1, "#131313", "#94ff2b");
+  await token.setColor(2, "#f0f8ff", "#ff0000");
+  await token.setColor(3, "#131313", "#00ff7f");
+  await token.setColor(4, "#131313", "#3399ff");
+  await token.setColor(5, "#131313", "#00ffff");
+
+  // const dataDir = path.join(__dirname, "data");
+  // const tldFile = path.join(dataDir, "tld.json");
+  // const tlds = JSON.parse(fs.readFileSync(tldFile, "utf8"));
+
+  // for (const tld of tlds) {
+  //   const { name, description, tld: domain } = tld;
+  //   const spaceName = `${domain}`;
+  //   const spaceDescription = `${description}`;
+  //   const spaceImage = "https://zoociety.xyz/assets/namespace.png";
+
+  //   await namespace.createSpace(
+  //     deployer.address,
+  //     spaceName,
+  //     name,
+  //     spaceDescription,
+  //     spaceImage
+  //   );
+  //   console.log(`Created space for ${domain}`);
+  // }
+
   console.log("Token Supply:", await namespace.tokenSupply());
   console.log("Member Count:", await namespace.getSpaceNames("blox"));
   console.log("All Spaces:", await namespace.getAllSpaces());
-  console.log("TOKEN URI:", await token.tokenURI(1));
+  // console.log("TOKEN URI:", await token.tokenURI(1));
 }
 
 main()
