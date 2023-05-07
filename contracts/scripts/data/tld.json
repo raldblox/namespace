@@ -1,0 +1,52 @@
+[
+  {
+    "name": "DeFiChain",
+    "description": "Decentralized Finance platform built on top of the Bitcoin network",
+    "tld": "defi"
+  },
+  {
+    "name": "NFTopia",
+    "description": "Community for NFT artists and collectors",
+    "tld": "nft"
+  },
+  {
+    "name": "DAOcity",
+    "description": "Decentralized Autonomous Organization focused on building smart cities",
+    "tld": "dao"
+  },
+  {
+    "name": "CryptoGalaxy",
+    "description": "Virtual reality blockchain game",
+    "tld": "galaxy"
+  },
+  {
+    "name": "Mintify",
+    "description": "Platform for creating and selling unique NFTs",
+    "tld": "mint"
+  },
+  {
+    "name": "Etherverse",
+    "description": "Blockchain-based virtual world",
+    "tld": "ether"
+  },
+  {
+    "name": "ChainLinkage",
+    "description": "Community for Chainlink users and developers",
+    "tld": "link"
+  },
+  {
+    "name": "Stablecoinify",
+    "description": "Platform for creating and trading stablecoins",
+    "tld": "stable"
+  },
+  {
+    "name": "CryptoFunds",
+    "description": "Decentralized platform for creating and managing investment funds",
+    "tld": "fund"
+  },
+  {
+    "name": "PolygonHub",
+    "description": "Community and hub for Polkadot ecosystem",
+    "tld": "polygon"
+  }
+]
