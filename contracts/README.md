@@ -41,8 +41,10 @@ npx hardhat verify --network mumbai [CONTRACT_ADDRESS]
 ### CONTRACT ADDRESSES
 
 - POLYGON MUMBAI
-  - Namespace: [0xA7FDFb03768d1f2419c966c84C23Fe7B084f6541](https://mumbai.polygonscan.com/address/0xA7FDFb03768d1f2419c966c84C23Fe7B084f6541#code)
-  - Token: [0xc135E331A5802ff98F0E21a7A02e3b9FaFF284EA](https://mumbai.polygonscan.com/address/0xc135E331A5802ff98F0E21a7A02e3b9FaFF284EA#code)
+  - Namespace: 0xBa2BF82362586f1048f105926C219185bbdE942f
+  - Token: 0x27d93c74aa31EbdF197BA5ecbB0533373054978a
+  - Themer: 0xBdd7Af1a8C5d3dF9DEe605510733FAC9eFe8f283
+  - Visualizer: 0xbd90E6315bB0AA95704c2e246c5dEA93112b83Ad
 - POLYGON MAINNET
   - Namespace: `0xfe409ca6CaB3fbBb7c7372F17d84c3E5A94D06E9`
   - Token: `` <!-- Error: Transaction Overdraft -->

@@ -6,12 +6,12 @@
   },
   {
     "name": "NFTopia",
-    "description": "Community for NFT artists and collectors",
+    "description": "Space for NFT artists and collectors",
     "tld": "nft"
   },
   {
     "name": "DAOcity",
-    "description": "Decentralized Autonomous Organization focused on building smart cities",
+    "description": "Decentralized Autonomous Organization",
     "tld": "dao"
   },
   {
@@ -21,7 +21,7 @@
   },
   {
     "name": "Mintify",
-    "description": "Platform for creating and selling unique NFTs",
+    "description": "Space for creating and selling unique NFTs",
     "tld": "mint"
   },
   {
@@ -36,7 +36,7 @@
   },
   {
     "name": "Stablecoinify",
-    "description": "Platform for creating and trading stablecoins",
+    "description": "Platform for creating stablecoins",
     "tld": "stable"
   },
   {
@@ -46,7 +46,7 @@
   },
   {
     "name": "PolygonHub",
-    "description": "Community and hub for Polygon ecosystem",
+    "description": "Space hub for Polygon",
     "tld": "polygon"
   }
 ]

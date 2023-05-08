@@ -10,11 +10,11 @@ async function main() {
     ethers.utils.formatEther(await deployer.getBalance())
   );
 
-  const namespaceMumbai = "0xA7FDFb03768d1f2419c966c84C23Fe7B084f6541"; // deployed on mainnet on remix
+  const namespaceMumbai = "0xBa2BF82362586f1048f105926C219185bbdE942f"; // deployed on mainnet on remix
   const namespace = await ethers.getContractAt("Namespace", namespaceMumbai);
   console.log("Namespace:", namespace.address);
 
-  const namespaceToken = "0xc135E331A5802ff98F0E21a7A02e3b9FaFF284EA"; // deployed on mainnet on remix
+  const namespaceToken = "0x27d93c74aa31EbdF197BA5ecbB0533373054978a"; // deployed on mainnet on remix
   const token = await ethers.getContractAt("NamespaceToken", namespaceToken);
   console.log("Token:", token.address);
 
