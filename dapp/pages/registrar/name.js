@@ -99,7 +99,7 @@ const names = () => {
             namespaceAbi,
             signer
           );
-          let tx = await contract.connectSpace(account, name, space, {
+          let tx = await contract.connectSpace(name, space, {
             value: ethers.utils.parseEther(String(1)),
           });
           const receipt = await tx.wait();
