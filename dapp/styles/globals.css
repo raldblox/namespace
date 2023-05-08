@@ -26,7 +26,8 @@ body {
   nav ul {
     @apply flex justify-between items-center gap-1 mx-5 lg:mx-0;
   }
-  ul li {
+  ul li,
+  footer button {
     @apply dark:bg-transparent hover:bg-gray-800 hover:text-white px-2 py-1 rounded-lg transition-colors motion-reduce:transform-none;
   }
   button,

@@ -22,7 +22,7 @@ const names = () => {
   } = useContext(Context);
   const [name, setName] = useState("name");
   const [chain, setChain] = useState("chain");
-  const [space, setSpace] = useState("space");
+  const [selectedSpace, setSpace] = useState("space");
   const [receipt, setReceipt] = useState("");
   const [valid, setValid] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -116,6 +116,13 @@ const names = () => {
     }
   };
 
+  const reset = () => {
+    setName("name");
+    setChain("chain");
+    setChain("space");
+    setValid(false);
+  };
+
   return (
     <main>
       <div className="z-10 items-center justify-between w-full font-mono text-base lg:flex">
@@ -141,36 +148,39 @@ const names = () => {
             </li>
             {network && (
               <li>
-                <Link href="/network">{network} Network</Link>
+                <Link href="/network">{network}</Link>
               </li>
             )}
-            <li>
-              <Link href="/ns/browser">nsBrowser</Link>
-            </li>
           </ul>
         </nav>
         <footer className="fixed bottom-0 left-0 flex items-end justify-center w-full h-48 gap-3 bg-gradient-to-t from-white via-white dark:from-black dark:via-black lg:static lg:h-auto lg:w-auto lg:bg-none">
-          <p
-            className="flex gap-2 p-8 pointer-events-none place-items-center lg:pointer-events-auto lg:p-0"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Powered by <span className="font-black ">Zoociety</span>
-          </p>
-          <p
-            className="flex gap-2 p-8 pointer-events-none place-items-center lg:pointer-events-auto lg:p-0"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            {account.slice(0, 5)}...{account.slice(-5)}
-          </p>
+          <ul>
+            <li>
+              {account ? (
+                <p
+                  className="flex gap-2 p-8 pointer-events-none place-items-center lg:pointer-events-auto lg:p-0"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  {account.slice(0, 5)}...{account.slice(-5)}
+                </p>
+              ) : (
+                <button
+                  className="flex gap-2 p-8 place-items-center lg:p-2"
+                  onClick={connectWallet}
+                >
+                  Connect Wallet
+                </button>
+              )}
+            </li>
+          </ul>
         </footer>
       </div>
 
       <div className="relative flex place-items-center before:absolute before:h-[300px] before:w-[480px] before:-translate-x-1/2 before:rounded-full before:bg-gradient-radial before:from-white before:to-transparent before:blur-2xl before:content-[''] after:absolute after:-z-20 after:h-[180px] after:w-[240px] after:translate-x-1/3 after:bg-gradient-conic after:from-fuchsia-300 after:via-blue-200 after:blur-2xl after:content-[''] before:dark:bg-gradient-to-br before:dark:from-transparent before:dark:to-blue-700/10 after:dark:from-fuchsia-900 after:dark:via-[#0141ff]/40 before:lg:h-[360px]">
         <p className="text-3xl font-bold lg:text-5xl">
           <span className="animate-pulse">{name}</span>
-          {space != "none" && <>.{space}</>}
+          {selectedSpace != "none" && <>.{selectedSpace}</>}
         </p>
       </div>
 
@@ -205,6 +215,12 @@ const names = () => {
               </option>
             </select>
           </div>
+          <button
+            className="z-50 w-full px-4 py-2 mt-2 font-bold text-left border hover:bg-black hover:text-white"
+            onClick={reset}
+          >
+            Reset
+          </button>
         </div>
 
         <div className="px-5 py-4 transition-colors border border-transparent rounded-lg group hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30">
@@ -230,37 +246,41 @@ const names = () => {
               {chain == "ethereum" && "0.01 $ETH"}
             </button>
           )}
-          {(!valid || valid == "invalid") && chain != "chain" && name && (
-            <button
-              disabled={!name}
-              className="z-50 w-full px-4 py-2 mt-2 font-bold text-left border"
-              onClick={checkValidity}
-            >
-              {loading ? "Checking" : "Check"} Name Availability
-            </button>
-          )}
+          {(!valid || valid == "invalid") &&
+            chain != "chain" &&
+            name != "name" && (
+              <button
+                disabled={!name}
+                className="z-50 w-full px-4 py-2 mt-2 font-bold text-left border"
+                onClick={checkValidity}
+              >
+                {loading ? "Checking" : "Check"} Name Availability
+              </button>
+            )}
           {name != "name" && (
             <>
               {valid == "invalid" ? (
-                <p className={`m-0 mt-2 w-full text-sm opacity-50`}>
+                <p className={`m-0 p-2 border mt-2 w-full text-sm opacity-50`}>
                   <span className="font-bold ">{name}</span> is not available.
                 </p>
               ) : (
-                <p className={`m-0 mt-2 w-full text-sm opacity-50`}>
+                <>
                   {valid && (
-                    <>
+                    <p
+                      className={`m-0 p-2 border mt-2 w-full text-sm opacity-50`}
+                    >
                       <span className="font-bold ">{name}</span> is valid and
                       available.
-                    </>
+                    </p>
                   )}
-                </p>
+                </>
               )}
             </>
           )}
         </div>
         <div className="px-5 py-4 transition-colors border border-transparent rounded-lg group hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30">
           <h2 className={`mb-3 text-2xl font-semibold`}>
-            3. Connect Space
+            3. Choose Space
             <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none"></span>
           </h2>
 
@@ -268,13 +288,13 @@ const names = () => {
             <select
               disabled={!valid || valid == "invalid"}
               id="badge-class"
-              value={space}
+              value={selectedSpace}
               onChange={(e) => setSpace(e.target.value)}
               className="w-full px-4 py-2 text-sm"
             >
               {" "}
               <option value="">--Select your space--</option>
-              <option value="none">--I'll will join later.--</option>
+              <option value="none">I will join spaces later.</option>
               {spaceData.map((space, index) => {
                 return (
                   <option value={space.tld} key={index}>
@@ -288,47 +308,83 @@ const names = () => {
             </select>
           )}
 
-          {valid && space != "none" && (
-            <p className="w-full m-0 mt-2 text-sm opacity-50">
-              {space == "space" && (
+          {selectedSpace != "space" && (
+            <>
+              <img
+                src={
+                  spaceData.find((space) => space.tld === selectedSpace)?.image
+                }
+                alt="Selected space"
+                className="my-2"
+              />
+              <p
+                className={`my-2 text-2xl font-semibold w-full text-center uppercase`}
+              >
+                {spaceData.find((space) => space.tld === selectedSpace)?.name}{" "}
+              </p>
+              <p className={`text-base w-full text-center`}>
+                {spaceData.find((space) => space.tld === selectedSpace)?.info}
+              </p>
+              {/* <p className={`my-2 text-base w-full text-center`}>
+                FEE:{" "}
+                {ethers.utils
+                  .formatEther(
+                    spaceData.find((space) => space.tld === selectedSpace)?.fee
+                  )
+                  .slice(0, 5)}{" "}
+                {chain == "polygon" && "$MATIC"}
+                {chain == "mumbai" && "$MATIC"}
+                {chain == "arbitrum" && "$ARB"}
+                {chain == "ethereum" && "$ETH"}
+              </p> */}
+            </>
+          )}
+
+          {valid && selectedSpace != "none" && (
+            <p className="w-full p-2 border m-0 text-sm opacity-50">
+              {selectedSpace == "space" && (
                 <>
-                  Give some space to <span className="font-bold">{name}</span>.{" "}
+                  Connect your <span className="font-bold">{name}</span> to some
+                  spaces to create a namespace.{" "}
                 </>
               )}
-              You can manage and connect more spaces after your name is minted.
+              You can manage your names and spaces later.
             </p>
           )}
         </div>
         <div className="px-5 py-4 transition-colors border border-transparent rounded-lg group hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30">
           <h2 className={`mb-3 text-2xl font-semibold`}>
-            4. Mint to Own it{" "}
+            4. Connect Space{" "}
             <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none"></span>
           </h2>
-          {chain != "chain" && name != "name" && space != "space" && valid && (
-            <>
-              <button
-                className="z-50 w-full px-4 py-2 font-bold text-left border hover:bg-black hover:text-white"
-                onClick={connect}
-              >
-                Mint for {chain == "cic" && "1 $CIC"}
-                {chain == "polygon" && "1 $MATIC"}
-                {chain == "mumbai" && "1 $MATIC"}
-                {chain == "arbitrum" && "1 $ARB"}
-                {chain == "ethereum" && "0.01 $ETH"}
-              </button>
-              <p className={`m-0 mt-2 w-full text-sm opacity-50`}>
-                <span className="font-bold">{name}</span> is now ready to be
-                minted{" "}
-                {space != "none" && (
-                  <>
-                    and connect to{" "}
-                    <span className="font-bold">{space} space</span>
-                  </>
-                )}{" "}
-                on {chain} blockchain network.
-              </p>
-            </>
-          )}
+          {chain != "chain" &&
+            name != "name" &&
+            selectedSpace != "space" &&
+            valid && (
+              <>
+                <button
+                  className="z-50 w-full px-4 py-2 font-bold text-left border hover:bg-black hover:text-white"
+                  onClick={connect}
+                >
+                  Connect for {chain == "cic" && "1 $CIC"}
+                  {chain == "polygon" && "1 $MATIC"}
+                  {chain == "mumbai" && "1 $MATIC"}
+                  {chain == "arbitrum" && "1 $ARB"}
+                  {chain == "ethereum" && "0.01 $ETH"}
+                </button>
+                <p className={`m-0 p-2 border mt-2 w-full text-sm opacity-50`}>
+                  Your <span className="font-bold">{name}</span> name is now
+                  ready to connect{" "}
+                  {selectedSpace != "none" && (
+                    <>
+                      on{" "}
+                      <span className="font-bold">{selectedSpace} space</span>
+                    </>
+                  )}{" "}
+                  on {chain} blockchain network.
+                </p>
+              </>
+            )}
         </div>
       </div>
     </main>

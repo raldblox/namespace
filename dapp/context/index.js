@@ -272,8 +272,8 @@ export const ContextProvider = (props) => {
               const info = await contract.getSpaceInfo(space);
               const name = await contract.getSpaceOrgname(space);
               const fee = await contract.getSpaceMembershipFee(space);
-              //   const image = await contract.generateImage(tokenId);
-              return { tld, member, tokenId, info, fee, name };
+              const image = await contract.getSpaceBanner(space);
+              return { tld, member, tokenId, info, fee, name, image };
             })
           );
           console.log("space data:", spaceData);
