@@ -23,6 +23,7 @@ const names = () => {
   const [name, setName] = useState("name");
   const [chain, setChain] = useState("chain");
   const [space, setSpace] = useState("space");
+  const [receipt, setReceipt] = useState("");
   const [valid, setValid] = useState(false);
   const [loading, setLoading] = useState(false);
 
@@ -55,6 +56,64 @@ const names = () => {
       console.log(error);
     }
     setLoading(false);
+  };
+
+  const mint = async () => {
+    try {
+      const { ethereum } = window;
+      if (ethereum) {
+        const provider = new ethers.providers.Web3Provider(ethereum);
+        const signer = provider.getSigner();
+        if (network === "Polygon Mumbai") {
+          const contract = new ethers.Contract(
+            mumbai.Namespace,
+            namespaceAbi,
+            signer
+          );
+          let tx = await contract.createName(name, account, {
+            value: ethers.utils.parseEther(String(1)),
+          });
+          const receipt = await tx.wait();
+          if (receipt.status === 1) {
+            setReceipt(`https://https://mumbai.polygonscan.com/tx/` + tx.hash);
+            alert("Successfully minted.");
+          } else {
+            alert("Minting failed.");
+          }
+        }
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const connect = async () => {
+    try {
+      const { ethereum } = window;
+      if (ethereum) {
+        const provider = new ethers.providers.Web3Provider(ethereum);
+        const signer = provider.getSigner();
+        if (network === "Polygon Mumbai") {
+          const contract = new ethers.Contract(
+            mumbai.Namespace,
+            namespaceAbi,
+            signer
+          );
+          let tx = await contract.connectSpace(account, name, space, {
+            value: ethers.utils.parseEther(String(1)),
+          });
+          const receipt = await tx.wait();
+          if (receipt.status === 1) {
+            setReceipt(`https://https://mumbai.polygonscan.com/tx/` + tx.hash);
+            alert("Successfully minted.");
+          } else {
+            alert("Minting failed.");
+          }
+        }
+      }
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (
@@ -97,6 +156,13 @@ const names = () => {
             rel="noopener noreferrer"
           >
             Powered by <span className="font-black ">Zoociety</span>
+          </p>
+          <p
+            className="flex gap-2 p-8 pointer-events-none place-items-center lg:pointer-events-auto lg:p-0"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            {account.slice(0, 5)}...{account.slice(-5)}
           </p>
         </footer>
       </div>
@@ -152,7 +218,18 @@ const names = () => {
             className="z-50 w-full px-4 py-2 font-bold text-left border"
             placeholder="insert name"
           />
-
+          {name != "name" && valid && (
+            <button
+              className="z-50 w-full px-4 py-2 mt-2 font-bold text-left border hover:bg-black hover:text-white"
+              onClick={mint}
+            >
+              Mint for {chain == "cic" && "1 $CIC"}
+              {chain == "polygon" && "1 $MATIC"}
+              {chain == "mumbai" && "1 $MATIC"}
+              {chain == "arbitrum" && "1 $ARB"}
+              {chain == "ethereum" && "0.01 $ETH"}
+            </button>
+          )}
           {(!valid || valid == "invalid") && chain != "chain" && name && (
             <button
               disabled={!name}
@@ -162,18 +239,24 @@ const names = () => {
               {loading ? "Checking" : "Check"} Name Availability
             </button>
           )}
-          <>
-            {valid == "invalid" ? (
-              <p className={`m-0 mt-2 w-full text-sm opacity-50`}>
-                <span className="font-bold ">{name}</span> is not available.
-              </p>
-            ) : (
-              <p className={`m-0 mt-2 w-full text-sm opacity-50`}>
-                <span className="font-bold ">{name}</span> is valid and
-                available.
-              </p>
-            )}
-          </>
+          {name != "name" && (
+            <>
+              {valid == "invalid" ? (
+                <p className={`m-0 mt-2 w-full text-sm opacity-50`}>
+                  <span className="font-bold ">{name}</span> is not available.
+                </p>
+              ) : (
+                <p className={`m-0 mt-2 w-full text-sm opacity-50`}>
+                  {valid && (
+                    <>
+                      <span className="font-bold ">{name}</span> is valid and
+                      available.
+                    </>
+                  )}
+                </p>
+              )}
+            </>
+          )}
         </div>
         <div className="px-5 py-4 transition-colors border border-transparent rounded-lg group hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30">
           <h2 className={`mb-3 text-2xl font-semibold`}>
@@ -223,10 +306,13 @@ const names = () => {
           </h2>
           {chain != "chain" && name != "name" && space != "space" && valid && (
             <>
-              <button className="z-50 w-full px-4 py-2 font-bold text-left border hover:bg-black hover:text-white">
+              <button
+                className="z-50 w-full px-4 py-2 font-bold text-left border hover:bg-black hover:text-white"
+                onClick={connect}
+              >
                 Mint for {chain == "cic" && "1 $CIC"}
                 {chain == "polygon" && "1 $MATIC"}
-                {chain == "mumbai" && "0.1 $MATIC"}
+                {chain == "mumbai" && "1 $MATIC"}
                 {chain == "arbitrum" && "1 $ARB"}
                 {chain == "ethereum" && "0.01 $ETH"}
               </button>
