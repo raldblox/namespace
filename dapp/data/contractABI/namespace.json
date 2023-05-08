@@ -113,6 +113,15 @@
     "inputs": [
       { "internalType": "string", "name": "_space", "type": "string" }
     ],
+    "name": "getSpaceBanner",
+    "outputs": [{ "internalType": "string", "name": "", "type": "string" }],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      { "internalType": "string", "name": "_space", "type": "string" }
+    ],
     "name": "getSpaceCreator",
     "outputs": [{ "internalType": "address", "name": "", "type": "address" }],
     "stateMutability": "view",
@@ -122,8 +131,17 @@
     "inputs": [
       { "internalType": "string", "name": "_space", "type": "string" }
     ],
-    "name": "getSpaceInfos",
+    "name": "getSpaceInfo",
     "outputs": [{ "internalType": "string", "name": "", "type": "string" }],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      { "internalType": "string", "name": "_space", "type": "string" }
+    ],
+    "name": "getSpaceMembershipFee",
+    "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
     "stateMutability": "view",
     "type": "function"
   },
@@ -131,6 +149,15 @@
     "inputs": [{ "internalType": "string", "name": "_name", "type": "string" }],
     "name": "getSpaceNames",
     "outputs": [{ "internalType": "string[]", "name": "", "type": "string[]" }],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      { "internalType": "string", "name": "_space", "type": "string" }
+    ],
+    "name": "getSpaceOrgname",
+    "outputs": [{ "internalType": "string", "name": "", "type": "string" }],
     "stateMutability": "view",
     "type": "function"
   },
