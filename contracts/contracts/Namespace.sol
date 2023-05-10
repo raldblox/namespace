@@ -60,6 +60,26 @@ contract Namespace is INamespace {
         _;
     }
 
+    modifier onlySpaceOwner(string memory _space) {
+        require(
+            token.ownerOf(space.tokenIds[_space]) == msg.sender,
+            "Not Authorized"
+        );
+        _;
+    }
+
+    modifier onlyNameOwner(string memory _name) {
+        require(
+            token.ownerOf(name.tokenIds[_name]) == msg.sender,
+            "Not Authorized"
+        );
+        _;
+    }
+
+    function isAdmin() internal view returns (bool) {
+        return admin == msg.sender;
+    }
+
     function setToken(address _new) external onlyAdmin {
         token = NamespaceToken(_new);
     }
@@ -74,22 +94,15 @@ contract Namespace is INamespace {
         connectFee = _connect;
     }
 
-    function setMembershipFee(
-        string calldata _space,
-        uint256 fee
-    ) public payable {
-        require(
-            token.ownerOf(space.tokenIds[_space]) == msg.sender,
-            "Not Authorized"
-        );
+    function setMembershipFee(string calldata _space, uint256 fee)
+        external
+        payable
+        onlySpaceOwner(_space)
+    {
         space.membershipFees[_space] = fee;
     }
 
-    function setPrimary(string memory _name) public {
-        require(
-            token.ownerOf(name.tokenIds[_name]) == msg.sender,
-            "You do not own this name"
-        );
+    function setPrimary(string memory _name) public onlyNameOwner(_name) {
         primaryNames[msg.sender] = _name;
         if (token.ownerOf(name.tokenIds[_name]) != name.creator[_name]) {
             if (
@@ -105,12 +118,8 @@ contract Namespace is INamespace {
         string memory _name,
         string memory _space,
         address _wallet
-    ) public {
+    ) external onlyNameOwner(_name) {
         require(_wallet != address(0), "Wallet cannot be zero");
-        require(
-            token.ownerOf(name.tokenIds[_name]) == msg.sender,
-            "You do not own this name"
-        );
         require(hasSpace(_name, _space), "");
         name.wallets[_name][_space] = _wallet;
     }
@@ -119,18 +128,10 @@ contract Namespace is INamespace {
         string memory _space,
         address[] memory _wallets,
         bool isAllowed
-    ) public {
-        require(
-            token.ownerOf(space.tokenIds[_space]) == msg.sender,
-            "You do not own this space"
-        );
+    ) external onlySpaceOwner(_space) {
         for (uint256 i = 0; i < _wallets.length; i++) {
             space.isAllowed[_space][_wallets[i]] = isAllowed;
         }
-    }
-
-    function isAdmin() internal view returns (bool) {
-        return admin == msg.sender;
     }
 
     function updateSpace(
@@ -139,7 +140,7 @@ contract Namespace is INamespace {
         string calldata _description,
         string calldata _orgsite,
         bool isPrivate
-    ) public payable {
+    ) external payable {
         if (!isAdmin()) {
             uint256 tokenId = space.tokenIds[_space];
             require(token.ownerOf(tokenId) == msg.sender, "Not authorized");
@@ -150,10 +151,10 @@ contract Namespace is INamespace {
         space.orgsites[_space] = _orgsite;
     }
 
-    function updateLogo(
-        string calldata _space,
-        string calldata _logo
-    ) public payable {
+    function updateLogo(string calldata _space, string calldata _logo)
+        external
+        payable
+    {
         if (!isAdmin()) {
             uint256 tokenId = space.tokenIds[_space];
             require(token.ownerOf(tokenId) == msg.sender, "Not authorized");
@@ -161,10 +162,11 @@ contract Namespace is INamespace {
         space.orglogos[_space] = _logo;
     }
 
-    function createName(
-        string calldata _name,
-        address _owner
-    ) public payable returns (bool) {
+    function createName(string calldata _name, address _owner)
+        public
+        payable
+        returns (bool)
+    {
         require(_owner != address(0), "Owner cannot be zero");
         require(name.creator[_name] == address(0));
         if (!isAdmin()) {
@@ -208,7 +210,7 @@ contract Namespace is INamespace {
         address _owner,
         string calldata _name,
         string calldata _space
-    ) public payable {
+    ) external payable {
         require(_owner != address(0), "Owner cannot be zero");
         require(name.creator[_name] == address(0), "Name already taken.");
         require(space.creator[_space] != address(0), "Space doesn't exist");
@@ -223,10 +225,10 @@ contract Namespace is INamespace {
         connectSpace(_name, _space);
     }
 
-    function connectSpace(
-        string calldata _name,
-        string calldata _space
-    ) public payable {
+    function connectSpace(string calldata _name, string calldata _space)
+        public
+        payable
+    {
         require(space.creator[_space] != address(0), "Space doesn't exist");
         require(name.creator[_name] != address(0), "Name doesn't exist");
         if (!isAdmin()) {
@@ -254,7 +256,7 @@ contract Namespace is INamespace {
         string calldata _space,
         string memory _link,
         bool isName
-    ) public payable {
+    ) external payable {
         address linkOwner;
         if (isName) {
             require(
@@ -273,10 +275,11 @@ contract Namespace is INamespace {
         }
     }
 
-    function hasSpace(
-        string memory _name,
-        string memory _space
-    ) public view returns (bool) {
+    function hasSpace(string memory _name, string memory _space)
+        public
+        view
+        returns (bool)
+    {
         bool foundSpace = false;
         for (uint256 i = 0; i < name.spaces[_name].length; i++) {
             if (
@@ -290,27 +293,27 @@ contract Namespace is INamespace {
         return foundSpace;
     }
 
-    function getNameCreator(
-        string calldata _name
-    ) public view returns (address) {
-        return name.creator[_name];
-    }
-
-    function getSpaceCreator(
-        string calldata _space
-    ) public view returns (address) {
+    function getSpaceCreator(string calldata _space)
+        external
+        view
+        returns (address)
+    {
         return space.creator[_space];
     }
 
-    function getNameSpaces(
-        string memory _name
-    ) public view returns (string[] memory) {
+    function getNameSpaces(string memory _name)
+        public
+        view
+        returns (string[] memory)
+    {
         return name.spaces[_name];
     }
 
-    function getSpaceNames(
-        string memory _name
-    ) public view returns (string[] memory) {
+    function getSpaceNames(string memory _name)
+        public
+        view
+        returns (string[] memory)
+    {
         return space.names[_name];
     }
 
@@ -338,10 +341,11 @@ contract Namespace is INamespace {
         return space.isPrivate[_space];
     }
 
-    function isAllowedOnSpace(
-        string memory _space,
-        address _wallet
-    ) public view returns (bool) {
+    function isAllowedOnSpace(string memory _space, address _wallet)
+        public
+        view
+        returns (bool)
+    {
         return space.isAllowed[_space][_wallet];
     }
 
@@ -349,39 +353,51 @@ contract Namespace is INamespace {
         return name.tokenIds[_name];
     }
 
-    function getSpaceInfo(
-        string memory _space
-    ) external view returns (string memory) {
+    function getSpaceInfo(string memory _space)
+        external
+        view
+        returns (string memory)
+    {
         return space.description[_space];
     }
 
-    function getSpaceMembershipFee(
-        string memory _space
-    ) external view returns (uint256) {
+    function getSpaceMembershipFee(string memory _space)
+        external
+        view
+        returns (uint256)
+    {
         return space.membershipFees[_space];
     }
 
-    function getSpaceBanner(
-        string memory _space
-    ) external view returns (string memory) {
+    function getSpaceBanner(string memory _space)
+        external
+        view
+        returns (string memory)
+    {
         return space.orglogos[_space];
     }
 
-    function getSpaceSite(
-        string memory _space
-    ) external view returns (string memory) {
+    function getSpaceSite(string memory _space)
+        external
+        view
+        returns (string memory)
+    {
         return space.orglogos[_space];
     }
 
-    function getSpaceOrgname(
-        string memory _space
-    ) external view returns (string memory) {
+    function getSpaceOrgname(string memory _space)
+        external
+        view
+        returns (string memory)
+    {
         return space.orgsites[_space];
     }
 
-    function getSpaces(
-        string calldata _name
-    ) public view returns (string memory) {
+    function getSpaces(string calldata _name)
+        external
+        view
+        returns (string memory)
+    {
         string[] memory spaceNames;
         bool isName = isNames[_name];
         string memory spacesJson = "[";
@@ -428,48 +444,31 @@ contract Namespace is INamespace {
         return spacesJson;
     }
 
-    function getAttribute(
-        string memory name_
-    ) public view returns (string memory) {
+    function getAttribute(string memory name_)
+        external
+        view
+        returns (string memory)
+    {
         bool isName = isNames[name_];
         if (isName) {
-            return
-                string(
-                    abi.encodePacked(
-                        '{"trait_type": "Token Type", "value": "Name"},{"trait_type": "Connected Spaces", "value": "',
-                        isName
-                            ? Strings.toString((name.spaces[name_]).length)
-                            : "",
-                        '"}'
-                    )
-                );
+            return token.attributeForName(name_);
         } else {
-            string memory member = Strings.toString(
-                (getSpaceNames(name_).length)
-            );
             return
-                string(
-                    abi.encodePacked(
-                        '{"trait_type": "Token Type", "value": "Space"},{"trait_type": "Space Description", "value": "',
-                        space.description[name_],
-                        '"},{"trait_type": "Space Name", "value": "',
-                        space.orgnames[name_],
-                        '"},{"trait_type": "Top Level Domain", "value": ".',
-                        name_,
-                        '"},{"trait_type": "Membership Fee", "value": "',
-                        Strings.toString(space.membershipFees[name_]),
-                        '"},{"trait_type": "Members Count", "value": "',
-                        member,
-                        '"}'
-                    )
+                token.attributeForSpace(
+                    space.description[name_],
+                    space.orgnames[name_],
+                    name_,
+                    space.membershipFees[name_],
+                    getSpaceNames(name_).length
                 );
         }
     }
 
-    function resolveNamespace(
-        string memory _name,
-        string memory _space
-    ) public view returns (address) {
+    function resolveNamespace(string memory _name, string memory _space)
+        external
+        view
+        returns (address)
+    {
         return name.wallets[_name][_space];
     }
 
