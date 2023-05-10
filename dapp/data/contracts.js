@@ -1,8 +1,8 @@
 export const polygon = {
-  Namespace: "",
-  Token: "",
-  Themer: "",
-  Visual: "",
+  Namespace: "0x44B0b339cFf4DC737ad3C35f33C6262e3Df45BDC",
+  Token: "0xb374198d6D6b503Fa1f5B3908467F5CD9E7AeacE",
+  Themer: "0x00D69D17444bEE3a861a052ac9d572F7B472d548",
+  Visualizer: "0x7C4671D11EAe4732b0c5D23437ae1c6e67bf06e1",
 };
 
 export const mumbai = {
