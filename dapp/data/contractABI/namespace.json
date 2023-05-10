@@ -56,7 +56,8 @@
       { "internalType": "string", "name": "_space", "type": "string" },
       { "internalType": "string", "name": "_orgname", "type": "string" },
       { "internalType": "string", "name": "_description", "type": "string" },
-      { "internalType": "string", "name": "_logo", "type": "string" }
+      { "internalType": "string", "name": "_logo", "type": "string" },
+      { "internalType": "bool", "name": "isPrivate", "type": "bool" }
     ],
     "name": "createSpace",
     "outputs": [{ "internalType": "bool", "name": "", "type": "bool" }],
@@ -92,13 +93,6 @@
     "inputs": [{ "internalType": "string", "name": "name_", "type": "string" }],
     "name": "getAttribute",
     "outputs": [{ "internalType": "string", "name": "", "type": "string" }],
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "inputs": [{ "internalType": "string", "name": "_name", "type": "string" }],
-    "name": "getNameCreator",
-    "outputs": [{ "internalType": "address", "name": "", "type": "address" }],
     "stateMutability": "view",
     "type": "function"
   },
@@ -162,6 +156,15 @@
     "type": "function"
   },
   {
+    "inputs": [
+      { "internalType": "string", "name": "_space", "type": "string" }
+    ],
+    "name": "getSpaceSite",
+    "outputs": [{ "internalType": "string", "name": "", "type": "string" }],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
     "inputs": [{ "internalType": "string", "name": "_name", "type": "string" }],
     "name": "getSpaces",
     "outputs": [{ "internalType": "string", "name": "", "type": "string" }],
@@ -181,6 +184,25 @@
       { "internalType": "string", "name": "_space", "type": "string" }
     ],
     "name": "hasSpace",
+    "outputs": [{ "internalType": "bool", "name": "", "type": "bool" }],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      { "internalType": "string", "name": "_space", "type": "string" },
+      { "internalType": "address", "name": "_wallet", "type": "address" }
+    ],
+    "name": "isAllowedOnSpace",
+    "outputs": [{ "internalType": "bool", "name": "", "type": "bool" }],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      { "internalType": "string", "name": "_space", "type": "string" }
+    ],
+    "name": "isPrivateSpace",
     "outputs": [{ "internalType": "bool", "name": "", "type": "bool" }],
     "stateMutability": "view",
     "type": "function"
@@ -223,6 +245,17 @@
     "name": "resolveNamespace",
     "outputs": [{ "internalType": "address", "name": "", "type": "address" }],
     "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      { "internalType": "string", "name": "_space", "type": "string" },
+      { "internalType": "address[]", "name": "_wallets", "type": "address[]" },
+      { "internalType": "bool", "name": "isAllowed", "type": "bool" }
+    ],
+    "name": "setAllowedAddress",
+    "outputs": [],
+    "stateMutability": "nonpayable",
     "type": "function"
   },
   {
@@ -314,7 +347,9 @@
     "inputs": [
       { "internalType": "string", "name": "_space", "type": "string" },
       { "internalType": "string", "name": "_orgname", "type": "string" },
-      { "internalType": "string", "name": "_description", "type": "string" }
+      { "internalType": "string", "name": "_description", "type": "string" },
+      { "internalType": "string", "name": "_orgsite", "type": "string" },
+      { "internalType": "bool", "name": "isPrivate", "type": "bool" }
     ],
     "name": "updateSpace",
     "outputs": [],
