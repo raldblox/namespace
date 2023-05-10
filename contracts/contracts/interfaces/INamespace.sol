@@ -14,7 +14,8 @@ interface INamespace {
     function createSpace(
         string calldata _space,
         string calldata _orgname,
-        string calldata _description
+        string calldata _description,
+        bool isPrivate
     ) external payable returns (bool);
 
     function createNamespace(

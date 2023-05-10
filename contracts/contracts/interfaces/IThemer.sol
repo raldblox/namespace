@@ -15,7 +15,7 @@ pragma solidity >=0.8.2 <0.9.0;
 interface IThemer {
     function version() external pure returns (string memory);
 
-    function chainNetwork() external pure returns (string memory);
+    function chainNetwork() external view returns (string memory);
 
     function tokenID(uint256) external pure returns (string memory);
 

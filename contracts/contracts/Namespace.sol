@@ -30,14 +30,17 @@ contract Namespace is INamespace {
 
     struct Space {
         string[] spaces;
+        mapping(string => bool) isPrivate;
         mapping(string => address) creator;
         mapping(string => string) orgnames;
         mapping(string => string) orglogos;
+        mapping(string => string) orgsites;
         mapping(string => uint256) tokenIds;
         mapping(string => string) description;
         mapping(string => string[]) names;
         mapping(string => string[]) links;
         mapping(string => uint256) membershipFees;
+        mapping(string => mapping(address => bool)) isAllowed; // @note allowed addresses for private spaces
     }
 
     Name private name;
@@ -112,6 +115,20 @@ contract Namespace is INamespace {
         name.wallets[_name][_space] = _wallet;
     }
 
+    function setAllowedAddress(
+        string memory _space,
+        address[] memory _wallets,
+        bool isAllowed
+    ) public {
+        require(
+            token.ownerOf(space.tokenIds[_space]) == msg.sender,
+            "You do not own this space"
+        );
+        for (uint256 i = 0; i < _wallets.length; i++) {
+            space.isAllowed[_space][_wallets[i]] = isAllowed;
+        }
+    }
+
     function isAdmin() internal view returns (bool) {
         return admin == msg.sender;
     }
@@ -119,14 +136,18 @@ contract Namespace is INamespace {
     function updateSpace(
         string memory _space,
         string calldata _orgname,
-        string calldata _description
+        string calldata _description,
+        string calldata _orgsite,
+        bool isPrivate
     ) public payable {
         if (!isAdmin()) {
             uint256 tokenId = space.tokenIds[_space];
             require(token.ownerOf(tokenId) == msg.sender, "Not authorized");
         }
+        space.isPrivate[_space] = isPrivate;
         space.orgnames[_space] = _orgname;
         space.description[_space] = _description;
+        space.orgsites[_space] = _orgsite;
     }
 
     function updateLogo(
@@ -163,7 +184,8 @@ contract Namespace is INamespace {
         string calldata _space,
         string calldata _orgname,
         string calldata _description,
-        string calldata _logo
+        string calldata _logo,
+        bool isPrivate
     ) public payable returns (bool) {
         require(_owner != address(0), "Owner cannot be zero");
         require(space.creator[_space] == address(0), "Space already taken");
@@ -177,6 +199,7 @@ contract Namespace is INamespace {
         space.creator[_space] = _owner;
         space.orglogos[_space] = _logo;
         space.orgnames[_space] = _orgname;
+        space.isPrivate[_space] = isPrivate;
         space.description[_space] = _description;
         return true;
     }
@@ -207,14 +230,20 @@ contract Namespace is INamespace {
         require(space.creator[_space] != address(0), "Space doesn't exist");
         require(name.creator[_name] != address(0), "Name doesn't exist");
         if (!isAdmin()) {
-            require(
-                msg.value >= (connectFee.add(space.membershipFees[_space])),
-                "Connection fees not met"
-            );
-            (bool sent, ) = payable(token.ownerOf(space.tokenIds[_space])).call{
-                value: space.membershipFees[_space]
-            }("");
-            require(sent, "Failed to send membership fee");
+            if (space.isPrivate[_space]) {
+                address nameowner = token.ownerOf(name.tokenIds[_name]);
+                require(
+                    isAllowedOnSpace(_space, nameowner),
+                    "Name owner is not allowed by space owner"
+                );
+                require(
+                    msg.value >= (connectFee.add(space.membershipFees[_space])),
+                    "Connection fees not met"
+                );
+                (bool sent, ) = payable(token.ownerOf(space.tokenIds[_space]))
+                    .call{value: space.membershipFees[_space]}("");
+                require(sent, "Failed to send membership fee");
+            }
         }
         name.spaces[_name].push(_space);
         space.names[_space].push(_name);
@@ -305,6 +334,17 @@ contract Namespace is INamespace {
         }
     }
 
+    function isPrivateSpace(string memory _space) external view returns (bool) {
+        return space.isPrivate[_space];
+    }
+
+    function isAllowedOnSpace(
+        string memory _space,
+        address _wallet
+    ) public view returns (bool) {
+        return space.isAllowed[_space][_wallet];
+    }
+
     function getTokenIds(string memory _name) external view returns (uint256) {
         return name.tokenIds[_name];
     }
@@ -327,10 +367,16 @@ contract Namespace is INamespace {
         return space.orglogos[_space];
     }
 
+    function getSpaceSite(
+        string memory _space
+    ) external view returns (string memory) {
+        return space.orglogos[_space];
+    }
+
     function getSpaceOrgname(
         string memory _space
     ) external view returns (string memory) {
-        return space.orgnames[_space];
+        return space.orgsites[_space];
     }
 
     function getSpaces(

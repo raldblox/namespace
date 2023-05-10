@@ -87,7 +87,7 @@ contract NamespaceToken is ERC721, Ownable2Step {
 
     constructor() ERC721("Name Space Token", "NST") {
         admin = msg.sender; // deployer is the admin
-        contractUri = '{"name":"namespace","description":"","image":"https://zoociety.xyz/assets/namespace.png","external_link":"","fee_recipient":""}';
+        contractUri = '{"name":"namespace","description":"Connect, create, and control with Namespace."}';
     }
 
     function setContractUri(string memory _new) external onlyAdmin {
