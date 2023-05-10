@@ -256,4 +256,21 @@ contract NamespaceToken is ERC721, Ownable2Step {
         (bool recovered, ) = admin.call{value: amount}("");
         require(recovered, "Failed to recover.");
     }
+
+    function attributeForName(
+        string memory _name
+    ) external view returns (string memory) {
+        return themer.attributeForName(_name);
+    }
+
+    function attributeForSpace(
+        string memory _name,
+        string memory _description,
+        string memory _tld,
+        uint256 _fee,
+        uint256 _members
+    ) external view returns (string memory) {
+        return
+            themer.attributeForSpace(_name, _description, _tld, _fee, _members);
+    }
 }

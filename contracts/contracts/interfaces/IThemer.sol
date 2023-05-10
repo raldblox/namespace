@@ -39,4 +39,16 @@ interface IThemer {
     function link() external pure returns (string memory);
 
     function contractURI() external pure returns (string memory);
+
+    function attributeForName(
+        string memory
+    ) external view returns (string memory);
+
+    function attributeForSpace(
+        string memory,
+        string memory,
+        string memory,
+        uint256,
+        uint256
+    ) external view returns (string memory);
 }
