@@ -20,7 +20,7 @@ module.exports = {
     settings: {
       optimizer: {
         enabled: true,
-        runs: 100,
+        runs: 200,
       },
     },
   },
@@ -49,7 +49,7 @@ module.exports = {
       timeout: 60000,
       gasPrice: 50000000000,
       url: process.env.INFURA_MUMBAI,
-      accounts: [process.env.PRIVATE_KEY],
+      accounts: [process.env.ZOOCIETY],
     },
     zkevmt: {
       timeout: 60000,
@@ -59,9 +59,9 @@ module.exports = {
     },
     mainnet: {
       timeout: 60000,
-      gasPrice: 50000000000,
+      // gasPrice: 50000000000,
       url: process.env.INFURA_MAINNET,
-      accounts: [process.env.PRIVATE_KEY],
+      accounts: [process.env.ZOOCIETY],
     },
     cic: {
       url: "https://xapi.cicscan.com",

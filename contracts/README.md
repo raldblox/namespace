@@ -7,6 +7,7 @@ npx hardhat help
 npx hardhat test
 REPORT_GAS=true npx hardhat test
 npx hardhat node
+npx hardhat size-contracts
 npx hardhat run scripts/deploy.js
 npx hardhat run --network mumbai scripts/deploy.js
 npx hardhat run --network zkevmt scripts/deploy.js
@@ -41,13 +42,15 @@ npx hardhat verify --network mumbai [CONTRACT_ADDRESS]
 ### CONTRACT ADDRESSES
 
 - POLYGON MUMBAI
-  - Namespace: 0xBa2BF82362586f1048f105926C219185bbdE942f
-  - Token: 0x27d93c74aa31EbdF197BA5ecbB0533373054978a
-  - Themer: 0xBdd7Af1a8C5d3dF9DEe605510733FAC9eFe8f283
-  - Visualizer: 0xbd90E6315bB0AA95704c2e246c5dEA93112b83Ad
+  Namespace: 0x2B707d2821fd13B6335cFB4fE47B702E78b01496
+  Token: 0xE81d6DDd31cd9075b7b19861E554D3BE29CB9db8
+  Themer: 0x5095F56e8159887F343184858B84dC1196d5dfdD
+  Visualizer: 0x182C1d4A7709d0aEf387271537524919E1974763
 - POLYGON MAINNET
-  - Namespace: `0xfe409ca6CaB3fbBb7c7372F17d84c3E5A94D06E9`
-  - Token: `` <!-- Error: Transaction Overdraft -->
+  - Namespace: [0x44B0b339cFf4DC737ad3C35f33C6262e3Df45BDC](https://polygonscan.com/address/0x44B0b339cFf4DC737ad3C35f33C6262e3Df45BDC#code)
+  - Token: [0xb374198d6D6b503Fa1f5B3908467F5CD9E7AeacE](https://polygonscan.com/address/0xb374198d6D6b503Fa1f5B3908467F5CD9E7AeacE#code)
+  - Visualizer: `0x7C4671D11EAe4732b0c5D23437ae1c6e67bf06e1`
+  - Themer: `0x00D69D17444bEE3a861a052ac9d572F7B472d548`
 - POLYGON ZKEVM TESTNET
   - Namespace: `` <!-- Gas on bridging is too much, reaching 1.5ETH est. fees -->
   - Token: ``
