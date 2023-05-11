@@ -1,5 +1,5 @@
 import { Context } from "@/context";
-import { mumbai } from "@/data/contracts";
+import { mumbai, polygon } from "@/data/contracts";
 import { ethers } from "ethers";
 import Image from "next/image";
 import Link from "next/link";
@@ -11,12 +11,12 @@ const names = () => {
   const {
     connectWallet,
     account,
+    switchPolygon,
     namespace,
-    switchTestnet,
-    switchMainnet,
+    switchMumbai,
     switchCicMainnet,
     network,
-    distributed,
+    switchArbitrum,
     allSpaces,
     spaceData,
   } = useContext(Context);
@@ -24,6 +24,7 @@ const names = () => {
   const [chain, setChain] = useState("chain");
   const [selectedSpace, setSpace] = useState("space");
   const [receipt, setReceipt] = useState("");
+  const [connectionReceipt, setConnectionReceipt] = useState("");
   const [valid, setValid] = useState(false);
   const [loading, setLoading] = useState(false);
 
@@ -46,7 +47,20 @@ const names = () => {
           console.log("tokenId:", name, tokenId);
           if (tokenId == 0) {
             setValid(true);
-            const allSpaces = await contract.getAllSpaces();
+          } else {
+            setValid("invalid");
+          }
+        } else if (network === "Polygon Mainnet") {
+          console.log("Checking availability on ", network);
+          const contract = new ethers.Contract(
+            polygon.Namespace,
+            namespaceAbi,
+            signer
+          );
+          const tokenId = await contract.getTokenIds(name);
+          console.log("tokenId:", name, tokenId);
+          if (tokenId == 0) {
+            setValid(true);
           } else {
             setValid("invalid");
           }
@@ -80,6 +94,21 @@ const names = () => {
           } else {
             alert("Minting failed.");
           }
+        } else if (network === "Polygon Mainnet") {
+          const contract = new ethers.Contract(
+            polygon.Namespace,
+            namespaceAbi,
+            signer
+          );
+          let tx = await contract.createName(name, account, {
+            value: ethers.utils.parseEther(String(1)),
+          });
+          const receipt = await tx.wait();
+          if (receipt.status === 1) {
+            setReceipt(`https://https://polygonscan.com/tx/` + tx.hash);
+          } else {
+            alert("Minting failed.");
+          }
         }
       }
     } catch (error) {
@@ -104,8 +133,22 @@ const names = () => {
           });
           const receipt = await tx.wait();
           if (receipt.status === 1) {
-            setReceipt(`https://https://mumbai.polygonscan.com/tx/` + tx.hash);
-            alert("Successfully minted.");
+            setConnectionReceipt(`https://https://mumbai.polygonscan.com/tx/` + tx.hash);
+          } else {
+            alert("Minting failed.");
+          }
+        } else if (network === "Polygon Mainnet") {
+          const contract = new ethers.Contract(
+            mumbai.Namespace,
+            namespaceAbi,
+            signer
+          );
+          let tx = await contract.connectSpace(name, space, {
+            value: ethers.utils.parseEther(String(1)),
+          });
+          const receipt = await tx.wait();
+          if (receipt.status === 1) {
+            setConnectionReceipt(`https://https://polygonscan.com/tx/` + tx.hash);
           } else {
             alert("Minting failed.");
           }
@@ -192,29 +235,52 @@ const names = () => {
           </h2>
           <div className={`m-0 w-full grid text-sm gap-2`}>
             <select
-              disabled={name != "name"}
               id="badge-class"
               value={chain}
               onChange={(e) => setChain(e.target.value)}
               className="w-full px-4 py-2"
             >
               <option value="">--Select Blockchain Network--</option>
-              <option value="ethereum">Ethereum Mainnet</option>
-              <option value="cic">CIC Chain Mainnet</option>
-              <option value="mumbai">Polygon Mumbai</option>
-              <option value="polygon">Polygon Mainnet</option>
-              <option value="arbitrum">Arbitrum One</option>
-              <option value="zkevm" disabled={true}>
-                Polygon zkEVM
+              <option value="Polygon Mainnet">Polygon Mainnet</option>
+              <option value="Arbitrum One" disabled={true}>Arbitrum One</option>
+              <option value="CIC Chain" disabled={true}>CIC Chain Mainnet</option>
+              <option value="Filecoin VM" disabled={true}>Filecoin VM Mainnet</option>
+              <option value="Polygon Mumbai" disabled={true}>Polygon Mumbai Testnet</option>
+              <option value="Filecoin Hyperspace" disabled={true}>Filecoin Hyperspace</option>
+              <option value="Polygon zkEVM" disabled={true}>Polygon zkEVM Testnet</option>
+              <option value="CIC Chain" disabled={true}>CIC Chain Mainnet</option>
+              <option value="ethereum" disabled={true}>
+                Ethereum
               </option>
-              <option value="optimism" disabled={true}>
+              <option value="Optimism" disabled={true}>
                 Optimism
               </option>
-              <option value="bsc" disabled={true}>
+              <option value="Aptos" disabled={true}>
+                Aptos
+              </option>
+              <option value="Binance" disabled={true}>
                 Binance Smart Chain
               </option>
             </select>
           </div>
+          {chain == "Polygon Mainnet" && network != "Polygon Mainnet" && <button
+            className="z-50 w-full px-4 py-2 mt-2 font-bold text-left border hover:bg-black hover:text-white"
+            onClick={switchPolygon}
+          >
+            Switch to Polygon
+          </button>}
+          {chain == "Polygon Mumbai" && network != "Polygon Mumbai" && <button
+            className="z-50 w-full px-4 py-2 mt-2 font-bold text-left border hover:bg-black hover:text-white"
+            onClick={switchMumbai}
+          >
+            Switch to Mumbai
+          </button>}
+          {chain == "Arbitrum One" && network != "Arbitrum One" && <button
+            className="z-50 w-full px-4 py-2 mt-2 font-bold text-left border hover:bg-black hover:text-white"
+            onClick={switchArbitrum}
+          >
+            Switch to Arbitrum One
+          </button>}
           <button
             className="z-50 w-full px-4 py-2 mt-2 font-bold text-left border hover:bg-black hover:text-white"
             onClick={reset}
@@ -239,41 +305,44 @@ const names = () => {
               className="z-50 w-full px-4 py-2 mt-2 font-bold text-left border hover:bg-black hover:text-white"
               onClick={mint}
             >
-              Mint for {chain == "cic" && "1 $CIC"}
-              {chain == "polygon" && "1 $MATIC"}
-              {chain == "mumbai" && "1 $MATIC"}
-              {chain == "arbitrum" && "1 $ARB"}
-              {chain == "ethereum" && "0.01 $ETH"}
+              Mint for {chain == "CIC Chain Mainnet" && "1 $CIC"}
+              {chain == "Polygon Mainnet" && "1 $MATIC"}
+              {chain == "Polygon Mumbai" && "1 $MATIC"}
+              {chain == "Arbitrum One" && "1 $ARB"}
+              {chain == "Ethereum" && "0.01 $ETH"}
             </button>
           )}
-          {(!valid || valid == "invalid") &&
-            chain != "chain" &&
-            name != "name" && (
-              <button
-                disabled={!name}
-                className="z-50 w-full px-4 py-2 mt-2 font-bold text-left border"
-                onClick={checkValidity}
-              >
-                {loading ? "Checking" : "Check"} Name Availability
-              </button>
-            )}
+          {receipt &&
+            <a
+              href={receipt}
+              target="_blank"
+              className={`m-0 p-2 border mt-2 w-full text-sm opacity-50`}
+            >
+              SUCCESS! VERIFY MINT TRANSACTION
+            </a>}
           {name != "name" && (
+            <button
+              disabled={!name}
+              className="z-50 w-full px-4 py-2 mt-2 font-bold text-left border"
+              onClick={checkValidity}
+            >
+              {loading ? "Checking" : "Check"} Name Availability
+            </button>
+          )}
+
+          {name != "name" && valid == "invalid" ? (
+            <p className={`m-0 p-2 border mt-2 w-full text-sm opacity-50`}>
+              <span className="font-bold ">{name}</span> is not available.
+            </p>
+          ) : (
             <>
-              {valid == "invalid" ? (
-                <p className={`m-0 p-2 border mt-2 w-full text-sm opacity-50`}>
-                  <span className="font-bold ">{name}</span> is not available.
+              {valid && (
+                <p
+                  className={`m-0 p-2 border mt-2 w-full text-sm opacity-50`}
+                >
+                  <span className="font-bold ">{name}</span> is valid and
+                  available.
                 </p>
-              ) : (
-                <>
-                  {valid && (
-                    <p
-                      className={`m-0 p-2 border mt-2 w-full text-sm opacity-50`}
-                    >
-                      <span className="font-bold ">{name}</span> is valid and
-                      available.
-                    </p>
-                  )}
-                </>
               )}
             </>
           )}
@@ -315,7 +384,7 @@ const names = () => {
                   spaceData.find((space) => space.tld === selectedSpace)?.image
                 }
                 alt="Selected space"
-                className="my-2"
+                className="mt-2"
               />
               <p
                 className={`my-2 text-2xl font-semibold w-full text-center uppercase`}
@@ -341,7 +410,7 @@ const names = () => {
           )}
 
           {valid && selectedSpace != "none" && (
-            <p className="w-full p-2 border m-0 text-sm opacity-50">
+            <p className="w-full p-2 my-2 text-sm border opacity-50">
               {selectedSpace == "space" && (
                 <>
                   Connect your <span className="font-bold">{name}</span> to some
@@ -367,24 +436,32 @@ const names = () => {
                   onClick={connect}
                 >
                   Connect for {chain == "cic" && "1 $CIC"}
-                  {chain == "polygon" && "1 $MATIC"}
-                  {chain == "mumbai" && "1 $MATIC"}
-                  {chain == "arbitrum" && "1 $ARB"}
-                  {chain == "ethereum" && "0.01 $ETH"}
+                  {chain == "Polygon Mainnet" && "1 $MATIC"}
+                  {chain == "Polygon Mumbai" && "1 $MATIC"}
+                  {chain == "Arbitrum One" && "1 $ARB"}
+                  {chain == "Ethereum" && "0.01 $ETH"}
                 </button>
                 <p className={`m-0 p-2 border mt-2 w-full text-sm opacity-50`}>
                   Your <span className="font-bold">{name}</span> name is now
-                  ready to connect{" "}
+                  ready to connect to the{" "}
                   {selectedSpace != "none" && (
                     <>
                       on{" "}
-                      <span className="font-bold">{selectedSpace} space</span>
+                      <span className="font-bold ">{selectedSpace} space</span>
                     </>
                   )}{" "}
                   on {chain} blockchain network.
                 </p>
               </>
             )}
+          {connectionReceipt &&
+            <a
+              href={connectionReceipt}
+              target="_blank"
+              className={`m-0 p-2 border mt-2 w-full text-sm opacity-50`}
+            >
+              CONNECTED! VERIFY TRANSACTION
+            </a>}
         </div>
       </div>
     </main>

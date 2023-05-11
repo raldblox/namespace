@@ -244,14 +244,29 @@ export const ContextProvider = (props) => {
           setNamespace(namelink);
         }
         if (network == "Polygon Mainnet") {
-          console.log("checking namespace..");
           const contract = new ethers.Contract(
-            polygon.Namespace, // "contract addresss"
+            polygon.Namespace,
             namespaceAbi,
             signer
           );
-          namelink = await contract.getNamespace(account);
-          setNamespace(namelink);
+          const primary = await contract.resolveAddress(account);
+          setNamespace(primary);
+          const spaces = await contract.getAllSpaces();
+          setAllSpaces(spaces);
+          const spaceData = await Promise.all(
+            spaces.map(async (space) => {
+              const tld = space;
+              const member = (await contract.getSpaceNames(space)).length;
+              const tokenId = await contract.getTokenIds(space);
+              const info = await contract.getSpaceInfo(space);
+              const name = await contract.getSpaceOrgname(space);
+              const fee = await contract.getSpaceMembershipFee(space);
+              const image = await contract.getSpaceBanner(space);
+              return { tld, member, tokenId, info, fee, name, image };
+            })
+          );
+          console.log("Spaces data:", spaceData);
+          setSpaceData(spaceData);
         }
         if (network == "Polygon Mumbai") {
           console.log("getting all spaces..");

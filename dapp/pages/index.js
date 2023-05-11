@@ -25,12 +25,12 @@ export default function Home() {
           <footer className="fixed bottom-0 left-0 flex items-end justify-center w-full h-32 bg-gradient-to-t from-white via-white dark:from-black dark:via-black lg:static lg:h-auto lg:w-auto lg:bg-none">
             <a
               className="flex gap-2 p-5 text-sm pointer-events-auto place-items-center lg:p-0"
-              href='https://www.zoociety.xyz'
+              href='https://www.zoociety.org'
               target="_blank"
               rel="noopener noreferrer"
             >
-              Made with ❤️ by{' '}
-              <span className='font-black' >ZoocietyLabs</span>
+              Powered by{' '}
+              <span className='font-black' >Zoociety</span>
             </a>
           </footer>
         </div>

@@ -1,6 +1,10 @@
+import { Context } from "@/context";
+import { mumbai, polygon } from "@/data/contracts";
+import { ethers } from "ethers";
 import Image from "next/image";
 import Link from "next/link";
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
+import namespaceAbi from "/data/contractABI/namespace.json";
 
 const spaces = () => {
   const [org, setOrg] = useState("Create");
@@ -10,13 +14,113 @@ const spaces = () => {
   const [valid, setValid] = useState(false);
   const [visibility, setVisibility] = useState("");
   const [loading, setLoading] = useState(false);
+  const {
+    connectWallet,
+    account,
+    namespace,
+    switchTestnet,
+    switchMainnet,
+    switchCicMainnet,
+    network,
+    distributed,
+    allSpaces,
+    spaceData,
+  } = useContext(Context);
 
-  const checkVAlidity = () => {
+  const checkValidity = async () => {
     setLoading(true);
-    setTimeout(() => {
-      setValid(true);
-      setLoading(false);
-    }, 3000);
+    setValid(false);
+    try {
+      const { ethereum } = window;
+      if (ethereum) {
+        const provider = new ethers.providers.Web3Provider(ethereum);
+        const signer = provider.getSigner();
+        if (network === "Polygon Mumbai") {
+          console.log("checking tokenId...", mumbai.Namespace, org);
+          const contract = new ethers.Contract(
+            mumbai.Namespace,
+            namespaceAbi,
+            signer
+          );
+          const tokenId = await contract.getTokenIds(org);
+          console.log("tokenId:", org, tokenId);
+          if (tokenId == 0) {
+            setValid(true);
+          } else {
+            setValid("invalid");
+          }
+        } else if (network === "Polygon Mainnet") {
+          console.log("Checking tokenId...", polygon.Namespace, org);
+          const contract = new ethers.Contract(
+            polygon.Namespace,
+            namespaceAbi,
+            signer
+          );
+          const owner = await contract.getSpaceCreator(space);
+          console.log("tokenId:", space, String(owner));
+          if (String(owner) == "0x0000000000000000000000000000000000000000") {
+            setValid(true);
+          } else {
+            setValid("invalid");
+          }
+        }
+      }
+    } catch (error) {
+      console.log(error);
+    }
+    setLoading(false);
+  };
+
+  const reset = () => {
+    setOrg("Create");
+    setChain("chain");
+    setChain("space");
+    setValid(false);
+  };
+
+  const mint = async () => {
+    try {
+      const { ethereum } = window;
+      if (ethereum) {
+        const provider = new ethers.providers.Web3Provider(ethereum);
+        const signer = provider.getSigner();
+        if (network === "Polygon Mumbai") {
+          const contract = new ethers.Contract(
+            mumbai.Namespace,
+            namespaceAbi,
+            signer
+          );
+          let tx = await contract.createName(name, account, {
+            value: ethers.utils.parseEther(String(1)),
+          });
+          const receipt = await tx.wait();
+          if (receipt.status === 1) {
+            setReceipt(`https://https://mumbai.polygonscan.com/tx/` + tx.hash);
+            alert("Successfully minted.");
+          } else {
+            alert("Minting failed.");
+          }
+        } else if (network === "Polygon Mainnet") {
+          const contract = new ethers.Contract(
+            polygon.Namespace,
+            namespaceAbi,
+            signer
+          );
+          let tx = await contract.createName(account, space, org, description, "", visibility, {
+            value: ethers.utils.parseEther(String(1)),
+          });
+          const receipt = await tx.wait();
+          if (receipt.status === 1) {
+            setReceipt(`https://https://polygonscan.com/tx/` + tx.hash);
+            alert("Successfully minted.");
+          } else {
+            alert("Minting failed.");
+          }
+        }
+      }
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (
@@ -47,7 +151,7 @@ const spaces = () => {
             </li>
           </ul>
         </nav>
-        <footer className="fixed bottom-0 left-0 flex items-end justify-center w-full h-48 bg-gradient-to-t from-white via-white dark:from-black dark:via-black lg:static lg:h-auto lg:w-auto lg:bg-none">
+        <footer className="fixed bottom-0 left-0 z-50 flex items-end justify-center w-full h-48 bg-gradient-to-t from-white via-white dark:from-black dark:via-black lg:static lg:h-auto lg:w-auto lg:bg-none">
           <p
             className="flex gap-2 p-8 pointer-events-none place-items-center lg:pointer-events-auto lg:p-0"
             target="_blank"
@@ -58,7 +162,7 @@ const spaces = () => {
         </footer>
       </div>
 
-      <div className="relative flex flex-col place-items-center before:absolute before:h-[300px] before:w-[480px] before:-translate-x-1/2 before:rounded-full before:bg-gradient-radial before:from-white before:to-transparent before:blur-2xl before:content-[''] after:absolute after:-z-20 after:h-[180px] after:w-[240px] after:translate-x-1/3 after:bg-gradient-conic after:from-fuchsia-300 after:via-blue-200 after:blur-2xl after:content-[''] before:dark:bg-gradient-to-br before:dark:from-transparent before:dark:to-blue-700/10 after:dark:from-fuchsia-900 after:dark:via-[#0141ff]/40 before:lg:h-[360px]">
+      <div className="relative flex flex-col place-items-center before:absolute before:h-[300px] before:w-[480px] before:-translate-x-1/2 before:rounded-full before:bg-gradient-radial before:from-white before:to-transparent before:blur-2xl before:content-[''] after:absolute after:- after:h-[180px] after:w-[240px] after:translate-x-1/3 after:bg-gradient-conic after:from-fuchsia-300 after:via-blue-200 after:blur-2xl after:content-[''] before:dark:bg-gradient-to-br before:dark:from-transparent before:dark:to-blue-700/10 after:dark:from-fuchsia-900 after:dark:via-[#0141ff]/40 before:lg:h-[360px]">
         <p className="text-3xl font-bold lg:text-5xl">
           name.<span className="animate-pulse">{space}</span>
         </p>
@@ -84,29 +188,41 @@ const spaces = () => {
               className="w-full px-4 py-2"
             >
               <option value="">--Select Blockchain Network--</option>
-              <option value="ethereum">Ethereum</option>
-              <option value="cic">CIC Chain Mainnet</option>
-              <option value="mumbai">Polygon Mumbai</option>
+
               <option value="polygon">Polygon Mainnet</option>
               <option value="arbitrum">Arbitrum One</option>
+              <option value="cic">CIC Chain</option>
+              <option value="arbitrum">Filecoin VM</option>
+              <option value="ethereum" disabled={true}>
+                Ethereum
+              </option>
               <option value="zkevm" disabled={true}>
                 Polygon zkEVM
               </option>
-
               <option value="optimism" disabled={true}>
                 Optimism
               </option>
-
+              <option value="optimism" disabled={true}>
+                Aptos
+              </option>
               <option value="bsc" disabled={true}>
                 Binance Smart Chain
               </option>
+              <option value="mumbai">Polygon Mumbai</option>
+              <option value="hyperspace">Filecoin Hyperspace</option>
             </select>
+            <button
+              className="w-full px-4 py-2 mt-2 font-bold text-left border hover:bg-black hover:text-white"
+              onClick={reset}
+            >
+              Reset
+            </button>
           </div>
         </div>
 
-        <div className="z-50 px-5 py-4 transition-colors border border-transparent rounded-lg group hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30">
+        <div className="px-5 py-4 transition-colors border border-transparent rounded-lg group hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30">
           <h2 className={`mb-3 text-2xl font-semibold`}>
-            3. Space Visibility
+            2. Space Visibility
             <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none"></span>
           </h2>
 
@@ -142,7 +258,7 @@ const spaces = () => {
           )}
         </div>
 
-        <div className="z-50 px-5 py-4 transition-colors border border-transparent rounded-lg group hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30">
+        <div className="px-5 py-4 transition-colors border border-transparent rounded-lg group hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30">
           <h2 className={`mb-3 text-2xl font-semibold`}>
             3. Space Details
             <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none"></span>
@@ -162,9 +278,9 @@ const spaces = () => {
             </>
           )}
           <input
-            disabled={valid}
+            // disabled={valid}
             onChange={(e) => setSpace(e.target.value)}
-            className="z-50 w-full px-4 py-2 font-bold text-left border"
+            className="w-full px-4 py-2 font-bold text-left border "
             placeholder="space domain or symbol"
           />
           {visibility && visibility != "Empty" && chain && (
@@ -180,21 +296,35 @@ const spaces = () => {
               />
             </>
           )}
-          {!valid ? (
+          {(!valid || valid == "invalid") &&
+            chain != "chain" &&
             space != "space" && (
               <button
-                disabled={!space}
                 className="z-50 w-full px-4 py-2 mt-2 font-bold text-left border"
-                onClick={checkVAlidity}
+                onClick={checkValidity}
               >
-                {loading ? "Checking" : "Check"} Space Availability
+                {loading ? "Checking" : "Check"} Availability
               </button>
-            )
-          ) : (
-            <p className={`m-0 mt-2 w-full text-sm opacity-50`}>
-              <span className="font-bold">.{space}</span> is valid and
-              available.
-            </p>
+            )}
+          {space != "name" && (
+            <>
+              {valid == "invalid" ? (
+                <p className={`m-0 p-2 border mt-2 w-full text-sm opacity-50`}>
+                  <span className="font-bold ">{space}</span> is not available.
+                </p>
+              ) : (
+                <>
+                  {valid && (
+                    <p
+                      className={`m-0 p-2 border mt-2 w-full text-sm opacity-50`}
+                    >
+                      <span className="font-bold ">{space}</span> is valid and
+                      available.
+                    </p>
+                  )}
+                </>
+              )}
+            </>
           )}
         </div>
         <div className="px-5 py-4 transition-colors border border-transparent rounded-lg group hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30">

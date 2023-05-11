@@ -10,7 +10,7 @@ const networks = {
   "0x13881": "Polygon Mumbai",
   "0xa4b1": "Arbitrum One",
   "0xa86a": "AVAX Mainnet",
-  "0x549": "CIC Chain Mainnet",
+  "0x549": "CIC Chain",
 };
 
 export { networks };
