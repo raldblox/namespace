@@ -35,10 +35,14 @@ export default function Home() {
           </footer>
         </div>
 
-        <div className="relative flex place-items-center before:absolute before:h-[300px] before:w-[480px] before:-translate-x-1/2 before:rounded-full before:bg-gradient-radial before:from-white before:to-transparent before:blur-2xl before:content-[''] after:absolute after:-z-20 after:h-[180px] after:w-[240px] after:translate-x-1/3 after:bg-gradient-conic after:from-fuchsia-300 after:via-blue-200 after:blur-2xl after:content-[''] before:dark:bg-gradient-to-br before:dark:from-transparent before:dark:to-blue-700/10 after:dark:from-fuchsia-900 after:dark:via-[#0141ff]/40 before:lg:h-[360px]">
-          {/* <p className='text-4xl font-bold lg:text-5xl'><a className='z-50 text-transparent cursor-pointer' href='/admin'></a>namespace</p> */}
-          <Image src="/namespace-cube.svg" height={150} width={350} priority className='dark:hidden' />
-          <Image src="/namespace-cube-wht.svg" height={150} width={350} priority className='hidden dark:flex' />
+        <div className="relative flex text-center flex-col place-items-center before:absolute before:h-[300px] before:w-[480px] before:-translate-x-1/2 before:rounded-full before:bg-gradient-radial before:from-white before:to-transparent before:blur-2xl before:content-[''] after:absolute after:-z-20 after:h-[180px] after:w-[240px] after:translate-x-1/3 after:bg-gradient-conic after:from-fuchsia-300 after:via-blue-200 after:blur-2xl after:content-[''] before:dark:bg-gradient-to-br before:dark:from-transparent before:dark:to-blue-700/10 after:dark:from-fuchsia-900 after:dark:via-[#0141ff]/40 before:lg:h-[360px]">
+          <p className='flex max-w-2xl text-4xl font-bold lg:text-5xl'>
+            Create, connect and control your blockchain presence with namespace.
+          </p>
+          {/* <span>
+              <Image src="/namespace-cube.svg" height={150} width={350} priority className='dark:hidden' />
+              <Image src="/namespace-cube-wht.svg" height={150} width={350} priority className='hidden dark:flex' />
+            </span> */}
         </div>
 
         <div className="grid w-full gap-2 p-2 mb-24 text-center border border-gray-500 rounded-xl lg:p-2 lg:mb-0 lg:grid-cols-4 lg:text-left">
@@ -93,7 +97,7 @@ export default function Home() {
             className="px-5 py-4 transition-colors border border-transparent rounded-lg group hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
           >
             <h2 className={`mb-3 text-2xl font-semibold`}>
-              My Dashboard{' '}
+              Control name.space{' '}
               <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
                 -&gt;
               </span>

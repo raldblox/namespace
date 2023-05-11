@@ -322,6 +322,22 @@ export const ContextProvider = (props) => {
               return { tokenId, owner, balance, namespace, image };
             })
           );
+          console.log("Space data:", tokenData);
+          setSpaceData(tokenData);
+        } else if (network === "Polygon Mainnet") {
+          const contract = new ethers.Contract(polygon.Tokenizer, tokenAbi, signer);
+          const distributed = await contract.viewDistributedTokens(account);
+          const tokensArray = distributed.map((d) => d.toNumber());
+
+          const tokenData = await Promise.all(
+            tokensArray.map(async (tokenId) => {
+              const owner = await contract.ownerOf(tokenId);
+              const balance = await contract.viewBalance(tokenId);
+              const namespace = await contract.viewNamespace(owner);
+              const image = await contract.generateImage(tokenId);
+              return { tokenId, owner, balance, namespace, image };
+            })
+          );
           console.log("space data:", tokenData);
           setSpaceData(tokenData);
         }

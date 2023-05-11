@@ -20,13 +20,14 @@ const names = () => {
     allSpaces,
     spaceData,
   } = useContext(Context);
-  const [name, setName] = useState("name");
+  const [name, setName] = useState("");
   const [chain, setChain] = useState("chain");
   const [selectedSpace, setSpace] = useState("space");
   const [receipt, setReceipt] = useState("");
   const [connectionReceipt, setConnectionReceipt] = useState("");
   const [valid, setValid] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [minting, setMinting] = useState(false);
 
   const checkValidity = async () => {
     setLoading(true);
@@ -61,8 +62,13 @@ const names = () => {
           console.log("tokenId:", name, tokenId);
           if (tokenId == 0) {
             setValid(true);
+
           } else {
             setValid("invalid");
+            setTimeout(() => {
+              setValid(false);
+              setName("");
+            }, 5000);
           }
         }
       }
@@ -73,6 +79,7 @@ const names = () => {
   };
 
   const mint = async () => {
+    setMinting(true);
     try {
       const { ethereum } = window;
       if (ethereum) {
@@ -105,14 +112,16 @@ const names = () => {
           });
           const receipt = await tx.wait();
           if (receipt.status === 1) {
-            setReceipt(`https://https://polygonscan.com/tx/` + tx.hash);
+            setReceipt(`https://polygonscan.com/tx/` + tx.hash);
           } else {
             alert("Minting failed.");
           }
         }
+        setMinting(false);
       }
     } catch (error) {
       console.log(error);
+      setMinting(false);
     }
   };
 
@@ -160,7 +169,7 @@ const names = () => {
   };
 
   const reset = () => {
-    setName("name");
+    setName("");
     setChain("chain");
     setChain("space");
     setValid(false);
@@ -292,34 +301,14 @@ const names = () => {
             <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none"></span>
           </h2>
           <input
-            disabled={chain == ("chain" || "") || (valid && valid != "invalid")}
+            value={name}
+            disabled={chain == ("chain" || "") || valid || (valid == "invalid")}
             onChange={(e) => setName(e.target.value)}
             className="z-50 w-full px-4 py-2 font-bold text-left border"
             placeholder="insert name"
           />
-          {name != "name" && valid && (
+          {name != "" && (
             <button
-              className="z-50 w-full px-4 py-2 mt-2 font-bold text-left border hover:bg-black hover:text-white"
-              onClick={mint}
-            >
-              Mint for {chain == "CIC Chain Mainnet" && "1 $CIC"}
-              {chain == "Polygon Mainnet" && "1 $MATIC"}
-              {chain == "Polygon Mumbai" && "1 $MATIC"}
-              {chain == "Arbitrum One" && "1 $ARB"}
-              {chain == "Ethereum" && "0.01 $ETH"}
-            </button>
-          )}
-          {receipt &&
-            <a
-              href={receipt}
-              target="_blank"
-              className={`m-0 p-2 border mt-2 w-full text-sm opacity-50`}
-            >
-              SUCCESS! VERIFY MINT TRANSACTION
-            </a>}
-          {name != "name" && (
-            <button
-              disabled={!name}
               className="z-50 w-full px-4 py-2 mt-2 font-bold text-left border"
               onClick={checkValidity}
             >
@@ -327,26 +316,54 @@ const names = () => {
             </button>
           )}
 
-          {name != "name" && valid == "invalid" ? (
-            <p className={`m-0 p-2 border mt-2 w-full text-sm opacity-50`}>
-              <span className="font-bold ">{name}</span> is not available.
+          {name != "" && valid == "invalid" ? (
+            <p className={`p-2 px-4 border mt-2 w-full text-sm bg-red-200`}>
+              <span className="font-bold ">{name}</span> is taken and unavailable.
             </p>
           ) : (
             <>
               {valid && (
                 <p
-                  className={`m-0 p-2 border mt-2 w-full text-sm opacity-50`}
+                  className={`p-2 px-4 border mt-2 w-full text-sm bg-green-200`}
                 >
-                  <span className="font-bold ">{name}</span> is valid and
-                  available.
+                  <span className="font-bold ">{name}</span> is valid and can be your web3 name!
                 </p>
               )}
             </>
           )}
+          {name != "" && valid == true && !receipt && (
+            <button
+              className="z-50 w-full px-4 py-2 mt-2 font-bold text-left border hover:bg-black hover:text-white"
+              onClick={mint}
+            >
+              Mint <span className="font-bold animate-pulse">{name}</span> for {chain == "CIC Chain Mainnet" && "1 $CIC"}
+              {chain == "Polygon Mainnet" && "1 $MATIC"}
+              {chain == "Polygon Mumbai" && "1 $MATIC"}
+              {chain == "Arbitrum One" && "1 $ARB"}
+              {chain == "Ethereum" && "0.01 $ETH"}
+            </button>
+          )}
+          {minting && <p
+            className={`p-2 px-4 border my-2 w-full text-sm bg-orange-200`}
+          >
+            Please confirm transaction in your wallet app and wait a bit for its hash. If you’d like to cancel this operation, please decline it in your wallet app.
+          </p>}
+          {receipt &&
+            <a
+              href={receipt}
+              target="_blank"
+            >
+              <button
+                className="z-50 w-full px-4 py-2 font-bold text-left bg-blue-200 border hover:bg-black hover:text-white"
+                onClick={mint}
+              >
+                SUCCESS! VERIFY MINT TRANSACTION
+              </button>
+            </a>}
         </div>
         <div className="px-5 py-4 transition-colors border border-transparent rounded-lg group hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30">
           <h2 className={`mb-3 text-2xl font-semibold`}>
-            3. Join Space
+            3. Join Spaces
             <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none"></span>
           </h2>
 
@@ -380,7 +397,6 @@ const names = () => {
                 src={
                   spaceData.find((space) => space.tld === selectedSpace)?.image
                 }
-                alt="Selected space"
                 className="mt-2"
               />
               <p
@@ -414,7 +430,7 @@ const names = () => {
                   spaces to create a namespace.{" "}
                 </>
               )}
-              You can manage your names and spaces later.
+              You can manage names and connect to even more spaces later on.
             </p>
           )}
         </div>
@@ -432,7 +448,7 @@ const names = () => {
                   className="z-50 w-full px-4 py-2 font-bold text-left border hover:bg-black hover:text-white"
                   onClick={connect}
                 >
-                  Connect for {chain == "cic" && "1 $CIC"}
+                  Connect for {chain == "CIC Chain Mainnet" && "1 $CIC"}
                   {chain == "Polygon Mainnet" && "1 $MATIC"}
                   {chain == "Polygon Mumbai" && "1 $MATIC"}
                   {chain == "Arbitrum One" && "1 $ARB"}
