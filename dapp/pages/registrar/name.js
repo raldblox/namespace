@@ -262,7 +262,7 @@ const names = () => {
                 Optimism
               </option>
               <option value="Aptos" disabled={true}>
-                Aptos
+                Aptos Blockchain
               </option>
               <option value="Binance" disabled={true}>
                 Binance Smart Chain

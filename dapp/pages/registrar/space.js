@@ -7,13 +7,16 @@ import React, { useContext, useState } from "react";
 import namespaceAbi from "/data/contractABI/namespace.json";
 
 const spaces = () => {
-  const [org, setOrg] = useState("Create");
+  const [org, setOrg] = useState("");
   const [description, setDescription] = useState("");
   const [chain, setChain] = useState("chain");
-  const [space, setSpace] = useState("space");
+  const [space, setSpace] = useState("");
   const [valid, setValid] = useState(false);
   const [visibility, setVisibility] = useState("");
   const [loading, setLoading] = useState(false);
+  const [minting, setMinting] = useState(false);
+  const [receipt, setReceipt] = useState("");
+
   const {
     connectWallet,
     account,
@@ -57,11 +60,15 @@ const spaces = () => {
             signer
           );
           const owner = await contract.getSpaceCreator(space);
-          console.log("tokenId:", space, String(owner));
+          console.log("tokenId:", String(owner));
           if (String(owner) == "0x0000000000000000000000000000000000000000") {
             setValid(true);
           } else {
             setValid("invalid");
+            setTimeout(() => {
+              setValid(false);
+              setSpace("");
+            }, 5000);
           }
         }
       }
@@ -72,54 +79,76 @@ const spaces = () => {
   };
 
   const reset = () => {
-    setOrg("Create");
+    setOrg("");
+    setSpace("");
     setChain("chain");
-    setChain("space");
     setValid(false);
+    setVisibility("")
   };
 
   const mint = async () => {
+    setMinting(true);
     try {
       const { ethereum } = window;
       if (ethereum) {
         const provider = new ethers.providers.Web3Provider(ethereum);
         const signer = provider.getSigner();
         if (network === "Polygon Mumbai") {
-          const contract = new ethers.Contract(
-            mumbai.Namespace,
-            namespaceAbi,
-            signer
-          );
-          let tx = await contract.createName(name, account, {
-            value: ethers.utils.parseEther(String(1)),
-          });
+          const contract = new ethers.Contract(polygon.Namespace, namespaceAbi, signer);
+          const isPrivate = visibility === "private";
+          const isPublic = visibility === "public";
+
+          let tx;
+          if (isPrivate || isPublic) {
+            tx = await contract.createName(account, space, org, description, "", isPublic, {
+              value: ethers.utils.parseEther(String(1)),
+            });
+          } else {
+            tx = await contract.createName(account, space, "", "", "", false, {
+              value: ethers.utils.parseEther(String(1)),
+            });
+          }
+
           const receipt = await tx.wait();
           if (receipt.status === 1) {
-            setReceipt(`https://https://mumbai.polygonscan.com/tx/` + tx.hash);
-            alert("Successfully minted.");
+            setReceipt(`https://mumbai.polygonscan.com/tx/${tx.hash}`);
           } else {
             alert("Minting failed.");
           }
         } else if (network === "Polygon Mainnet") {
-          const contract = new ethers.Contract(
-            polygon.Namespace,
-            namespaceAbi,
-            signer
-          );
-          let tx = await contract.createName(account, space, org, description, "", visibility, {
-            value: ethers.utils.parseEther(String(1)),
-          });
+          const contract = new ethers.Contract(polygon.Namespace, namespaceAbi, signer);
+          const isPrivate = visibility === "private";
+          const isPublic = visibility === "public";
+
+          let tx;
+          if (isPublic) {
+            tx = await contract.createSpace(account, space, org, description, " ", false, {
+              value: ethers.utils.parseEther(String(1)),
+            });
+          } else if (isPrivate) {
+            tx = await contract.createSpace(account, space, org, description, " ", true, {
+              value: ethers.utils.parseEther(String(1)),
+            });
+          } {
+            tx = await contract.createSpace(account, space, " ", " ", " ", true, {
+              value: ethers.utils.parseEther(String(1)),
+            });
+          }
+
           const receipt = await tx.wait();
           if (receipt.status === 1) {
-            setReceipt(`https://https://polygonscan.com/tx/` + tx.hash);
-            alert("Successfully minted.");
+            setReceipt(`https://polygonscan.com/tx/${tx.hash}`);
           } else {
             alert("Minting failed.");
           }
+
+
         }
+        setMinting(false);
       }
     } catch (error) {
       console.log(error);
+      setMinting(false);
     }
   };
 
@@ -166,12 +195,12 @@ const spaces = () => {
         <p className="text-3xl font-bold lg:text-5xl">
           name.<span className="animate-pulse">{space}</span>
         </p>
-        {org && visibility != "Empty" && (
+        {/* {org && visibility != "empty" && (
           <p className="mt-4 text-lg font-bold">{org} Space</p>
         )}
-        {description && visibility != "Empty" && (
+        {description && visibility != "empty" && (
           <p className="max-w-[200px] text-center">{description}</p>
-        )}
+        )} */}
       </div>
 
       <div className="grid w-full gap-5 p-5 mb-24 text-center border border-gray-300 rounded-xl lg:p-5 lg:mb-0 lg:grid-cols-4 lg:text-left">
@@ -188,28 +217,26 @@ const spaces = () => {
               className="w-full px-4 py-2"
             >
               <option value="">--Select Blockchain Network--</option>
-
-              <option value="polygon">Polygon Mainnet</option>
-              <option value="arbitrum">Arbitrum One</option>
-              <option value="cic">CIC Chain</option>
-              <option value="arbitrum">Filecoin VM</option>
+              <option value="Polygon Mainnet">Polygon Mainnet</option>
+              <option value="Arbitrum One" disabled={true}>Arbitrum One</option>
+              <option value="CIC Chain" disabled={true}>CIC Chain Mainnet</option>
+              <option value="Filecoin VM" disabled={true}>Filecoin VM Mainnet</option>
+              <option value="Polygon Mumbai" disabled={true}>Polygon Mumbai Testnet</option>
+              <option value="Filecoin Hyperspace" disabled={true}>Filecoin Hyperspace</option>
+              <option value="Polygon zkEVM" disabled={true}>Polygon zkEVM Testnet</option>
+              <option value="CIC Chain" disabled={true}>CIC Chain Mainnet</option>
               <option value="ethereum" disabled={true}>
                 Ethereum
               </option>
-              <option value="zkevm" disabled={true}>
-                Polygon zkEVM
-              </option>
-              <option value="optimism" disabled={true}>
+              <option value="Optimism" disabled={true}>
                 Optimism
               </option>
-              <option value="optimism" disabled={true}>
-                Aptos
+              <option value="Aptos" disabled={true}>
+                Aptos Blockchain
               </option>
-              <option value="bsc" disabled={true}>
+              <option value="Binance" disabled={true}>
                 Binance Smart Chain
               </option>
-              <option value="mumbai">Polygon Mumbai</option>
-              <option value="hyperspace">Filecoin Hyperspace</option>
             </select>
             <button
               className="w-full px-4 py-2 mt-2 font-bold text-left border hover:bg-black hover:text-white"
@@ -233,27 +260,27 @@ const spaces = () => {
             className="w-full px-4 py-2"
           >
             <option value="">--Select visibility--</option>
-            <option value="Private">Private Space</option>
-            <option value="Public">Public Space</option>
-            <option value="Empty">Empty Space</option>
+            <option value="private">Private Space</option>
+            <option value="public">Public Space</option>
+            <option value="empty">Empty Space</option>
           </select>
-          {visibility == "Public" && (
+          {visibility == "public" && (
             <p className="w-full m-0 mt-2 text-sm opacity-50">
               <span className="font-bold">{visibility} Space</span> allows
-              anyone to connect to your space.
+              anyone around the world to connect to your space.
             </p>
           )}
-          {visibility == "Private" && (
+          {visibility == "private" && (
             <p className="w-full m-0 mt-2 text-sm opacity-50">
               <span className="font-bold">{visibility} Space</span> allows you
-              to add, approve or whitelist addresses before they can connect to
+              to whitelist addresses before they can connect to
               your space.
             </p>
           )}
-          {visibility == "Empty" && (
+          {visibility == "empty" && (
             <p className="w-full m-0 mt-2 text-sm opacity-50">
               <span className="font-bold">{visibility} Space</span> allows you
-              to own a space domain then use or sell it afterwards.
+              to take ownership of space domain then use or sell it afterwards.
             </p>
           )}
         </div>
@@ -263,7 +290,7 @@ const spaces = () => {
             3. Space Details
             <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none"></span>
           </h2>
-          {visibility && visibility != "Empty" && chain && (
+          {visibility && visibility != "empty" && chain && (
             <>
               <input
                 onChange={(e) => setOrg(e.target.value)}
@@ -278,12 +305,13 @@ const spaces = () => {
             </>
           )}
           <input
-            // disabled={valid}
+            value={space}
+            disabled={valid == "invalid" || valid}
             onChange={(e) => setSpace(e.target.value)}
             className="w-full px-4 py-2 font-bold text-left border "
             placeholder="space domain or symbol"
           />
-          {visibility && visibility != "Empty" && chain && (
+          {visibility && visibility != "empty" && chain && (
             <>
               <p className="w-full mt-2 text-xs text-center">
                 upload your logo or banner (preferably squared)
@@ -296,33 +324,28 @@ const spaces = () => {
               />
             </>
           )}
-          {(!valid || valid == "invalid") &&
-            chain != "chain" &&
-            space != "space" && (
-              <button
-                className="z-50 w-full px-4 py-2 mt-2 font-bold text-left border"
-                onClick={checkValidity}
-              >
-                {loading ? "Checking" : "Check"} Availability
-              </button>
-            )}
-          {space != "name" && (
+
+          {space != "" && (
+            <button
+              className="z-50 w-full px-4 py-2 mt-2 font-bold text-left border"
+              onClick={checkValidity}
+            >
+              {loading ? "Checking" : "Check"} Space Availability
+            </button>
+          )}
+
+          {space != "" && valid == "invalid" ? (
+            <p className={`p-2 px-4 border mt-2 w-full text-sm bg-red-200`}>
+              <span className="font-bold ">{space}</span> is taken and unavailable.
+            </p>
+          ) : (
             <>
-              {valid == "invalid" ? (
-                <p className={`m-0 p-2 border mt-2 w-full text-sm opacity-50`}>
-                  <span className="font-bold ">{space}</span> is not available.
+              {valid && (
+                <p
+                  className={`p-2 px-4 border mt-2 w-full text-sm bg-green-200`}
+                >
+                  <span className="font-bold">.{space}</span> is valid and can be your community or organization identity!
                 </p>
-              ) : (
-                <>
-                  {valid && (
-                    <p
-                      className={`m-0 p-2 border mt-2 w-full text-sm opacity-50`}
-                    >
-                      <span className="font-bold ">{space}</span> is valid and
-                      available.
-                    </p>
-                  )}
-                </>
               )}
             </>
           )}
@@ -334,21 +357,36 @@ const spaces = () => {
           </h2>
           {chain != "chain" && space != "space" && valid && (
             <>
-              <button className="z-50 w-full px-4 py-2 font-bold text-left border hover:bg-black hover:text-white">
-                Mint for {chain == "cic" && "1 $CIC"}
-                {chain == "polygon" && "1 $MATIC"}
-                {chain == "mumbai" && "0.1 $MATIC"}
-                {chain == "arbitrum" && "1 $ARB"}
+              <button className="z-50 w-full px-4 py-2 font-bold text-left border hover:bg-black hover:text-white" onClick={mint}>
+                Mint for .{space} {chain == "CIC Chain Mainnet" && "1 $CIC"}
+                {chain == "Polygon Mainnet" && "1 $MATIC"}
+                {chain == "Polygon Mumbai" && "0.1 $MATIC"}
+                {chain == "Arbitrum One" && "1 $ARB"}
               </button>
               <p className={`m-0 mt-2 w-full text-sm opacity-50`}>
-                <span className="font-bold">
-                  {name}.{space}
-                </span>{" "}
-                is now ready to be minted on {chain} blockchain network. Own it
-                before it's gone.
+                Mint your <span className="font-bold">
+                  .{space}
+                </span> on the {chain} blockchain network and secure its ownership before it's too late. With the option to assign membership fees for each space, you can curate exclusive content and files for members who share the same values and interests with yours.
               </p>
             </>
           )}
+          {minting && <p
+            className={`p-2 px-4 border my-2 w-full text-sm bg-orange-200`}
+          >
+            Please confirm transaction in your wallet app and wait a bit for its hash. If you’d like to cancel this operation, please decline it in your wallet app.
+          </p>}
+          {receipt &&
+            <a
+              href={receipt}
+              target="_blank"
+            >
+              <button
+                className="z-50 w-full px-4 py-2 font-bold text-left bg-blue-200 border hover:bg-black hover:text-white"
+                onClick={mint}
+              >
+                SUCCESS! VERIFY MINT TRANSACTION
+              </button>
+            </a>}
         </div>
       </div>
     </main>
