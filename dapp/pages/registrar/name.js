@@ -197,7 +197,6 @@ const names = () => {
           </ul>
         </nav>
         <footer className="fixed bottom-0 left-0 flex items-end justify-center w-full h-48 gap-3 bg-gradient-to-t from-white via-white dark:from-black dark:via-black lg:static lg:h-auto lg:w-auto lg:bg-none">
-
           {account ? (
             <p
               className="flex gap-2 p-8 pointer-events-none place-items-center lg:pointer-events-auto lg:p-0"
@@ -347,7 +346,7 @@ const names = () => {
         </div>
         <div className="px-5 py-4 transition-colors border border-transparent rounded-lg group hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30">
           <h2 className={`mb-3 text-2xl font-semibold`}>
-            3. Choose Space
+            3. Join Space
             <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none"></span>
           </h2>
 
