@@ -190,33 +190,31 @@ const names = () => {
               </Link>
             </li>
             {network && (
-              <li>
-                <Link href="/network">{network}</Link>
+              <li className="flex justify-end">
+                <Link href="/network" className="w-full text-right">{network}</Link>
               </li>
             )}
           </ul>
         </nav>
         <footer className="fixed bottom-0 left-0 flex items-end justify-center w-full h-48 gap-3 bg-gradient-to-t from-white via-white dark:from-black dark:via-black lg:static lg:h-auto lg:w-auto lg:bg-none">
-          <ul>
-            <li>
-              {account ? (
-                <p
-                  className="flex gap-2 p-8 pointer-events-none place-items-center lg:pointer-events-auto lg:p-0"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  {account.slice(0, 5)}...{account.slice(-5)}
-                </p>
-              ) : (
-                <button
-                  className="flex gap-2 p-8 place-items-center lg:p-2"
-                  onClick={connectWallet}
-                >
-                  Connect Wallet
-                </button>
-              )}
-            </li>
-          </ul>
+
+          {account ? (
+            <p
+              className="flex gap-2 p-8 pointer-events-none place-items-center lg:pointer-events-auto lg:p-0"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              {account.slice(0, 5)}...{account.slice(-5)}
+            </p>
+          ) : (
+            <button
+              className="flex gap-2 p-8 place-items-center lg:p-2"
+              onClick={connectWallet}
+            >
+              Connect Wallet
+            </button>
+          )}
+
         </footer>
       </div>
 
