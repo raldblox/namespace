@@ -381,9 +381,7 @@ const names = () => {
               {spaceData.map((space, index) => {
                 return (
                   <option value={space.tld} key={index}>
-                    <span className="font-bold">
-                      .{space.tld} | {space.member.length} space member/s
-                    </span>{" "}
+                    .{space.tld} | {space.member.length} space member/s
                     | {space.info}
                   </option>
                 );
@@ -459,7 +457,6 @@ const names = () => {
                   ready to connect to the{" "}
                   {selectedSpace != "none" && (
                     <>
-                      on{" "}
                       <span className="font-bold ">{selectedSpace} space</span>
                     </>
                   )}{" "}

@@ -226,12 +226,16 @@ export const ContextProvider = (props) => {
   };
 
   const getNamespace = async () => {
+    if (!account) {
+      checkIfWalletIsConnected();
+      return;
+    }
     try {
       const { ethereum } = window;
       if (ethereum) {
         const provider = new ethers.providers.Web3Provider(ethereum);
         const signer = provider.getSigner();
-        console.log("network:", network);
+        console.log("Namespace Network:", network);
         let namelink;
         if (network == "CIC Chain Mainnet") {
           console.log("checking namespace..");
@@ -294,8 +298,6 @@ export const ContextProvider = (props) => {
           console.log("space data:", spaceData);
           setSpaceData(spaceData);
         }
-
-        console.log("namespace:", namelink);
       }
     } catch (error) {
       console.log(error);
@@ -303,6 +305,10 @@ export const ContextProvider = (props) => {
   };
 
   const getUserStats = async () => {
+    if (!account) {
+      checkIfWalletIsConnected();
+      return;
+    }
     try {
       const { ethereum } = window;
       if (ethereum) {
@@ -312,7 +318,6 @@ export const ContextProvider = (props) => {
           const contract = new ethers.Contract(cic.Tokenizer, tokenAbi, signer);
           const distributed = await contract.viewDistributedTokens(account);
           const tokensArray = distributed.map((d) => d.toNumber());
-
           const tokenData = await Promise.all(
             tokensArray.map(async (tokenId) => {
               const owner = await contract.ownerOf(tokenId);
@@ -322,7 +327,7 @@ export const ContextProvider = (props) => {
               return { tokenId, owner, balance, namespace, image };
             })
           );
-          console.log("Space data:", tokenData);
+          console.log("pace data:", tokenData);
           setSpaceData(tokenData);
         } else if (network === "Polygon Mainnet") {
           const contract = new ethers.Contract(polygon.Tokenizer, tokenAbi, signer);
@@ -353,7 +358,7 @@ export const ContextProvider = (props) => {
 
   useEffect(() => {
     if (account) {
-      getUserStats();
+      // getUserStats();
     }
     if (network) {
       getNamespace();
