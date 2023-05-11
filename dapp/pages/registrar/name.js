@@ -228,7 +228,7 @@ const names = () => {
 
       <div className="relative flex place-items-center before:absolute before:h-[300px] before:w-[480px] before:-translate-x-1/2 before:rounded-full before:bg-gradient-radial before:from-white before:to-transparent before:blur-2xl before:content-[''] after:absolute after:-z-20 after:h-[180px] after:w-[240px] after:translate-x-1/3 after:bg-gradient-conic after:from-fuchsia-300 after:via-blue-200 after:blur-2xl after:content-[''] before:dark:bg-gradient-to-br before:dark:from-transparent before:dark:to-blue-700/10 after:dark:from-fuchsia-900 after:dark:via-[#0141ff]/40 before:lg:h-[360px]">
         <p className="text-3xl font-bold lg:text-5xl">
-          <span className="animate-pulse">{name}</span>
+          <span className="animate-pulse">{name ? <>{name}</> : "name"}</span>
           {selectedSpace != "none" && <>.{selectedSpace}</>}
         </p>
       </div>
@@ -317,14 +317,14 @@ const names = () => {
           )}
 
           {name != "" && valid == "invalid" ? (
-            <p className={`p-2 px-4 border mt-2 w-full text-sm bg-red-200`}>
+            <p className={`p-2 px-4 border mt-2 w-full text-sm bg-red-200 dark:bg-red-600`}>
               <span className="font-bold ">{name}</span> is taken and unavailable.
             </p>
           ) : (
             <>
               {valid && (
                 <p
-                  className={`p-2 px-4 border mt-2 w-full text-sm bg-green-200`}
+                  className={`p-2 px-4 border mt-2 w-full text-sm bg-green-200 dark:bg-green-600`}
                 >
                   <span className="font-bold ">{name}</span> is valid and can be your web3 name!
                 </p>
@@ -344,7 +344,7 @@ const names = () => {
             </button>
           )}
           {minting && <p
-            className={`p-2 px-4 border my-2 w-full text-sm bg-orange-200`}
+            className={`p-2 px-4 border my-2 w-full text-sm bg-orange-200 dark:bg-orange-600`}
           >
             Please confirm transaction in your wallet app and wait a bit for its hash. If you’d like to cancel this operation, please decline it in your wallet app.
           </p>}
@@ -354,7 +354,7 @@ const names = () => {
               target="_blank"
             >
               <button
-                className="z-50 w-full px-4 py-2 font-bold text-left bg-blue-200 border hover:bg-black hover:text-white"
+                className="z-50 w-full px-4 py-2 font-bold text-left bg-blue-200 border dark:bg-blue-600 hover:bg-black hover:text-white"
                 onClick={mint}
               >
                 SUCCESS! VERIFY MINT TRANSACTION
@@ -366,7 +366,6 @@ const names = () => {
             3. Join Spaces
             <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none"></span>
           </h2>
-
           {allSpaces && (
             <select
               disabled={!valid || valid == "invalid"}

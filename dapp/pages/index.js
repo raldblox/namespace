@@ -24,7 +24,7 @@ export default function Home() {
           </nav>
           <footer className="fixed bottom-0 left-0 flex items-end justify-center w-full h-32 bg-gradient-to-t from-white via-white dark:from-black dark:via-black lg:static lg:h-auto lg:w-auto lg:bg-none">
             <a
-              className="flex gap-2 p-5 text-sm pointer-events-auto place-items-center lg:p-0"
+              className="flex gap-2 p-5 pointer-events-auto place-items-center lg:p-0"
               href='https://www.zoociety.org'
               target="_blank"
               rel="noopener noreferrer"

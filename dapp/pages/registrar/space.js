@@ -180,20 +180,30 @@ const spaces = () => {
             </li>
           </ul>
         </nav>
-        <footer className="fixed bottom-0 left-0 z-50 flex items-end justify-center w-full h-48 bg-gradient-to-t from-white via-white dark:from-black dark:via-black lg:static lg:h-auto lg:w-auto lg:bg-none">
-          <p
-            className="flex gap-2 p-8 pointer-events-none place-items-center lg:pointer-events-auto lg:p-0"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Powered by <span className="font-black ">Zoociety</span>
-          </p>
+        <footer className="fixed bottom-0 left-0 flex items-end justify-center w-full h-48 gap-3 bg-gradient-to-t from-white via-white dark:from-black dark:via-black lg:static lg:h-auto lg:w-auto lg:bg-none">
+          {account ? (
+            <p
+              className="flex gap-2 p-8 pointer-events-none place-items-center lg:pointer-events-auto lg:p-0"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              {account.slice(0, 5)}...{account.slice(-5)}
+            </p>
+          ) : (
+            <button
+              className="flex gap-2 p-8 place-items-center lg:p-2"
+              onClick={connectWallet}
+            >
+              Connect Wallet
+            </button>
+          )}
+
         </footer>
       </div>
 
       <div className="relative flex flex-col place-items-center before:absolute before:h-[300px] before:w-[480px] before:-translate-x-1/2 before:rounded-full before:bg-gradient-radial before:from-white before:to-transparent before:blur-2xl before:content-[''] after:absolute after:- after:h-[180px] after:w-[240px] after:translate-x-1/3 after:bg-gradient-conic after:from-fuchsia-300 after:via-blue-200 after:blur-2xl after:content-[''] before:dark:bg-gradient-to-br before:dark:from-transparent before:dark:to-blue-700/10 after:dark:from-fuchsia-900 after:dark:via-[#0141ff]/40 before:lg:h-[360px]">
         <p className="text-3xl font-bold lg:text-5xl">
-          name.<span className="animate-pulse">{space}</span>
+          name.<span className="animate-pulse">{space ? <>{space}</> : "space"}</span>
         </p>
         {/* {org && visibility != "empty" && (
           <p className="mt-4 text-lg font-bold">{org} Space</p>

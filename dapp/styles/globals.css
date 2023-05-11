@@ -21,20 +21,20 @@ body {
 
 @layer components {
   main {
-    @apply flex min-h-screen flex-col items-center justify-between px-8 py-24 gap-24 lg:p-10 overflow-hidden;
+    @apply flex flex-col items-center justify-between min-h-screen gap-24 px-8 py-24 overflow-hidden lg:p-10;
   }
   nav ul {
-    @apply flex justify-between items-center gap-1 mx-5 lg:mx-0;
+    @apply flex items-center justify-between gap-1 mx-5 lg:mx-0;
   }
   ul li,
   footer button {
-    @apply dark:bg-transparent hover:bg-gray-800 hover:text-white px-2 py-1 rounded-lg transition-colors motion-reduce:transform-none;
+    @apply px-2 py-1 transition-colors rounded-lg dark:bg-transparent hover:bg-gray-800 hover:text-white motion-reduce:transform-none;
   }
   button,
   select,
   option,
   input,
   #badge-class {
-    @apply transition-colors motion-reduce:transform-none dark:bg-gray-900;
+    @apply transition-colors motion-reduce:transform-none dark:bg-transparent;
   }
 }
