@@ -369,7 +369,7 @@ const spaces = () => {
             className="w-full px-4 py-2 font-bold text-left border "
             placeholder="space domain or symbol"
           />
-          {visibility && visibility != "empty" && chain && (
+          {/* {visibility && visibility != "empty" && chain && (
             <>
               <p className="w-full mt-2 text-xs text-center">
                 upload your logo or banner (preferably squared)
@@ -381,7 +381,7 @@ const spaces = () => {
                 placeholder="space description"
               />
             </>
-          )}
+          )} */}
 
           {space != "" && (
             <button
