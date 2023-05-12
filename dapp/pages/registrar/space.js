@@ -105,7 +105,7 @@ const spaces = () => {
 
           let tx;
           if (isPrivate || isPublic) {
-            tx = await contract.createName(account, space, org, description, "https://namespace.zoociety.org/assets/namespace.png", isPublic, {
+            tx = await contract.createName(account, space, org, description, "https://namespace.zoociety.org/assets/namespace.png", true, {
               value: ethers.utils.parseEther(String(1)),
             });
           } else {
