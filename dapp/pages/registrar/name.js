@@ -230,7 +230,7 @@ const names = () => {
       <div className="relative flex place-items-center ">
         <p className="text-3xl font-bold lg:text-5xl">
           <span className="animate-pulse">{name ? <>{name}</> : "name"}</span>
-          {selectedSpace != "none" && <>.{selectedSpace}</>}
+          {selectedSpace != "none" && <>.{selectedSpace ? <>{selectedSpace}</> : "space"}</>}
         </p>
       </div>
 
