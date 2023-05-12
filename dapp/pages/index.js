@@ -35,7 +35,7 @@ export default function Home() {
           </footer>
         </div>
 
-        <div className="relative flex text-center flex-col place-items-center before:absolute before:h-[300px] before:w-[480px] before:-translate-x-1/2 before:rounded-full before:bg-gradient-radial before:from-white before:to-transparent before:blur-2xl before:content-[''] after:absolute after:-z-20 after:h-[180px] after:w-[240px] after:translate-x-1/3 after:bg-gradient-conic after:from-fuchsia-300 after:via-blue-200 after:blur-2xl after:content-[''] before:dark:bg-gradient-to-br before:dark:from-transparent before:dark:to-blue-700/10 after:dark:from-fuchsia-900 after:dark:via-[#0141ff]/40 before:lg:h-[360px]">
+        <div className="relative flex text-center flex-col place-items-center before:absolute before:h-[50px] before:w-[300px] before:-translate-x-1/3 before:-translate-y-1/3 before:rounded-full before:bg-gradient-radial before:from-[#00005b2b] before:to-transparent before:blur-2xl before:content-[''] after:absolute after:-z-20 after:h-[180px] after:w-[240px] after:translate-x-1/3 after:bg-gradient-conic after:from-fuchsia-300 after:via-blue-200 after:blur-2xl after:content-[''] before:dark:bg-gradient-to-br before:dark:from-transparent before:dark:to-blue-700/10 after:dark:from-fuchsia-900 after:dark:via-[#0141ff]/40 before:lg:h-[360px]">
           <p className='flex max-w-2xl text-4xl font-bold lg:text-5xl'>
             Create, connect and control your blockchain presence with namespace.
           </p>

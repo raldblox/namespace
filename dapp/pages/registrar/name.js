@@ -6,6 +6,7 @@ import Link from "next/link";
 import React, { useContext, useState } from "react";
 import tokenAbi from "/data/contractABI/token.json";
 import namespaceAbi from "/data/contractABI/namespace.json";
+import SwitchNetwork from "@/components/SwitchNetwork";
 
 const names = () => {
   const {
@@ -22,7 +23,7 @@ const names = () => {
   } = useContext(Context);
   const [name, setName] = useState("");
   const [chain, setChain] = useState("chain");
-  const [selectedSpace, setSpace] = useState("space");
+  const [selectedSpace, setSpace] = useState("");
   const [receipt, setReceipt] = useState("");
   const [connectionReceipt, setConnectionReceipt] = useState("");
   const [valid, setValid] = useState(false);
@@ -171,7 +172,7 @@ const names = () => {
   const reset = () => {
     setName("");
     setChain("chain");
-    setChain("space");
+    setChain("");
     setValid(false);
   };
 
@@ -226,7 +227,7 @@ const names = () => {
         </footer>
       </div>
 
-      <div className="relative flex place-items-center before:absolute before:h-[300px] before:w-[480px] before:-translate-x-1/2 before:rounded-full before:bg-gradient-radial before:from-white before:to-transparent before:blur-2xl before:content-[''] after:absolute after:-z-20 after:h-[180px] after:w-[240px] after:translate-x-1/3 after:bg-gradient-conic after:from-fuchsia-300 after:via-blue-200 after:blur-2xl after:content-[''] before:dark:bg-gradient-to-br before:dark:from-transparent before:dark:to-blue-700/10 after:dark:from-fuchsia-900 after:dark:via-[#0141ff]/40 before:lg:h-[360px]">
+      <div className="relative flex place-items-center ">
         <p className="text-3xl font-bold lg:text-5xl">
           <span className="animate-pulse">{name ? <>{name}</> : "name"}</span>
           {selectedSpace != "none" && <>.{selectedSpace}</>}
@@ -269,24 +270,7 @@ const names = () => {
               </option>
             </select>
           </div>
-          {chain == "Polygon Mainnet" && network != "Polygon Mainnet" && <button
-            className="z-50 w-full px-4 py-2 mt-2 font-bold text-left border hover:bg-black hover:text-white"
-            onClick={switchPolygon}
-          >
-            Switch to Polygon
-          </button>}
-          {chain == "Polygon Mumbai" && network != "Polygon Mumbai" && <button
-            className="z-50 w-full px-4 py-2 mt-2 font-bold text-left border hover:bg-black hover:text-white"
-            onClick={switchMumbai}
-          >
-            Switch to Mumbai
-          </button>}
-          {chain == "Arbitrum One" && network != "Arbitrum One" && <button
-            className="z-50 w-full px-4 py-2 mt-2 font-bold text-left border hover:bg-black hover:text-white"
-            onClick={switchArbitrum}
-          >
-            Switch to Arbitrum One
-          </button>}
+          <SwitchNetwork chain={chain} />
           <button
             className="z-50 w-full px-4 py-2 mt-2 font-bold text-left border hover:bg-black hover:text-white"
             onClick={reset}
@@ -333,7 +317,7 @@ const names = () => {
           )}
           {name != "" && valid == true && !receipt && (
             <button
-              className="z-50 w-full px-4 py-2 mt-2 font-bold text-left border hover:bg-black hover:text-white"
+              className="z-50 w-full px-4 py-2 mt-2 font-bold text-left text-white bg-black border hover:bg-white hover:text-black"
               onClick={mint}
             >
               Mint <span className="font-bold animate-pulse">{name}</span> for {chain == "CIC Chain Mainnet" && "1 $CIC"}
@@ -388,7 +372,7 @@ const names = () => {
             </select>
           )}
 
-          {selectedSpace != "space" && (
+          {selectedSpace != "" && (
             <>
               <img
                 src={
@@ -421,7 +405,7 @@ const names = () => {
 
           {valid && selectedSpace != "none" && (
             <p className="w-full p-2 my-2 text-sm border opacity-50">
-              {selectedSpace == "space" && (
+              {selectedSpace == "" && (
                 <>
                   Connect your <span className="font-bold">{name}</span> to some
                   spaces to create a namespace.{" "}
@@ -438,7 +422,7 @@ const names = () => {
           </h2>
           {chain != "chain" &&
             name != "name" &&
-            selectedSpace != "space" &&
+            selectedSpace != "none" && selectedSpace != "" &&
             valid && (
               <>
                 <button
