@@ -105,11 +105,11 @@ const spaces = () => {
 
           let tx;
           if (isPrivate || isPublic) {
-            tx = await contract.createName(account, space, org, description, "", isPublic, {
+            tx = await contract.createName(account, space, org, description, "https://namespace.zoociety.org/assets/namespace.png", isPublic, {
               value: ethers.utils.parseEther(String(1)),
             });
           } else {
-            tx = await contract.createName(account, space, "", "", "", false, {
+            tx = await contract.createName(account, space, "", "", "https://namespace.zoociety.org/assets/namespace.png", false, {
               value: ethers.utils.parseEther(String(1)),
             });
           }
@@ -376,7 +376,7 @@ const spaces = () => {
               </p>
               <input
                 type="file"
-                onChange={(e) => setDescription(e.target.value)}
+                // onChange={(e) => setDescription(e.target.value)}
                 className="z-50 w-full px-4 py-2 my-2 font-bold text-left border"
                 placeholder="space description"
               />
