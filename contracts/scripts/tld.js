@@ -26,7 +26,7 @@ async function main() {
     const { name, description, tld: domain } = tld;
     const spaceName = `${domain}`;
     const spaceDescription = `${description}`;
-    const spaceImage = "https://zoociety.xyz/assets/namespace.png";
+    const spaceImage = "https://namespace.zoociety.org/assets/namespace.png";
 
     await namespace.createSpace(
       deployer.address,

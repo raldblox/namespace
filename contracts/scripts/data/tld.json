@@ -1,22 +1,17 @@
 [
   {
-    "name": "DeFiChain",
-    "description": "Space for Decentralized Finance",
-    "tld": "defi"
-  },
-  {
     "name": "NFTopia",
-    "description": "Space for NFT artists and collectors",
+    "description": "Space for NFT enthusiasts, artists and collectors",
     "tld": "nft"
   },
   {
     "name": "DAOcity",
-    "description": "Decentralized Autonomous Organization",
+    "description": "Space for Decentralized Autonomous Organization",
     "tld": "dao"
   },
   {
     "name": "CryptoGalaxy",
-    "description": "Virtual reality blockchain game",
+    "description": "",
     "tld": "galaxy"
   },
   {
@@ -25,7 +20,7 @@
     "tld": "mint"
   },
   {
-    "name": "Etherverse",
+    "name": "EtherVerse",
     "description": "Space for Ethereum community",
     "tld": "ether"
   },
@@ -35,8 +30,8 @@
     "tld": "link"
   },
   {
-    "name": "Stablecoinify",
-    "description": "Platform for creating stablecoins",
+    "name": "StableCoinify",
+    "description": "Space for stablecoins",
     "tld": "stable"
   },
   {
@@ -48,5 +43,15 @@
     "name": "PolygonHub",
     "description": "Space hub for Polygon",
     "tld": "polygon"
+  },
+  {
+    "name": "Crypton Names Service",
+    "description": "Space for CNS nameholders",
+    "tld": "on"
+  },
+  {
+    "name": "Web3Space",
+    "description": "Web3 Space for Filipinos",
+    "tld": "ph"
   }
 ]

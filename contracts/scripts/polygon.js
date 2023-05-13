@@ -43,148 +43,175 @@ async function main() {
   console.log("Themer:", themer.address);
   console.log("Visualizer:", visualizer.address);
 
-  // Link All Contracts
-  await namespace.setToken(token.address, {
-    maxFeePerGas,
-    maxPriorityFeePerGas,
-  });
-  console.log("Token is connected to namespace.");
-  await token.setNamespace(namespace.address, {
-    maxFeePerGas,
-    maxPriorityFeePerGas,
-  });
-  console.log("Namespace is connected to token.");
-  await token.setThemer(themer.address, {
-    maxFeePerGas,
-    maxPriorityFeePerGas,
-  });
-  console.log("Themer is connected to token.");
-  await token.setVisualizer(visualizer.address, {
-    maxFeePerGas,
-    maxPriorityFeePerGas,
-  });
-  console.log("Visualizer is connected to token.");
+  // // Link All Contracts
+  // await namespace.setToken(token.address, {
+  //   maxFeePerGas,
+  //   maxPriorityFeePerGas,
+  // });
+  // console.log("Token is connected to namespace.");
+  // await token.setNamespace(namespace.address, {
+  //   maxFeePerGas,
+  //   maxPriorityFeePerGas,
+  // });
+  // console.log("Namespace is connected to token.");
+  // await token.setThemer(themer.address, {
+  //   maxFeePerGas,
+  //   maxPriorityFeePerGas,
+  // });
+  // console.log("Themer is connected to token.");
+  // await token.setVisualizer(visualizer.address, {
+  //   maxFeePerGas,
+  //   maxPriorityFeePerGas,
+  // });
+  // console.log("Visualizer is connected to token.");
 
   // CREATE SPACES
-  await namespace.createSpace(
-    deployer.address,
-    "space",
-    "namespace",
-    "Connect, create, and control with Namespace.",
-    "https://zoociety.xyz/assets/namespace.png",
-    true,
-    {
-      maxFeePerGas,
-      maxPriorityFeePerGas,
-    }
-  );
-  await namespace.createSpace(
-    deployer.address,
-    "blox",
-    "BLOXIE",
-    "A space full of blo[x]es",
-    "https://zoociety.xyz/assets/me.png",
-    true,
-    {
-      maxFeePerGas,
-      maxPriorityFeePerGas,
-    }
-  );
-  await namespace.createSpace(
-    deployer.address,
-    "zoociety",
-    "ZOOCIETY",
-    "Synergistic Ecosystem of Emerging Technology",
-    "https://zoociety.xyz/assets/zoociety.png",
-    true,
-    {
-      maxFeePerGas,
-      maxPriorityFeePerGas,
-    }
-  );
-  await namespace.createSpace(
-    deployer.address,
-    "badge",
-    "BADGIFY",
-    "We make awesome digital badges on the blockchain",
-    "https://zoociety.xyz/assets/badgify.png",
-    true,
-    {
-      maxFeePerGas,
-      maxPriorityFeePerGas,
-    }
-  );
+  // await namespace.createSpace(
+  //   deployer.address,
+  //   "space",
+  //   "namespace",
+  //   "Connect, create, and control with Namespace.",
+  //   "https://zoociety.xyz/assets/namespace.png",
+  //   true,
+  //   {
+  //     maxFeePerGas,
+  //     maxPriorityFeePerGas,
+  //   }
+  // );
+  // await namespace.createSpace(
+  //   deployer.address,
+  //   "blox",
+  //   "BLOXIE",
+  //   "A space full of blo[x]es",
+  //   "https://zoociety.xyz/assets/me.png",
+  //   true,
+  //   {
+  //     maxFeePerGas,
+  //     maxPriorityFeePerGas,
+  //   }
+  // );
+  // await namespace.createSpace(
+  //   deployer.address,
+  //   "zoociety",
+  //   "ZOOCIETY",
+  //   "Synergistic Ecosystem of Emerging Technology",
+  //   "https://zoociety.xyz/assets/zoociety.png",
+  //   true,
+  //   {
+  //     maxFeePerGas,
+  //     maxPriorityFeePerGas,
+  //   }
+  // );
+  // await namespace.createSpace(
+  //   deployer.address,
+  //   "badge",
+  //   "BADGIFY",
+  //   "We make awesome digital badges on the blockchain",
+  //   "https://zoociety.xyz/assets/badgify.png",
+  //   true,
+  //   {
+  //     maxFeePerGas,
+  //     maxPriorityFeePerGas,
+  //   }
+  // );
 
-  await namespace.createName("rald", deployer.address, {
-    maxFeePerGas,
-    maxPriorityFeePerGas,
-  });
-  await namespace.createName("raldblox", deployer.address, {
-    maxFeePerGas,
-    maxPriorityFeePerGas,
-  });
-  await namespace.createName("zoociety", deployer.address, {
-    maxFeePerGas,
-    maxPriorityFeePerGas,
-  });
-  await namespace.createName("badgify", deployer.address, {
-    maxFeePerGas,
-    maxPriorityFeePerGas,
-  });
-  await namespace.createName("namespace", deployer.address, {
-    maxFeePerGas,
-    maxPriorityFeePerGas,
-  });
+  // await namespace.createName("rald", deployer.address, {
+  //   maxFeePerGas,
+  //   maxPriorityFeePerGas,
+  // });
+  // await namespace.createName("raldblox", deployer.address, {
+  //   maxFeePerGas,
+  //   maxPriorityFeePerGas,
+  // });
+  // await namespace.createName("zoociety", deployer.address, {
+  //   maxFeePerGas,
+  //   maxPriorityFeePerGas,
+  // });
+  // await namespace.createName("badgify", deployer.address, {
+  //   maxFeePerGas,
+  //   maxPriorityFeePerGas,
+  // });
+  // await namespace.createName("namespace", deployer.address, {
+  //   maxFeePerGas,
+  //   maxPriorityFeePerGas,
+  // });
 
-  await namespace.connectSpace("rald", "blox", {
-    maxFeePerGas,
-    maxPriorityFeePerGas,
-  });
-  await namespace.connectSpace("rald", "space", {
-    maxFeePerGas,
-    maxPriorityFeePerGas,
-  });
-  await namespace.connectSpace("rald", "badge", {
-    maxFeePerGas,
-    maxPriorityFeePerGas,
-  });
-  await namespace.connectSpace("rald", "zoociety", {
-    maxFeePerGas,
-    maxPriorityFeePerGas,
-  });
-  await namespace.connectSpace("raldblox", "badge", {
-    maxFeePerGas,
-    maxPriorityFeePerGas,
-  });
-  await namespace.connectSpace("raldblox", "zoociety", {
-    maxFeePerGas,
-    maxPriorityFeePerGas,
-  });
-  await namespace.connectSpace("raldblox", "space", {
-    maxFeePerGas,
-    maxPriorityFeePerGas,
-  });
+  // await namespace.connectSpace("rald", "blox", {
+  //   maxFeePerGas,
+  //   maxPriorityFeePerGas,
+  // });
+  // await namespace.connectSpace("rald", "space", {
+  //   maxFeePerGas,
+  //   maxPriorityFeePerGas,
+  // });
+  // await namespace.connectSpace("rald", "badge", {
+  //   maxFeePerGas,
+  //   maxPriorityFeePerGas,
+  // });
+  // await namespace.connectSpace("rald", "zoociety", {
+  //   maxFeePerGas,
+  //   maxPriorityFeePerGas,
+  // });
+  // await namespace.connectSpace("raldblox", "badge", {
+  //   maxFeePerGas,
+  //   maxPriorityFeePerGas,
+  // });
+  // await namespace.connectSpace("raldblox", "zoociety", {
+  //   maxFeePerGas,
+  //   maxPriorityFeePerGas,
+  // });
+  // await namespace.connectSpace("raldblox", "space", {
+  //   maxFeePerGas,
+  //   maxPriorityFeePerGas,
+  // });
 
-  await token.setColor(1, "#131313", "#94ff2b", {
-    maxFeePerGas,
-    maxPriorityFeePerGas,
-  });
-  await token.setColor(2, "#f0f8ff", "#ff0000", {
-    maxFeePerGas,
-    maxPriorityFeePerGas,
-  });
-  await token.setColor(3, "#131313", "#00ff7f", {
-    maxFeePerGas,
-    maxPriorityFeePerGas,
-  });
-  await token.setColor(4, "#131313", "#3399ff", {
-    maxFeePerGas,
-    maxPriorityFeePerGas,
-  });
-  await token.setColor(5, "#131313", "#00ffff", {
-    maxFeePerGas,
-    maxPriorityFeePerGas,
-  });
+  // await token.setColor(1, "#131313", "#94ff2b", {
+  //   maxFeePerGas,
+  //   maxPriorityFeePerGas,
+  // });
+  // await token.setColor(2, "#f0f8ff", "#ff0000", {
+  //   maxFeePerGas,
+  //   maxPriorityFeePerGas,
+  // });
+  // await token.setColor(3, "#131313", "#00ff7f", {
+  //   maxFeePerGas,
+  //   maxPriorityFeePerGas,
+  // });
+  // await token.setColor(4, "#131313", "#3399ff", {
+  //   maxFeePerGas,
+  //   maxPriorityFeePerGas,
+  // });
+  // await token.setColor(5, "#131313", "#00ffff", {
+  //   maxFeePerGas,
+  //   maxPriorityFeePerGas,
+  // });
+
+  const dataDir = path.join(__dirname, "data");
+  const tldFile = path.join(dataDir, "tld.json");
+  const tlds = JSON.parse(fs.readFileSync(tldFile, "utf8"));
+
+  for (const tld of tlds) {
+    const { name, description, tld: domain } = tld;
+    const spaceName = `${domain}`;
+    const spaceDescription = `${description}`;
+    const spaceImage = "https://namespace.zoociety.org/assets/namespace.png";
+
+    await namespace.createSpace(
+      deployer.address,
+      spaceName,
+      name,
+      spaceDescription,
+      spaceImage,
+      true,
+      {
+        value: hre.ethers.utils.parseEther("1"),
+      }
+    );
+    console.log(`Created space for ${domain}`);
+  }
+
+  console.log("Token Supply:", await namespace.tokenSupply());
+  console.log("All Spaces:", await namespace.getAllSpaces());
 
   console.log("Token Supply:", await namespace.tokenSupply());
   console.log("Member Count:", await namespace.getSpaceNames("blox"));
