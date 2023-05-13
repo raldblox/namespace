@@ -11,6 +11,7 @@
   "dependencies": {
     "@mui/icons-material": "^5.11.16",
     "@vercel/analytics": "^0.1.11",
+    "animate.css": "^4.1.1",
     "autoprefixer": "10.4.14",
     "axios": "^1.4.0",
     "cross-env": "^7.0.3",

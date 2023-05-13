@@ -3,7 +3,7 @@ import { mumbai, polygon } from "@/data/contracts";
 import { ethers } from "ethers";
 import Image from "next/image";
 import Link from "next/link";
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import tokenAbi from "/data/contractABI/token.json";
 import namespaceAbi from "/data/contractABI/namespace.json";
 import SwitchNetwork from "@/components/SwitchNetwork";
@@ -17,7 +17,7 @@ const names = () => {
     switchMumbai,
     switchCicMainnet,
     network,
-    switchArbitrum,
+    getNamespace,
     allSpaces,
     spaceData,
   } = useContext(Context);
@@ -175,6 +175,10 @@ const names = () => {
     setChain("");
     setValid(false);
   };
+
+  useEffect(() => {
+    getNamespace();
+  }, []);
 
   return (
     <main>

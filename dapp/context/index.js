@@ -18,6 +18,7 @@ export const ContextProvider = (props) => {
   const [distributed, setDistributed] = useState("");
   const [spaceData, setSpaceData] = useState([]);
   const [allSpaces, setAllSpaces] = useState([]);
+  const [allNames, setAllNames] = useState([]);
 
   const connectWallet = async () => {
     setConnected(false);
@@ -62,14 +63,12 @@ export const ContextProvider = (props) => {
       console.log("Connected account:", account);
       setAccount(account.toLowerCase());
       setConnected(true);
-      const provider = new ethers.providers.Web3Provider(window.ethereum);
-      const balanceWei = await provider.getBalance(account);
-      const balance = ethers.utils.formatEther(balanceWei);
-      setBalanceEth(balance);
     } else {
       console.log("No authorized account found");
     }
+
     const chainId = await ethereum.request({ method: "eth_chainId" });
+    console.log("Chain ID:", chainId, networks[chainId]);
     setNetwork(networks[chainId]);
     ethereum.on("chainChanged", handleChainChanged);
     function handleChainChanged(_chainId) {
@@ -226,16 +225,16 @@ export const ContextProvider = (props) => {
   };
 
   const getNamespace = async () => {
-    if (!account) {
-      checkIfWalletIsConnected();
-      return;
-    }
+    // if (!account) {
+    //   checkIfWalletIsConnected();
+    //   return;
+    // }
     try {
       const { ethereum } = window;
       if (ethereum) {
         const provider = new ethers.providers.Web3Provider(ethereum);
         const signer = provider.getSigner();
-        console.log("Namespace Network:", network);
+        console.log("Verify Network: ", network);
         let namelink;
         if (network == "CIC Chain Mainnet") {
           console.log("checking namespace..");
@@ -246,8 +245,8 @@ export const ContextProvider = (props) => {
           );
           namelink = await contract.getNamespace(account);
           setNamespace(namelink);
-        }
-        if (network == "Polygon Mainnet") {
+        } else if (network == "Polygon Mainnet") {
+          console.log("checking namespace..");
           const contract = new ethers.Contract(
             polygon.Namespace,
             namespaceAbi,
@@ -256,10 +255,13 @@ export const ContextProvider = (props) => {
           const primary = await contract.resolveAddress(account);
           setNamespace(primary);
           const spaces = await contract.getAllSpaces();
+          const names = await contract.getAllNames();
+          setAllNames(names);
           setAllSpaces(spaces);
           const spaceData = await Promise.all(
             spaces.map(async (space) => {
               const tld = space;
+              console.log("Space Found:", tld);
               const member = (await contract.getSpaceNames(space)).length;
               const tokenId = await contract.getTokenIds(space);
               const info = await contract.getSpaceInfo(space);
@@ -271,8 +273,7 @@ export const ContextProvider = (props) => {
           );
           console.log("Spaces data:", spaceData);
           setSpaceData(spaceData);
-        }
-        if (network == "Polygon Mumbai") {
+        } else if (network == "Polygon Mumbai") {
           console.log("getting all spaces..");
           const contract = new ethers.Contract(
             mumbai.Namespace,
@@ -306,7 +307,6 @@ export const ContextProvider = (props) => {
 
   const getUserStats = async () => {
     if (!account) {
-      checkIfWalletIsConnected();
       return;
     }
     try {
@@ -327,24 +327,17 @@ export const ContextProvider = (props) => {
               return { tokenId, owner, balance, namespace, image };
             })
           );
-          console.log("pace data:", tokenData);
-          setSpaceData(tokenData);
         } else if (network === "Polygon Mainnet") {
           const contract = new ethers.Contract(polygon.Tokenizer, tokenAbi, signer);
-          const distributed = await contract.viewDistributedTokens(account);
-          const tokensArray = distributed.map((d) => d.toNumber());
+          // const nameData = await Promise.all(
+          //   allNames.map(async (name) => {
+          //     const names = await contract.getNameSpaces(name);
+          //     return { names };
+          //   })
+          // );
 
-          const tokenData = await Promise.all(
-            tokensArray.map(async (tokenId) => {
-              const owner = await contract.ownerOf(tokenId);
-              const balance = await contract.viewBalance(tokenId);
-              const namespace = await contract.viewNamespace(owner);
-              const image = await contract.generateImage(tokenId);
-              return { tokenId, owner, balance, namespace, image };
-            })
-          );
-          console.log("space data:", tokenData);
-          setSpaceData(tokenData);
+          // console.log("Name data:", nameData);
+          // setNameData(nameData);
         }
       }
     } catch (error) {
@@ -354,16 +347,15 @@ export const ContextProvider = (props) => {
 
   useEffect(() => {
     checkIfWalletIsConnected();
+    getNamespace();
   }, []);
 
   useEffect(() => {
-    if (account) {
-      // getUserStats();
-    }
-    if (network) {
+    if (!account) {
       getNamespace();
+      getUserStats();
     }
-  }, [account, network]);
+  }, [account]);
 
   const value = {
     page,
@@ -388,6 +380,7 @@ export const ContextProvider = (props) => {
     spaceData,
     allSpaces,
     setAllSpaces,
+    allNames
   };
 
   return <Context.Provider value={value}>{props.children}</Context.Provider>;
