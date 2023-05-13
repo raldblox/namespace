@@ -343,7 +343,7 @@ const names = () => {
               target="_blank"
             >
               <button
-                className="z-50 w-full px-4 py-2 font-bold text-left bg-blue-200 border dark:bg-blue-600 hover:bg-black hover:text-white"
+                className="z-50 w-full px-4 py-2 font-bold text-center bg-blue-200 border dark:bg-blue-600 hover:bg-black hover:text-white"
                 onClick={mint}
               >
                 SUCCESS! VERIFY MINT TRANSACTION
