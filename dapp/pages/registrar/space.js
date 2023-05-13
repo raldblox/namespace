@@ -393,14 +393,14 @@ const spaces = () => {
           )}
 
           {space != "" && valid == "invalid" ? (
-            <p className={`p-2 px-4 border mt-2 w-full text-sm bg-red-200`}>
+            <p className={`p-2 px-4 border mt-2 w-full text-sm bg-red-200 dark:text-black `}>
               <span className="font-bold ">{space}</span> is taken and unavailable.
             </p>
           ) : (
             <>
               {valid && (
                 <p
-                  className={`p-2 px-4 border mt-2 w-full text-sm bg-green-200`}
+                  className={`p-2 px-4 border mt-2 w-full text-sm bg-green-200 dark:text-black `}
                 >
                   <span className="font-bold">.{space}</span> is valid and can be your community or organization identity!
                 </p>
@@ -429,7 +429,7 @@ const spaces = () => {
             </>
           )}
           {minting && <p
-            className={`p-2 px-4 border my-2 w-full text-sm bg-orange-200`}
+            className={`p-2 px-4 border my-2 w-full text-sm bg-orange-200 dark:text-black `}
           >
             Please confirm transaction in your wallet app and wait a bit for its hash. If you’d like to cancel this operation, please decline it in your wallet app.
           </p>}
