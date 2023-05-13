@@ -252,9 +252,7 @@ const names = () => {
               <option value="Arbitrum One" disabled={true}>Arbitrum One</option>
               <option value="CIC Chain" disabled={true}>CIC Chain Mainnet</option>
               <option value="Filecoin VM" disabled={true}>Filecoin VM Mainnet</option>
-              <option value="Polygon Mumbai" disabled={true}>Polygon Mumbai Testnet</option>
-              <option value="Filecoin Hyperspace" disabled={true}>Filecoin Hyperspace</option>
-              <option value="Polygon zkEVM" disabled={true}>Polygon zkEVM Testnet</option>
+
               <option value="CIC Chain" disabled={true}>CIC Chain Mainnet</option>
               <option value="ethereum" disabled={true}>
                 Ethereum
@@ -268,6 +266,9 @@ const names = () => {
               <option value="Binance" disabled={true}>
                 Binance Smart Chain
               </option>
+              <option value="Polygon Mumbai" disabled={true}>Polygon Mumbai Testnet</option>
+              <option value="Filecoin Hyperspace" disabled={true}>Filecoin Hyperspace</option>
+              <option value="Polygon zkEVM" disabled={true}>Polygon zkEVM Testnet</option>
             </select>
           </div>
           <SwitchNetwork chain={chain} />

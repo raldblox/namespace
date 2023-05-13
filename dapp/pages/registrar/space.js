@@ -278,9 +278,6 @@ const spaces = () => {
               <option value="Arbitrum One" disabled={true}>Arbitrum One</option>
               <option value="CIC Chain" disabled={true}>CIC Chain Mainnet</option>
               <option value="Filecoin VM" disabled={true}>Filecoin VM Mainnet</option>
-              <option value="Polygon Mumbai" disabled={true}>Polygon Mumbai Testnet</option>
-              <option value="Filecoin Hyperspace" disabled={true}>Filecoin Hyperspace</option>
-              <option value="Polygon zkEVM" disabled={true}>Polygon zkEVM Testnet</option>
               <option value="CIC Chain" disabled={true}>CIC Chain Mainnet</option>
               <option value="ethereum" disabled={true}>
                 Ethereum
@@ -294,6 +291,9 @@ const spaces = () => {
               <option value="Binance" disabled={true}>
                 Binance Smart Chain
               </option>
+              <option value="Polygon Mumbai" disabled={true}>Polygon Mumbai Testnet</option>
+              <option value="Filecoin Hyperspace" disabled={true}>Filecoin Hyperspace</option>
+              <option value="Polygon zkEVM" disabled={true}>Polygon zkEVM Testnet</option>
             </select>
             <SwitchNetwork chain={chain} />
             <button
@@ -324,20 +324,20 @@ const spaces = () => {
           </select>
           {visibility == "public" && (
             <p className="w-full m-0 mt-2 text-sm opacity-50">
-              <span className="font-bold">{visibility} Space</span> allows
+              <span className="font-bold uppercase">{visibility} space</span> allows
               anyone around the world to connect to your space.
             </p>
           )}
           {visibility == "private" && (
             <p className="w-full m-0 mt-2 text-sm opacity-50">
-              <span className="font-bold">{visibility} Space</span> allows you
+              <span className="font-bold uppercase">{visibility} Space</span> allows you
               to whitelist addresses before they can connect to
               your space.
             </p>
           )}
           {visibility == "empty" && (
             <p className="w-full m-0 mt-2 text-sm opacity-50">
-              <span className="font-bold">{visibility} Space</span> allows you
+              <span className="font-bold uppercase">{visibility} Space</span> allows you
               to take ownership of space domain then use or sell it afterwards.
             </p>
           )}

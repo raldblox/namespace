@@ -17,11 +17,12 @@
 body {
   color: var(--primary-text);
   background: var(--background);
+  background-image: url("/grid.webp");
 }
 
 @layer components {
   main {
-    @apply flex flex-col items-center justify-between min-h-screen gap-24 px-8 py-24 overflow-hidden lg:p-10;
+    @apply flex flex-col items-center justify-between min-h-screen gap-24 px-5 py-24 overflow-hidden lg:p-10;
   }
   nav ul {
     @apply flex items-center justify-between gap-1 mx-5 lg:mx-0;
@@ -35,6 +36,6 @@ body {
   option,
   input,
   #badge-class {
-    @apply transition-colors motion-reduce:transform-none dark:bg-transparent;
+    @apply transition-colors motion-reduce:transform-none dark:bg-gray-950;
   }
 }
