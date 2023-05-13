@@ -43,9 +43,9 @@ const TypingText = ({ result }) => {
         }
     }
     return (
-        <div className="flex flex-col items- gap-5">
+        <div className="flex flex-col">
             <h1 className="text-4xl font-bold">
-                <span className="txt-rotate px-4 py-2" dataPeriod="1000" data-rotate={toRotate}>
+                <span className="txt-rotate py-2" dataPeriod="1000" data-rotate={toRotate}>
                     <span className="wrap">name.{text}</span>
                 </span>
             </h1>

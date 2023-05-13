@@ -9,9 +9,7 @@ const inter = Inter({ subsets: ['latin'] })
 export default function Home() {
   return (
     <>
-      <main
-        className={`${inter.className}`}
-      >
+      <main className={`${inter.className}`}>
         <div className="z-10 items-center justify-between w-full font-mono text-base lg:flex">
           <nav className="fixed top-0 left-0 flex justify-center w-full py-2 border-b border-gray-300 bg-gradient-to-b from-zinc-100 backdrop-blur-2xl dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit lg:static lg:w-auto lg:rounded-xl lg:border lg:bg-gray-100 lg:p-2 lg:dark:bg-zinc-800/30">
             <ul className='flex justify-between w-full'>
@@ -47,7 +45,7 @@ export default function Home() {
             </span> */}
         </div>
 
-        <div className="z-50 grid w-full gap-2 p-2 mb-24 text-center border border-gray-500 rounded-xl lg:p-2 lg:mb-0 lg:grid-cols-4 lg:text-left">
+        <div className="lg:z-50 grid w-full gap-2 p-2 mb-24 text-center border border-gray-500 rounded-xl lg:p-2 lg:mb-0 lg:grid-cols-4 lg:text-left">
           <Link
             href="/registrar/name"
             className="px-5 py-4 transition-colors border border-transparent rounded-lg group hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
