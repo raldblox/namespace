@@ -20,6 +20,9 @@ export default function Home() {
               <li>
                 <Link href="/ns/browser">nsBrowser</Link>
               </li>
+              <li>
+                <Link href="https://nsdoc.zoociety.org/" target='_blank'>nsDoc</Link>
+              </li>
             </ul>
           </nav>
           <footer className="fixed bottom-0 left-0 flex items-end justify-center w-full h-32 bg-gradient-to-t from-white via-white dark:from-black dark:via-black lg:static lg:h-auto lg:w-auto lg:bg-none">
@@ -45,7 +48,7 @@ export default function Home() {
             </span> */}
         </div>
 
-        <div className="lg:z-50 grid w-full gap-2 p-2 mb-24 text-center border border-gray-500 rounded-xl lg:p-2 lg:mb-0 lg:grid-cols-4 lg:text-left">
+        <div className="grid w-full gap-2 p-2 mb-24 text-center border border-gray-500 lg:z-50 rounded-xl lg:p-2 lg:mb-0 lg:grid-cols-4 lg:text-left">
           <Link
             href="/registrar/name"
             className="px-5 py-4 transition-colors border border-transparent rounded-lg group hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
