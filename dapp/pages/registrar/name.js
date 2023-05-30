@@ -254,18 +254,15 @@ const names = () => {
               <option value="">--Select Blockchain Network--</option>
               <option value="Polygon Mainnet">Polygon Mainnet</option>
               <option value="Arbitrum One" disabled={true}>Arbitrum One</option>
+              <option value="Aptos" disabled={true}>Aptos Blockchain</option>
               <option value="CIC Chain" disabled={true}>CIC Chain Mainnet</option>
               <option value="Filecoin VM" disabled={true}>Filecoin VM Mainnet</option>
-
-              <option value="CIC Chain" disabled={true}>CIC Chain Mainnet</option>
+              <option value="Injective" disabled={true}>Injective Mainnet</option>
               <option value="ethereum" disabled={true}>
                 Ethereum
               </option>
               <option value="Optimism" disabled={true}>
                 Optimism
-              </option>
-              <option value="Aptos" disabled={true}>
-                Aptos Blockchain
               </option>
               <option value="Binance" disabled={true}>
                 Binance Smart Chain
@@ -343,7 +340,7 @@ const names = () => {
               target="_blank"
             >
               <button
-                className="z-50 w-full px-4 py-2 dark:text-black font-bold text-center bg-blue-200 border dark:bg-blue-600 hover:bg-black hover:text-white"
+                className="z-50 w-full px-4 py-2 font-bold text-center bg-blue-200 border dark:text-black dark:bg-blue-600 hover:bg-black hover:text-white"
                 onClick={mint}
               >
                 SUCCESS! VERIFY MINT TRANSACTION

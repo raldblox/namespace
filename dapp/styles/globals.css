@@ -20,6 +20,16 @@ body {
   background-image: url("/grid.webp");
 }
 
+*::-webkit-scrollbar {
+  display: none;
+}
+
+* {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+  @apply transition duration-100 ease-in-out;
+}
+
 @layer components {
   main {
     @apply flex flex-col items-center justify-between min-h-screen gap-24 px-5 py-24 overflow-hidden lg:p-10;

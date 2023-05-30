@@ -224,138 +224,9 @@ export const ContextProvider = (props) => {
     }
   };
 
-  const getNamespace = async () => {
-    // if (!account) {
-    //   checkIfWalletIsConnected();
-    //   return;
-    // }
-    try {
-      const { ethereum } = window;
-      if (ethereum) {
-        const provider = new ethers.providers.Web3Provider(ethereum);
-        const signer = provider.getSigner();
-        console.log("Verify Network: ", network);
-        let namelink;
-        if (network == "CIC Chain Mainnet") {
-          console.log("checking namespace..");
-          const contract = new ethers.Contract(
-            cic.Namespace, // "contract addresss"
-            namespaceAbi,
-            signer
-          );
-          namelink = await contract.getNamespace(account);
-          setNamespace(namelink);
-        } else if (network == "Polygon Mainnet") {
-          console.log("checking namespace..");
-          const contract = new ethers.Contract(
-            polygon.Namespace,
-            namespaceAbi,
-            signer
-          );
-          const primary = await contract.resolveAddress(account);
-          setNamespace(primary);
-          const spaces = await contract.getAllSpaces();
-          const names = await contract.getAllNames();
-          setAllNames(names);
-          setAllSpaces(spaces);
-          const spaceData = await Promise.all(
-            spaces.map(async (space) => {
-              const tld = space;
-              console.log("Space Found:", tld);
-              const member = (await contract.getSpaceNames(space)).length;
-              const tokenId = await contract.getTokenIds(space);
-              const info = await contract.getSpaceInfo(space);
-              const name = await contract.getSpaceOrgname(space);
-              const fee = await contract.getSpaceMembershipFee(space);
-              const image = await contract.getSpaceBanner(space);
-              return { tld, member, tokenId, info, fee, name, image };
-            })
-          );
-          console.log("Spaces data:", spaceData);
-          setSpaceData(spaceData);
-        } else if (network == "Polygon Mumbai") {
-          console.log("getting all spaces..");
-          const contract = new ethers.Contract(
-            mumbai.Namespace,
-            namespaceAbi,
-            signer
-          );
-          const primary = await contract.resolveAddress(account);
-          setNamespace(primary);
-          const spaces = await contract.getAllSpaces();
-          setAllSpaces(spaces);
-          const spaceData = await Promise.all(
-            spaces.map(async (space) => {
-              const tld = space;
-              const member = await contract.getSpaceNames(space);
-              const tokenId = await contract.getTokenIds(space);
-              const info = await contract.getSpaceInfo(space);
-              const name = await contract.getSpaceOrgname(space);
-              const fee = await contract.getSpaceMembershipFee(space);
-              const image = await contract.getSpaceBanner(space);
-              return { tld, member, tokenId, info, fee, name, image };
-            })
-          );
-          console.log("space data:", spaceData);
-          setSpaceData(spaceData);
-        }
-      }
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  const getUserStats = async () => {
-    if (!account) {
-      return;
-    }
-    try {
-      const { ethereum } = window;
-      if (ethereum) {
-        const provider = new ethers.providers.Web3Provider(ethereum);
-        const signer = provider.getSigner();
-        if (network === "CIC Chain Mainnet") {
-          const contract = new ethers.Contract(cic.Tokenizer, tokenAbi, signer);
-          const distributed = await contract.viewDistributedTokens(account);
-          const tokensArray = distributed.map((d) => d.toNumber());
-          const tokenData = await Promise.all(
-            tokensArray.map(async (tokenId) => {
-              const owner = await contract.ownerOf(tokenId);
-              const balance = await contract.viewBalance(tokenId);
-              const namespace = await contract.viewNamespace(owner);
-              const image = await contract.generateImage(tokenId);
-              return { tokenId, owner, balance, namespace, image };
-            })
-          );
-        } else if (network === "Polygon Mainnet") {
-          const contract = new ethers.Contract(polygon.Tokenizer, tokenAbi, signer);
-          // const nameData = await Promise.all(
-          //   allNames.map(async (name) => {
-          //     const names = await contract.getNameSpaces(name);
-          //     return { names };
-          //   })
-          // );
-
-          // console.log("Name data:", nameData);
-          // setNameData(nameData);
-        }
-      }
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
   useEffect(() => {
     checkIfWalletIsConnected();
-    getNamespace();
   }, []);
-
-  useEffect(() => {
-    if (!account) {
-      getNamespace();
-      getUserStats();
-    }
-  }, [account]);
 
   const value = {
     page,
@@ -373,14 +244,13 @@ export const ContextProvider = (props) => {
     setConnected,
     namespace,
     setNamespace,
-    getNamespace,
     switchMumbai,
     distributed,
     switchCicMainnet,
-    spaceData,
     allSpaces,
     setAllSpaces,
-    allNames
+    allNames,
+    checkIfWalletIsConnected
   };
 
   return <Context.Provider value={value}>{props.children}</Context.Provider>;
