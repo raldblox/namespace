@@ -3,9 +3,9 @@ import React, { useEffect, useState } from 'react';
 
 import { AptosClient } from "aptos";
 import { useWallet } from '@manahippo/aptos-wallet-adapter';
-import cmHelper from "../helpers/candyMachineHelper"
-import ConnectWalletButton from '../helpers/Aptos/ConnectWalletButton';
-import { candyMachineAddress, collectionName, collectionCoverUrl, collectionBackgroundUrl, MaxMint, NODE_URL, CONTRACT_ADDRESS, COLLECTION_SIZE, SERVICE_NAME } from "../helpers/candyMachineInfo"
+import cmHelper from '@/helpers/candyMachineHelper';
+import ConnectWalletButton from '@/helpers/Aptos/ConnectWalletButton';
+import { candyMachineAddress, collectionName, collectionCoverUrl, collectionBackgroundUrl, MaxMint, NODE_URL, CONTRACT_ADDRESS, COLLECTION_SIZE, SERVICE_NAME } from "@/helpers/candyMachineInfo"
 
 import Spinner from "react-bootstrap/Spinner"
 import Modal from "react-bootstrap/Modal"
@@ -245,7 +245,7 @@ export default function Home() {
                                         <button onClick={incrementMintAmount} className="" style={{ border: incActive ? '' : '1px solid grey' }}>▲</button>
                                         <button onClick={decrementMintAmount} className="" style={{ border: decActive ? '' : '1px solid grey' }}>▼</button>
                                     </div>
-                                    <div id="mint-amount-input" className={`${styles.defaultInput} me-3`}>
+                                    <div id="mint-amount-input" className={` me-3`}>
                                         <p style={{ marginTop: "15px" }} id="mintAmount">{mintInfo.numToMint}</p>
                                     </div>
                                     <button className="" onClick={mint} disabled={!canMint}>{mintInfo.minting ? <Spinner animation="border" role="status"><span className="visually-hidden">Loading...</span></Spinner> : "Mint"}</button>
