@@ -13,7 +13,7 @@ export default function Home() {
         <div className="z-10 items-center justify-between w-full font-mono text-base lg:flex">
           <nav className="fixed top-0 left-0 flex justify-center w-full py-2 border-b border-gray-300 bg-gradient-to-b from-zinc-100 backdrop-blur-2xl dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit lg:static lg:w-auto lg:rounded-xl lg:border lg:bg-gray-100 lg:p-2 lg:dark:bg-zinc-800/30">
             <ul className='flex justify-between w-full'>
-              <li className='hover:bg-transparent'> 
+              <li className='hover:bg-transparent'>
                 <Image src="/namespace-cube.svg" height={50} width={150} priority className='dark:hidden' />
                 <Image src="/namespace-cube-wht.svg" height={50} width={150} priority className='hidden dark:flex' />
               </li>
@@ -111,7 +111,6 @@ export default function Home() {
           </Link>
         </div>
       </main>
-
     </>
 
 
