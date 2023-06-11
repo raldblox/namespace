@@ -176,9 +176,9 @@ const names = () => {
     setValid(false);
   };
 
-  useEffect(() => {
-    getNamespace();
-  }, []);
+  // useEffect(() => {
+  //   getNamespace();
+  // }, []);
 
   return (
     <main>

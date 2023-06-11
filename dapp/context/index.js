@@ -250,7 +250,8 @@ export const ContextProvider = (props) => {
     allSpaces,
     setAllSpaces,
     allNames,
-    checkIfWalletIsConnected
+    checkIfWalletIsConnected,
+    spaceData
   };
 
   return <Context.Provider value={value}>{props.children}</Context.Provider>;
