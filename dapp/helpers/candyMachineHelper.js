@@ -1,5 +1,5 @@
 import axios from "axios";
-import {candyMachineAddress, collectionName, mode, NODE_URL, CONTRACT_ADDRESS, SERVICE_NAME} from "./candyMachineInfo"
+import { candyMachineAddress, collectionName, mode, NODE_URL, CONTRACT_ADDRESS, SERVICE_NAME } from "./candyMachineInfo"
 
 
 async function getCandyMachineResourceAccount() {
@@ -48,7 +48,7 @@ async function getCandyMachineConfigData(
     });
     const customConfig = {
         headers: {
-        'Content-Type': 'application/json'
+            'Content-Type': 'application/json'
         }
     };
 
@@ -61,7 +61,7 @@ async function getCandyMachineConfigData(
     const presaleMintTime = cmConfigData.presale_mint_time;
     const publicMintTime = cmConfigData.public_mint_time;
 
-    return {isPublic, maxMintsPerWallet, mintFee, presaleMintTime, publicMintTime}
+    return { isPublic, maxMintsPerWallet, mintFee, presaleMintTime, publicMintTime }
 }
 
 async function getMintedNfts(aptosClient, collectionTokenDataHandle, cmResourceAccount, collectionName, txInfo) {
@@ -100,19 +100,19 @@ async function getMintedNfts(aptosClient, collectionTokenDataHandle, cmResourceA
 
 async function getImgFromApiAsync(url) {
     return fetch(url)
-    .then((response) => {
-        console.log("222222" + mintedNft.imageUri);
-        return response.json().img
-    })
-    .catch((error) => {
-      console.error(error);
-    });
- }
+        .then((response) => {
+            console.log("222222" + mintedNft.imageUri);
+            return response.json().img
+        })
+        .catch((error) => {
+            console.error(error);
+        });
+}
 
 function stringToHex(str) {
     var result = '';
-    for (var i=0; i<str.length; i++) {
-      result += str.charCodeAt(i).toString(16);
+    for (var i = 0; i < str.length; i++) {
+        result += str.charCodeAt(i).toString(16);
     }
     return result;
 }
@@ -132,7 +132,7 @@ export function getTimeDifference(current, next) {
 
     var seconds = Math.floor(delta % 60);
 
-    return {days, hours, minutes, seconds};
+    return { days, hours, minutes, seconds };
 }
 
 
