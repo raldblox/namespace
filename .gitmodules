@@ -1,0 +1,3 @@
+[submodule "zetachain-workspace"]
+	path = zetachain-workspace
+	url = https://github.com/raldblox/zetachain-workspace
