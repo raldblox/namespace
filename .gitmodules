@@ -1,3 +1,6 @@
 [submodule "zetachain-workspace"]
 	path = zetachain-workspace
 	url = https://github.com/raldblox/zetachain-workspace
+[submodule "aptos-namespace"]
+	path = aptos-namespace
+	url = https://github.com/raldblox/aptos-namespace
