@@ -39,11 +39,11 @@ const Landing = () => {
           <div className="flex flex-col items-end justify-end w-full h-full col-span-2 gap-5">
             <div className="max-w-[30vw] grid px-6 p-4 bg-dark min-h-[20vh] rounded-2xl w-full group">
               <h2 className="font-bold text-white">BLOCKCHAIN NAMES</h2>
-              <p className="text-gray-400 max-w-[70%]">
-                Create your crosschain blockchain idendity
+              <p className="text-gray-400 max-w-[80%]">
+                Cement your place on web3 and start exploring blockchain spaces.
               </p>
               <a className="pt-6 uppercase accent space group-hover:text-white">
-                Create your idendity
+                Claim unique names
                 <span className="inline-block pl-2 transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
                   &gt;
                 </span>
@@ -51,9 +51,12 @@ const Landing = () => {
             </div>
             <div className="max-w-[30vw] grid px-6 p-4 bg-dark min-h-[20vh] rounded-2xl w-full group">
               <h2 className="font-bold text-white ">BLOCKCHAIN SPACES</h2>
-              <p className="text-gray-400 max-w-[70%]">hehehehehe</p>
+              <p className="text-gray-400 max-w-[80%]">
+                Own your distinct community identities on the blockchain of your
+                choice.
+              </p>
               <a className="pt-6 uppercase accent space group-hover:text-white">
-                Create space
+                Create new spaces
                 <span className="inline-block pl-2 transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
                   &gt;
                 </span>
@@ -63,13 +66,18 @@ const Landing = () => {
         </div>
       </section>
       <section className="p-8 border-b-2 border-black">
-        <div className="grid grid-cols-4 px-4 py-8">
+        <div className="grid grid-cols-4 gap-8 px-4 py-8">
           <h3 className="col-span-1 text-lg">
-            Trusted by experts at the world’s leading blockchain companies
+            Supported by industry experts at the world’s leading blockchain
+            networks
           </h3>
-          <div className="flex col-span-3 justify-evenly">
-            <h1>hello</h1>
-            <h1>hello</h1>
+          <div className="flex items-center col-span-3 justify-evenly">
+            <h2>IBM</h2>
+            <h2>Aptos</h2>
+            <h2>Polygon</h2>
+            <h2>Zetachain</h2>
+            <h2>Filecoin</h2>
+            <h2>Ethereum</h2>
           </div>
         </div>
       </section>
