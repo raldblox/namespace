@@ -3,25 +3,67 @@
 @tailwind utilities;
 
 :root {
-  --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 214, 219, 220;
-  --background-end-rgb: 255, 255, 255;
+  --light-color: #f5f6f6;
+  --dark-color: #15141d;
+  --accent-color: #3af062;
 }
 
-@media (prefers-color-scheme: dark) {
+/* @media (prefers-color-scheme: dark) {
   :root {
-    --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 0, 0, 0;
-    --background-end-rgb: 0, 0, 0;
+    --light-color: #15141d;
+    --dark-color: #f5f6f6;
+    --accent-color: #3af062;
   }
-}
+} */
 
 body {
-  color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
+  background: var(--light-color);
+  color: var(--dark-color);
+  font-family: "Poppins", sans-serif;
+}
+
+* {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+  @apply transition duration-300 ease-in-out;
+}
+
+@layer components {
+  .bg-accent {
+    background: var(--accent-color);
+    color: var(--dark-color);
+  }
+
+  .bg-dark {
+    background: var(--dark-color);
+    color: var(--light-color);
+  }
+
+  .accent {
+    color: var(--accent-color);
+  }
+
+  h1 {
+    font-family: "IBM Plex Mono";
+    letter-spacing: -2px;
+    word-spacing: -12px;
+  }
+
+  .space {
+    letter-spacing: 2px;
+  }
+
+  h2 {
+    font-family: "IBM Plex Mono";
+    font-size: 1.8rem;
+    word-spacing: -8px;
+  }
+
+  button {
+    @apply flex items-center justify-center px-4 py-2 border border-transparent rounded-xl hover:border-black bg-accent gap-x-1 hover:bg-transparent;
+  }
+
+  section {
+    @apply w-full h-full;
+  }
 }
