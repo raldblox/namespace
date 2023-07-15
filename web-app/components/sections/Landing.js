@@ -3,24 +3,24 @@ import React from "react";
 const Landing = () => {
   return (
     <>
-      <section className="p-8 border-b-2 border-black">
-        <div className="grid grid-cols-4 p-4 min-h-[100vh]">
+      <section className="p-4 border-b-2 border-black lg:p-8">
+        <div className="grid grid-cols-2 lg:grid-cols-4 p-4 min-h-[100vh] gap-8">
           <div className="flex flex-col col-span-2 space-y-5">
             <a
               href="javascript:void(0)"
-              className="inline-flex items-center p-1 pr-6 duration-150 border rounded-full group w-fit gap-x-6 hover:bg-accent"
+              className="inline-flex items-center p-1 pr-6 text-xs duration-150 border rounded-full lg:text-sm group w-fit gap-x-6 hover:bg-accent"
             >
               <span className="inline-block px-3 py-1 bg-white border border-black rounded-full">
                 Latest News
               </span>
               <p className="flex items-center">
-                Read the launch post from here
+                Aptos Grantees
                 <span className="inline-block pl-2 transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
                   &gt;
                 </span>
               </p>
             </a>
-            <h1 className="max-w-2xl ">
+            <h1 className="max-w-2xl">
               Unlock boundless possibilities of blockchain names
             </h1>
             <p>One Name, Multiple Spaces, Infinite Possibilities</p>
@@ -37,25 +37,25 @@ const Landing = () => {
             </div>
           </div>
           <div className="flex flex-col items-end justify-end w-full h-full col-span-2 gap-5">
-            <div className="max-w-[30vw] grid px-6 p-4 bg-dark min-h-[20vh] rounded-2xl w-full group">
+            <div className="lg:max-w-[30vw] gap-4 grid px-6 p-4 bg-dark min-h-[20vh] rounded-2xl w-full group">
               <h2 className="font-bold text-white">BLOCKCHAIN NAMES</h2>
-              <p className="text-gray-400 max-w-[80%]">
+              <p className="text-gray-400 max-w-[80%] text-sm">
                 Cement your place on web3 and start exploring blockchain spaces.
               </p>
-              <a className="pt-6 uppercase accent space group-hover:text-white">
+              <a className="pt-2 uppercase accent space group-hover:text-white">
                 Claim unique names
                 <span className="inline-block pl-2 transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
                   &gt;
                 </span>
               </a>
             </div>
-            <div className="max-w-[30vw] grid px-6 p-4 bg-dark min-h-[20vh] rounded-2xl w-full group">
+            <div className="lg:max-w-[30vw] gap-4 grid px-6 p-4 bg-dark min-h-[20vh] rounded-2xl w-full group">
               <h2 className="font-bold text-white ">BLOCKCHAIN SPACES</h2>
-              <p className="text-gray-400 max-w-[80%]">
+              <p className="text-gray-400 max-w-[80%] text-sm">
                 Own your distinct community identities on the blockchain of your
                 choice.
               </p>
-              <a className="pt-6 uppercase accent space group-hover:text-white">
+              <a className="pt-2 uppercase accent space group-hover:text-white">
                 Create new spaces
                 <span className="inline-block pl-2 transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
                   &gt;
@@ -65,13 +65,13 @@ const Landing = () => {
           </div>
         </div>
       </section>
-      <section className="p-8 border-b-2 border-black">
-        <div className="grid grid-cols-4 gap-8 px-4 py-8">
+      <section className="p-4 border-b-2 border-black lg:p-8">
+        <div className="flex flex-col grid-cols-4 gap-8 px-4 py-8 lg:grid">
           <h3 className="col-span-1 text-lg">
             Supported by industry experts at the world’s leading blockchain
             networks
           </h3>
-          <div className="flex items-center col-span-3 justify-evenly">
+          <div className="flex flex-wrap items-center col-span-3 justify-evenly">
             <h2>IBM</h2>
             <h2>Aptos</h2>
             <h2>Polygon</h2>

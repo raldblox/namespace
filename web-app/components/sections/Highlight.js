@@ -4,9 +4,9 @@ const Highlight = () => {
   return (
     <>
       <section className="border-b-2 border-black">
-        <div className="grid grid-cols-4 ">
-          <div className="flex flex-col col-span-2 px-12 py-8 space-y-5 border-r-2 border-black">
-            <h1 className="text-[3rem] leading-[4.5rem] font-bold max-w-2xl">
+        <div className="grid grid-cols-2 lg:grid-cols-4">
+          <div className="flex flex-col col-span-2 px-8 py-8 space-y-5 border-r-2 border-black lg:px-12">
+            <h1 className="max-w-2xl font-bold ">
               Empowering Identity and Impact Across Chains
             </h1>
             <p className="text-gray-600">
@@ -21,7 +21,7 @@ const Highlight = () => {
                 O1
               </h2>
               <h2 className="font-bold ">Claim Your Unique Name</h2>
-              <p className="text-gray-700 max-w-[75%]">
+              <p className="text-gray-700 lg:max-w-[75%]">
                 Secure your own unique name within the Namespace ecosystem,
                 allowing you to establish your distinct digital identity in the
                 web3 world.
@@ -32,7 +32,7 @@ const Highlight = () => {
                 O2
               </h2>
               <h2 className="font-bold ">Connect to Blockchain Spaces</h2>
-              <p className="text-gray-700 max-w-[75%]">
+              <p className="text-gray-700 lg:max-w-[75%]">
                 Create and connect to multiple blockchain spaces within your
                 Namespace, enabling you to engage with different communities,
                 projects, and networks across the decentralized landscape.
@@ -43,7 +43,7 @@ const Highlight = () => {
                 O3
               </h2>
               <h2 className="font-bold ">Customize and Create Contents</h2>
-              <p className="text-gray-700 max-w-[75%]">
+              <p className="text-gray-700 lg:max-w-[75%]">
                 Customize your profile, create engaging content, upload files,
                 add records, and explore the diverse array of contents available
                 within Namespace, empowering you to showcase your contributions,

@@ -48,9 +48,9 @@ const Footer = () => {
     },
   ];
   return (
-    <footer className="px-12 py-8">
+    <footer className="px-8 py-8 lg:px-12">
       <div className="grid w-full grid-cols-4 gap-6">
-        <div className="grid w-full grid-cols-2 col-span-4">
+        <div className="grid w-full col-span-4 gap-4 lg:grid-cols-2">
           <div className="col-span-1">
             <img src="/namespace-dark.svg" className="w-40" />
             <p className="leading-relaxed mt-4 text-[15px]">
@@ -61,7 +61,7 @@ const Footer = () => {
               visibility, and engagement on the blockchain of your choice.
             </p>
           </div>
-          <div className="flex items-start justify-end col-span-1 text-black gap-x-6">
+          <div className="flex items-start col-span-1 text-black lg:justify-end gap-x-6">
             <a href="javascript:void()">
               <svg
                 className="w-10 h-10 p-2 duration-150 border border-black rounded-full hover:accent hover:bg-black"
@@ -104,7 +104,7 @@ const Footer = () => {
             </a>
           </div>
         </div>
-        <div className="flex items-center justify-between col-span-1">
+        <div className="flex items-center justify-between col-span-4 lg:col-span-1">
           {footerNavs.map((item, idx) => (
             <ul className="space-y-4" key={idx}>
               <h4 className="font-medium text-gray-800">{item.label}</h4>
@@ -131,9 +131,7 @@ const Footer = () => {
         <div className="mt-4 sm:mt-0">
           &copy; 2022 Float UI All rights reserved.
         </div>
-        <div className="mt-4 sm:mt-0">
-          &copy; 2022 Float UI All rights reserved.
-        </div>
+        <div className="mt-4 sm:mt-0"></div>
       </div>
       <style jsx>{`
         .svg-icon path,

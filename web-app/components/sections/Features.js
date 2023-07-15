@@ -4,8 +4,8 @@ const Features = () => {
   return (
     <>
       <section className="border-b-2 border-black">
-        <div className="grid grid-cols-3 gap-8 p-12">
-          <div className="flex flex-col col-span-3 py-8 space-y-5">
+        <div className="grid grid-cols-1 gap-8 p-8 lg:grid-cols-3 lg:p-12">
+          <div className="flex flex-col py-8 space-y-5 lg:col-span-3">
             <p className="col-span-4 px-4 py-1 text-white uppercase bg-black rounded-full w-fit">
               Why Namespace
             </p>
