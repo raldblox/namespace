@@ -47,6 +47,7 @@ body {
     font-family: "IBM Plex Mono";
     letter-spacing: -2px;
     word-spacing: -12px;
+    @apply text-[4rem] leading-[4.5rem] font-bold;
   }
 
   .space {
@@ -57,6 +58,13 @@ body {
     font-family: "IBM Plex Mono";
     font-size: 1.8rem;
     word-spacing: -8px;
+  }
+
+  h3 {
+    font-size: 2rem;
+    word-spacing: -2px;
+    line-height: 2.5rem;
+    
   }
 
   button {

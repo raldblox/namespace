@@ -90,7 +90,7 @@ const Navigation = () => {
             <a href="javascript:void(0)" className="block">
               Log in
             </a>
-            <button className="">Connect Account</button>
+            <button className="px-4 py-2">Connect Account</button>
           </div>
         </div>
       </div>

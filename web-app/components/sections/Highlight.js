@@ -9,42 +9,39 @@ const Highlight = () => {
             <h1 className="text-[3rem] leading-[4.5rem] font-bold max-w-2xl">
               Empowering Identity and Impact Across Chains
             </h1>
-            {/* <div className="flex items-center gap-x-3">
-              <button className="px-6 py-4 group">
-                Connect to Spaces
-                <span className="inline-block pl-0 transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-                  &gt;
-                </span>
-              </button>
-            </div> */}
+            <p className="text-gray-600">
+              Enabling secure asset and data transfers between different chains,
+              harnessing the unique features of various blockchains while
+              preserving distinct identities.
+            </p>
           </div>
           <div className="flex flex-col items-start justify-start w-full h-full col-span-2 gap-5">
-            <div className="grid p-8 min-h-[20vh] w-full group border-b-2 border-black">
-              <h2 className="font-bold ">
-                Create Visibilities for Communities
-              </h2>
-              <p className="text-gray-700 max-w-[70%]">
-                Create your crosschain blockchain idendity
+            <div className="grid px-12 py-8 min-h-[20vh] w-full group border-b-2 border-black gap-4">
+              <h2 className="px-4 py-2 rounded-2xl bg-dark w-fit">O1</h2>
+              <h2 className="font-bold ">Claim Your Unique Name</h2>
+              <p className="text-gray-700 max-w-[75%]">
+                Secure your own unique name within the Namespace ecosystem,
+                allowing you to establish your distinct digital identity in the
+                web3 world.
               </p>
             </div>
-            <div className="grid p-8 min-h-[20vh] w-full group border-b-2 border-black">
-              <h2 className="font-bold ">Add Exclusivity and Sustainability</h2>
-              <p className="text-gray-700 max-w-[70%]">
-                Create your crosschain blockchain idendity
+            <div className="grid p-8 min-h-[20vh] w-full group border-b-2 border-black gap-4">
+              <h2 className="px-4 py-2 rounded-2xl bg-dark w-fit">O2</h2>
+              <h2 className="font-bold ">Connect to Blockchain Spaces</h2>
+              <p className="text-gray-700 max-w-[75%]">
+                Create and connect to multiple blockchain spaces within your
+                Namespace, enabling you to engage with different communities,
+                projects, and networks across the decentralized landscape.
               </p>
             </div>
-            <div className="grid p-8 min-h-[20vh] w-full group border-b-2 border-black">
-              <h2 className="font-bold ">Showcase Multiple Web3 Journey</h2>
-              <p className="text-gray-700 max-w-[70%]">
-                Create your crosschain blockchain idendity
-              </p>
-            </div>
-            <div className="grid p-8 min-h-[20vh] w-full group">
-              <h2 className="font-bold">
-                Seamless Cross-Chain Interoperability
-              </h2>
-              <p className="text-gray-700 max-w-[70%]">
-                Create your crosschain blockchain idendity
+            <div className="grid p-8 min-h-[20vh] w-full group gap-4">
+              <h2 className="px-4 py-2 rounded-2xl bg-dark w-fit">O3</h2>
+              <h2 className="font-bold ">Customize and Create Contents</h2>
+              <p className="text-gray-700 max-w-[75%]">
+                Customize your profile, create engaging content, upload files,
+                add records, and explore the diverse array of contents available
+                within Namespace, empowering you to showcase your contributions,
+                share knowledge, and foster meaningful interactions.
               </p>
             </div>
           </div>

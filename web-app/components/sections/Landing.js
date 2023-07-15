@@ -20,7 +20,7 @@ const Landing = () => {
                 </span>
               </p>
             </a>
-            <h1 className="text-[4rem] leading-[4.5rem] font-bold max-w-2xl">
+            <h1 className="max-w-2xl ">
               Unlock boundless possibilities of blockchain names
             </h1>
             <p>One Name, Multiple Spaces, Infinite Possibilities</p>
