@@ -2,7 +2,7 @@
 import { useWallet } from "@aptos-labs/wallet-adapter-react";
 import { Provider, Network } from "aptos";
 import { useEffect, useState } from "react";
-import { Row, Col, Button, List, Checkbox, Input, Layout, Spin } from "antd";
+import { Col, List, Spin } from "antd";
 import { NFTStorage } from "nft.storage";
 import CryptoJS from "crypto-js";
 
