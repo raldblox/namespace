@@ -23,16 +23,21 @@ const Landing = () => {
             <h1 className="max-w-2xl">
               Unlock boundless possibilities of blockchain names
             </h1>
-            <p>One Name, Multiple Spaces, Infinite Possibilities</p>
+            <p className="text-lg">
+              One Name, Multiple Spaces, Infinite Possibilities
+            </p>
             <div className="flex items-center gap-x-3">
-              <button className="px-6 py-4 group">
+              <a
+                href="#start"
+                className="px-6 py-4 border border-transparent bg-accent group rounded-xl hover:border-black gap-x-1 hover:bg-transparent"
+              >
                 Get Started
-                <span className="inline-block pl-0 transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
+                <span className="inline-block pl-2 transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
                   &gt;
                 </span>
-              </button>
+              </a>
               <a href="javascript:void(0)" className="">
-                Contact sales
+                Explore Marketplace
               </a>
             </div>
           </div>
@@ -71,7 +76,10 @@ const Landing = () => {
             Supported by industry experts at the world’s leading blockchain
             networks
           </h3>
-          <div className="flex flex-wrap items-center col-span-3 justify-evenly">
+          <div
+            className="flex flex-wrap items-center col-span-3 justify-evenly"
+            id="start"
+          >
             <h2>IBM</h2>
             <h2>Aptos</h2>
             <h2>Polygon</h2>

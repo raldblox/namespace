@@ -26,14 +26,14 @@ const Navigation = () => {
     };
   }, []);
 
-  useEffect(() => {
-    setWallet(false);
-    if (evmAccount) {
-      switchEvm(true);
-    } else {
-      switchEvm(false);
-    }
-  }, [account?.address, evmAccount]);
+  // useEffect(() => {
+  //   setWallet(false);
+  //   if (evmAccount) {
+  //     switchEvm(true);
+  //   } else {
+  //     switchEvm(false);
+  //   }
+  // }, [account?.address, evmAccount]);
 
   return (
     <nav

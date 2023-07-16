@@ -74,8 +74,12 @@ body {
     padding-bottom: 0.5rem !important;
   }
 
+  input {
+    @apply flex items-center justify-center px-4 py-2 border rounded-xl hover:border-black gap-x-1 hover:bg-transparent;
+  }
+
   section {
-    @apply w-full h-full;
+    @apply w-full h-full min-h-[20vh];
   }
 
   .wallet-button,
