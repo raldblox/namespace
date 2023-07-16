@@ -48,7 +48,7 @@ const Footer = () => {
     },
   ];
   return (
-    <footer className="px-8 py-12 lg:px-12">
+    <footer className="px-8 py-12 border-t-2 border-black lg:px-12">
       <div className="grid w-full grid-cols-4 gap-6">
         <div className="grid w-full col-span-4 gap-4 lg:grid-cols-2">
           <div className="col-span-1">

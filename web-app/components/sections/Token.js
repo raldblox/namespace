@@ -3,7 +3,7 @@ import React from "react";
 const Token = () => {
   return (
     <>
-      <section className="py-16 border-b-2 border-black group">
+      <section className="py-16 border-b-2 border-black group" id="token">
         <div className="grid grid-cols-1 gap-4 p-4 lg:grid-cols-4 lg:p-12 lg:gap-8">
           <div className="flex flex-col space-y-4 lg:col-span-4 lg:mb-12">
             <p className="col-span-4 px-4 py-1 font-bold text-white uppercase bg-black rounded-full w-fit group-hover:bg-accent">

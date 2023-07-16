@@ -3,7 +3,7 @@ import React from "react";
 const Features = () => {
   return (
     <>
-      <section className="py-12 border-b-2 border-black group">
+      <section className="py-16 border-b-2 border-black group" id="features">
         <div className="grid grid-cols-1 gap-8 p-4 lg:grid-cols-3 lg:p-12">
           <div className="flex flex-col p-4 py-8 space-y-5 lg:p-0 lg:col-span-3">
             <p className="col-span-4 px-4 py-1 font-bold text-white uppercase bg-black rounded-full w-fit group-hover:bg-accent">

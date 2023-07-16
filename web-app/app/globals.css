@@ -20,12 +20,13 @@ body {
   background: var(--light-color);
   color: var(--dark-color);
   font-family: "Poppins", sans-serif;
+  scroll-behavior: smooth;
 }
 
 * {
   -ms-overflow-style: none;
   scrollbar-width: none;
-  @apply transition duration-300 ease-in-out;
+  @apply transition duration-300 ease-in-out scroll-smooth;
 }
 
 @layer components {

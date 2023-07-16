@@ -6,10 +6,10 @@ const Navigation = () => {
   const [state, setState] = useState(false);
 
   const navigation = [
-    { title: "Features", path: "javascript:void(0)" },
+    { title: "Features", path: "#features" },
     { title: "Integrations", path: "javascript:void(0)" },
-    { title: "Customers", path: "javascript:void(0)" },
-    { title: "Pricing", path: "javascript:void(0)" },
+    { title: "Community", path: "#community" },
+    { title: "Token", path: "#token" },
   ];
 
   useEffect(() => {
@@ -20,7 +20,7 @@ const Navigation = () => {
   }, []);
   return (
     <nav
-      className={`sticky top-0 bg-white ${
+      className={`sticky z-50 top-0 bg-white ${
         state
           ? "shadow-lg  rounded-xl border mx-2 mt-2 md:shadow-none md:border-none md:mx-2 md:mt-0"
           : ""
@@ -88,7 +88,7 @@ const Navigation = () => {
           </ul>
           <div className="items-center justify-end flex-1 mt-6 space-y-6 gap-x-6 md:flex md:space-y-0 md:mt-0">
             <a href="javascript:void(0)" className="block">
-              Log in
+              Explorer
             </a>
             <button className="px-4 py-2">Connect Account</button>
           </div>
