@@ -1,6 +1,13 @@
+"use client";
+
+import { Context } from "@/app/layout";
+import Link from "next/link";
 import React from "react";
+import { useContext } from "react";
 
 const Highlight = () => {
+  const { evmAccount, connectWallet, setNetwork, network } =
+    useContext(Context);
   return (
     <>
       <section className="border-b-2 border-black">
@@ -14,6 +21,12 @@ const Highlight = () => {
               harnessing the unique features of various blockchains while
               preserving distinct identities.
             </p>
+            <Link
+              href="/aptos/records"
+              className="px-2 font-bold border border-transparent rounded-full w-fit hover:border-black"
+            >
+              Manage Contents with Aptos Names, IPFS, and Namespace.
+            </Link>
           </div>
           <div className="flex flex-col items-start justify-start w-full h-full col-span-2 gap-5">
             <div className="grid px-8 py-8 min-h-[20vh] w-full group border-b-2 border-black gap-4">

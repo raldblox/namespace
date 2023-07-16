@@ -11,7 +11,7 @@ const Navigation = () => {
   const [wallet, setWallet] = useState(false);
   const [evm, switchEvm] = useState(false);
   const { account, signAndSubmitTransaction } = useWallet();
-  const { evmAccount, connectWallet } = useContext(Context);
+  const { evmAccount, connectWallet, setNetwork } = useContext(Context);
 
   const navigation = [
     { title: "Features", path: "#features" },
@@ -26,14 +26,16 @@ const Navigation = () => {
     };
   }, []);
 
-  // useEffect(() => {
-  //   setWallet(false);
-  //   if (evmAccount) {
-  //     switchEvm(true);
-  //   } else {
-  //     switchEvm(false);
-  //   }
-  // }, [account?.address, evmAccount]);
+  useEffect(() => {
+    setWallet(false);
+    if (evmAccount) {
+      switchEvm(true);
+      setNetwork("Ethereum");
+    } else {
+      switchEvm(false);
+      setNetwork("Aptos");
+    }
+  }, [account?.address, evmAccount]);
 
   return (
     <nav
