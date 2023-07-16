@@ -14,7 +14,7 @@ const Landing = () => {
                 Latest News
               </span>
               <p className="flex items-center">
-                Aptos Grantees
+                AptosDAO Grantees
                 <span className="inline-block pl-2 transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
                   &gt;
                 </span>
@@ -39,7 +39,7 @@ const Landing = () => {
           <div className="flex flex-col items-end justify-end w-full h-full col-span-2 gap-5">
             <div className="lg:max-w-[30vw] gap-4 grid px-6 p-4 bg-dark min-h-[20vh] rounded-2xl w-full group">
               <h2 className="font-bold text-white">BLOCKCHAIN NAMES</h2>
-              <p className="text-gray-400 max-w-[80%] text-sm">
+              <p className="text-gray-400 max-w-[70%] text-sm">
                 Cement your place on web3 and start exploring blockchain spaces.
               </p>
               <a className="pt-2 uppercase accent space group-hover:text-white">
@@ -51,12 +51,12 @@ const Landing = () => {
             </div>
             <div className="lg:max-w-[30vw] gap-4 grid px-6 p-4 bg-dark min-h-[20vh] rounded-2xl w-full group">
               <h2 className="font-bold text-white ">BLOCKCHAIN SPACES</h2>
-              <p className="text-gray-400 max-w-[80%] text-sm">
+              <p className="text-gray-400 max-w-[70%] text-sm">
                 Own your distinct community identities on the blockchain of your
                 choice.
               </p>
               <a className="pt-2 uppercase accent space group-hover:text-white">
-                Create new spaces
+                Go To Space Factory
                 <span className="inline-block pl-2 transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
                   &gt;
                 </span>
@@ -67,7 +67,7 @@ const Landing = () => {
       </section>
       <section className="p-4 border-b-2 border-black lg:p-8">
         <div className="flex flex-col grid-cols-4 gap-8 px-4 py-8 lg:grid">
-          <h3 className="col-span-1 text-lg">
+          <h3 className="col-span-1 text-lg text-center lg:text-left">
             Supported by industry experts at the world’s leading blockchain
             networks
           </h3>

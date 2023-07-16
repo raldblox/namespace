@@ -64,7 +64,7 @@ body {
     font-size: 2rem;
     word-spacing: -2px;
     line-height: 2.5rem;
-    @apply text-[1.2rem] leading-[1.5rem] lg:text-[2rem] lg:leading-[2.5rem] font-bold;
+    @apply text-[1.2rem] leading-[1.5rem] lg:text-[2rem] lg:leading-[2.5rem];
   }
 
   button {

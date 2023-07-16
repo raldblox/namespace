@@ -48,7 +48,7 @@ const Footer = () => {
     },
   ];
   return (
-    <footer className="px-8 py-8 lg:px-12">
+    <footer className="px-8 py-12 lg:px-12">
       <div className="grid w-full grid-cols-4 gap-6">
         <div className="grid w-full col-span-4 gap-4 lg:grid-cols-2">
           <div className="col-span-1">
@@ -107,13 +107,10 @@ const Footer = () => {
         <div className="flex items-center justify-between col-span-4 lg:col-span-1">
           {footerNavs.map((item, idx) => (
             <ul className="space-y-4" key={idx}>
-              <h4 className="font-medium text-gray-800">{item.label}</h4>
+              <h4 className="font-bold text-gray-800">{item.label}</h4>
               {item.items.map((el, idx) => (
                 <li key={idx}>
-                  <a
-                    href={el.href}
-                    className="hover:underline hover:text-indigo-600"
-                  >
+                  <a href={el.href} className="hover:underline hover:accent">
                     {el.name}
                   </a>
                 </li>
@@ -129,9 +126,11 @@ const Footer = () => {
       </div>
       <div className="items-center justify-between py-6 mt-8 border-t sm:flex">
         <div className="mt-4 sm:mt-0">
-          &copy; 2022 Float UI All rights reserved.
+          &copy; 2023 Namespace All rights reserved.
         </div>
-        <div className="mt-4 sm:mt-0"></div>
+        <div className="mt-4 sm:mt-0">
+          <a href="https://www.zoociety.org">A Product of Zoociety</a>
+        </div>
       </div>
       <style jsx>{`
         .svg-icon path,

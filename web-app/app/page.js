@@ -1,6 +1,7 @@
 import Features from "@/components/sections/Features";
 import Highlight from "@/components/sections/Highlight";
 import Landing from "@/components/sections/Landing";
+import Token from "@/components/sections/Token";
 
 export default function Home() {
   return (
@@ -8,6 +9,7 @@ export default function Home() {
       <Landing />
       <Highlight />
       <Features />
+      <Token />
     </main>
   );
 }
