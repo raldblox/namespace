@@ -172,6 +172,7 @@ const page = () => {
 
       newRecords.push(newRecordToPush);
       setRecords(newRecords);
+      setStatus("Success!");
       CID("");
     } catch (error) {
       console.log("error", error);
@@ -218,11 +219,11 @@ const page = () => {
   };
 
   const processContent = async () => {
-    setStatus("Storing to Interplanetary File System...");
+    setStatus("Storing to Interplanetary File System");
     const storedContent = await storeToIPFS();
-    setStatus("Securing with AES Encryption...");
+    setStatus("Securing with AES Encryption");
     const encrypted = await encryption(storedContent);
-    setStatus("Recording Contents to Aptos...");
+    setStatus("Recording Contents to Aptos");
     await onRecordAdded(encrypted);
   };
 
@@ -252,6 +253,7 @@ const page = () => {
               <p>File Name: {recordData?.filename}</p>
               <p>Network: {recordData?.chain}</p>
               <p>Aptos Name: {account?.ansName}.apt</p>
+              <p>Status: {status}</p>
             </div>
             <div className="flex items-center px-8 lg:px-12">
               <input
