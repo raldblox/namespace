@@ -236,7 +236,7 @@ const page = () => {
 
   return (
     <section className="">
-      <h2 className="max-w-xl p-8 lg:p-12">
+      <h2 className="max-w-2xl p-8 lg:p-12">
         Store and Map Your Curated Contents on Decentralized Networks for Easy
         Accessibility with Namespace
       </h2>
