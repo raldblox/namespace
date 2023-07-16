@@ -70,9 +70,20 @@ body {
 
   button {
     @apply flex items-center justify-center px-4 py-2 border border-transparent rounded-xl hover:border-black bg-accent gap-x-1 hover:bg-transparent;
+    padding-top: 0.5rem !important;
+    padding-bottom: 0.5rem !important;
   }
 
   section {
     @apply w-full h-full;
+  }
+
+  .wallet-button,
+  .ant-btn,
+  wallet-connect-button {
+    color: #f5f6f6;
+    background: #15141d !important;
+    border: 0 !important;
+    @apply px-4 py-2 rounded-2xl hover:text-white;
   }
 }

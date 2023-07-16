@@ -11,9 +11,13 @@ const Community = () => {
               Stay updated on our progress, announcements, discounts, and
               connect with our community and developers on Discord.
             </p>
-            <button className="px-8 py-4 font-medium duration-150 rounded-lg shadow-md outline-none bg-dark focus:shadow-none hover:text-black">
+            <a
+              href="https://discord.gg/gTDXTE4Y"
+              target="_blank"
+              className="px-8 py-4 font-medium duration-150 border border-black rounded-lg outline-none bg-dark hover:bg-transparent hover:text-black"
+            >
               Join us on Discord
-            </button>
+            </a>
           </div>
         </div>
       </div>

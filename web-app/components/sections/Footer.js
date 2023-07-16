@@ -30,7 +30,7 @@ const Footer = () => {
       items: [
         {
           href: "javascript:void()",
-          name: "contact",
+          name: "Contact",
         },
         {
           href: "javascript:void()",
