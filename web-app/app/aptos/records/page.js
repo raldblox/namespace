@@ -1,6 +1,4 @@
 "use client";
-import { WalletSelector } from "@aptos-labs/wallet-adapter-ant-design";
-import { AptosNamesConnector } from "@aptos-labs/aptos-names-connector";
 import { useWallet } from "@aptos-labs/wallet-adapter-react";
 import { Provider, Network } from "aptos";
 import { useEffect, useState } from "react";
