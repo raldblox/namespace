@@ -15,6 +15,7 @@ const page = () => {
   const [transactionInProgress, setTransactionInProgress] = useState(false);
   const [records, setRecords] = useState([]);
   const [CID, setCID] = useState("");
+  const [status, setStatus] = useState("");
 
   const [recordData, setRecordData] = useState({
     name: "",
@@ -56,14 +57,17 @@ const page = () => {
       let ipfsURL = storedContent.url;
       setCID(ipfsURL);
       console.log(ipfsURL);
-      return storedContent;
+      return ipfsURL;
     } catch (error) {
       console.log(error);
     }
   };
 
   const encryption = async (url) => {
-    return CryptoJS.AES.encrypt(url, process.env.MASTER_KEY).toString();
+    const encryptionKey = process.env.MASTER_KEY;
+    const encrypted = CryptoJS.AES.encrypt(url, encryptionKey).toString();
+    console.log(encrypted);
+    return encrypted;
   };
 
   const setContentName = (event) => {
@@ -138,46 +142,36 @@ const page = () => {
     setTransactionInProgress(false);
   };
 
-  const onRecordAdded = async () => {
-    // check for connected account
+  const onRecordAdded = async (encrypted) => {
     if (!account) return;
     setTransactionInProgress(true);
-    // build a transaction payload to be submitted
     const payload = {
       type: "entry_function_payload",
       function: `${moduleAddress}::nsrecord::record_hash`,
       type_arguments: [],
-      arguments: [CID],
+      arguments: [encrypted],
     };
 
-    // hold the latest record.record_id from our local state
     const latestId =
       records.length > 0
         ? parseInt(records[records.length - 1].record_id) + 1
         : 1;
 
-    // build a newRecordToPush object into our local state
     const newRecordToPush = {
       address: account.address,
       shared_publicly: false,
-      content: CID,
+      content: encrypted,
       record_id: String(latestId),
     };
 
     try {
-      // sign and submit transaction to chain
       const response = await signAndSubmitTransaction(payload);
-      // wait for transaction
       await provider.waitForTransaction(response.hash);
 
-      // Create a new array based on the current state
       let newRecords = [...records];
 
-      // Add item to the records array
       newRecords.push(newRecordToPush);
-      // Set state
       setRecords(newRecords);
-      // clear input text
       CID("");
     } catch (error) {
       console.log("error", error);
@@ -224,10 +218,12 @@ const page = () => {
   };
 
   const processContent = async () => {
+    setStatus("Storing to Interplanetary File System...");
     const storedContent = await storeToIPFS();
+    setStatus("Securing with AES Encryption...");
     const encrypted = await encryption(storedContent);
-    console.log(encrypted);
-    await onRecordAdded();
+    setStatus("Recording Contents to Aptos...");
+    await onRecordAdded(encrypted);
   };
 
   useEffect(() => {
