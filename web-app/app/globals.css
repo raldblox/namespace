@@ -29,6 +29,17 @@ body {
   @apply transition duration-300 ease-in-out scroll-smooth;
 }
 
+h1::selection,
+p::selection,
+h2::selection,
+h3::selection,
+h4::selection,
+a::selection,
+span::selection {
+  color: #3af062;
+  background: transparent;
+}
+
 @layer components {
   .bg-accent {
     background: var(--accent-color);
@@ -44,10 +55,16 @@ body {
     color: var(--accent-color);
   }
 
+  @media only screen and (min-width: 600px) {
+    h1,
+    h2 {
+      letter-spacing: -2px;
+      word-spacing: -8px;
+    }
+  }
+
   h1 {
     font-family: "IBM Plex Mono";
-    letter-spacing: -2px;
-    word-spacing: -10px;
     @apply text-[2rem] leading-[2.5rem] lg:text-[4rem] lg:leading-[4.5rem] font-bold;
   }
 
@@ -55,15 +72,17 @@ body {
     letter-spacing: 2px;
   }
 
+  p {
+    @apply text-sm lg:text-base;
+  }
+
   h2 {
     font-family: "IBM Plex Mono";
-    word-spacing: -8px;
     @apply text-[1.5rem] leading-[1.5rem] lg:text-[1.8rem] lg:leading-[1.8rem] font-bold;
   }
 
   h3 {
     font-size: 2rem;
-    word-spacing: -2px;
     line-height: 2.5rem;
     @apply text-[1.2rem] leading-[1.5rem] lg:text-[2rem] lg:leading-[2.5rem];
   }
@@ -89,5 +108,9 @@ body {
     background: #15141d !important;
     border: 0 !important;
     @apply px-4 py-2 rounded-2xl hover:text-white;
+  }
+
+  .brand h2 {
+    @apply scale-100 hover:scale-105;
   }
 }
