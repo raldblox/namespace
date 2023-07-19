@@ -4,3 +4,6 @@
 [submodule "aptos-namespace"]
 	path = aptos-namespace
 	url = https://github.com/raldblox/aptos-namespace
+[submodule "xrpl-workspace"]
+	path = xrpl-workspace
+	url = https://github.com/raldblox/xrpl-workspace
