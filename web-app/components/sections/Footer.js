@@ -48,8 +48,8 @@ const Footer = () => {
     },
   ];
   return (
-    <footer className="px-4 py-8 border-t-2 border-black lg:px-12">
-      <div className="grid w-full grid-cols-4 gap-6">
+    <footer className="px-4 py-12 border-t-2 border-black lg:p-8">
+      <div className="grid w-full grid-cols-4 gap-4">
         <div className="grid w-full col-span-4 gap-4 lg:grid-cols-2">
           <div className="col-span-1">
             <img src="/namespace-dark.svg" className="w-40" />
@@ -104,7 +104,7 @@ const Footer = () => {
             </a>
           </div>
         </div>
-        <div className="flex items-center justify-between col-span-4 lg:col-span-1">
+        {/* <div className="flex items-center justify-between col-span-4 lg:col-span-1">
           {footerNavs.map((item, idx) => (
             <ul className="space-y-4" key={idx}>
               <h4 className="font-bold text-gray-800">{item.label}</h4>
@@ -117,7 +117,7 @@ const Footer = () => {
               ))}
             </ul>
           ))}
-        </div>
+        </div> */}
         <div className="flex items-start justify-end col-span-3 space-y-6">
           <ul>
             <li></li>

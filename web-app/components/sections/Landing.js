@@ -8,7 +8,8 @@ const Landing = () => {
         <div className="grid grid-cols-2 lg:grid-cols-4 min-h-[115vh] gap-8 py-8">
           <div className="flex flex-col col-span-2 space-y-5">
             <a
-              href="javascript:void(0)"
+              href="https://dorahacks.io/aptos/round-3/buidl"
+              target="_blank"
               className="inline-flex items-center p-1 pr-6 text-xs duration-150 border rounded-full lg:text-sm group w-fit gap-x-6 hover:bg-accent"
             >
               <span className="inline-block px-3 py-1 bg-white border border-black rounded-full">
@@ -37,9 +38,9 @@ const Landing = () => {
                   &gt;
                 </span>
               </a>
-              <a href="javascript:void(0)" className="">
+              <button href="javascript:void(0)" className="bg-transparent">
                 Explore Domain Names
-              </a>
+              </button>
             </div>
           </div>
           <div className="flex flex-col items-end justify-end w-full h-full col-span-2 gap-4">
@@ -81,7 +82,7 @@ const Landing = () => {
               <h2 className="font-bold text-white space">NAMESPACE RECORDS</h2>
               <p className="text-gray-400 max-w-[70%] text-sm">
                 Securely store contents on decentralized networks with your
-                namespace.
+                blockchain names.
               </p>
               <a className="pt-2 uppercase accent space group-hover:text-white">
                 Go To Namespace Link

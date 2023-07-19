@@ -98,7 +98,7 @@ const Navigation = () => {
           <ul className="items-center justify-center space-y-6 md:flex md:space-x-6 md:space-y-0">
             {navigation.map((item, idx) => {
               return (
-                <li key={idx} className="">
+                <li key={idx} className="text-center">
                   <a href={item.path} className="block">
                     {item.title}
                   </a>
@@ -107,13 +107,16 @@ const Navigation = () => {
             })}
           </ul>
           <div className="items-center justify-end flex-1 mt-6 space-y-6 gap-x-2 md:flex md:space-y-0 md:mt-0">
-            <button className="bg-transparent" onClick={() => switchEvm(!evm)}>
+            <button
+              className="w-full bg-transparent lg:w-fit"
+              onClick={() => switchEvm(!evm)}
+            >
               Switch to {evm ? "Aptos" : "EVM Chain"}
             </button>
             {evm ? (
               <>
                 <button
-                  className="h-full px-4 py-2"
+                  className="w-full h-full px-4 py-2 lg:w-fit"
                   disabled={!evm}
                   onClick={() => setWallet(true)}
                 >
