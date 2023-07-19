@@ -12,7 +12,7 @@ const Highlight = () => {
     <>
       <section className="border-b-2 border-black">
         <div className="grid grid-cols-2 lg:grid-cols-4">
-          <div className="flex flex-col col-span-2 px-8 py-8 space-y-5 border-r-2 border-black lg:px-12">
+          <div className="flex flex-col col-span-2 px-4 py-8 space-y-5 border-black lg:border-r-2 lg:px-8">
             <h1 className="max-w-2xl font-bold">
               Empowering Identity & Impact Across Chains
             </h1>
@@ -21,15 +21,15 @@ const Highlight = () => {
               harnessing the unique features of various blockchains while
               preserving distinct identities.
             </p>
-            <Link
+            {/* <Link
               href="/aptos/records"
               className="px-2 font-bold border border-transparent rounded-full w-fit hover:border-black"
             >
-              Manage Contents with Aptos Names, IPFS, and Namespace.
-            </Link>
+              Discover Namespace Records
+            </Link> */}
           </div>
-          <div className="flex flex-col items-start justify-start w-full h-full col-span-2 gap-5">
-            <div className="grid px-8 py-8 min-h-[20vh] w-full group border-b-2 border-black gap-4">
+          <div className="flex flex-col items-start justify-start w-full h-full col-span-2">
+            <div className="grid px-4 lg:px-8 py-12 min-h-[20vh] w-full group border-b-2 border-black gap-4">
               <h2 className="px-4 py-2 rounded-2xl bg-dark w-fit group-hover:bg-accent">
                 O1
               </h2>
@@ -40,7 +40,7 @@ const Highlight = () => {
                 cementing your place in web3.
               </p>
             </div>
-            <div className="grid px-8 py-8 min-h-[20vh] w-full group border-b-2 border-black gap-4">
+            <div className="grid px-4 lg:px-8 py-12 min-h-[20vh] w-full group border-b-2 border-black gap-4">
               <h2 className="px-4 py-2 rounded-2xl bg-dark w-fit group-hover:bg-accent">
                 O2
               </h2>
@@ -51,7 +51,7 @@ const Highlight = () => {
                 networks across the decentralized landscape.
               </p>
             </div>
-            <div className="grid px-8 py-8 min-h-[20vh] w-full group gap-4 group">
+            <div className="grid px-4 lg:px-8 py-12 min-h-[20vh] w-full group gap-4 group">
               <h2 className="px-4 py-2 rounded-2xl bg-dark w-fit group-hover:bg-accent">
                 O3
               </h2>

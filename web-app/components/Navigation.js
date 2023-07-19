@@ -5,6 +5,7 @@ import { useWallet } from "@aptos-labs/wallet-adapter-react";
 import { WalletSelector } from "@aptos-labs/wallet-adapter-ant-design";
 import { Provider, Network } from "aptos";
 import { Context } from "@/app/layout";
+import Link from "next/link";
 
 const Navigation = () => {
   const [state, setState] = useState(false);
@@ -47,14 +48,14 @@ const Navigation = () => {
     >
       <div className="items-center px-4 py-3 mx-auto border-b-2 border-black gap-x-14 md:flex md:px-4">
         <div className="flex items-center justify-between md:block">
-          <a href="/">
+          <Link href="/">
             <img
               src="/namespace-dark.svg"
               width={120}
               height={50}
               alt="Namespace Logo"
             />
-          </a>
+          </Link>
           <div className="md:hidden">
             <button className="menu-btn" onClick={() => setState(!state)}>
               {state ? (
