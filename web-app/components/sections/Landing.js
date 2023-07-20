@@ -38,14 +38,17 @@ const Landing = () => {
                   &gt;
                 </span>
               </a>
-              <button href="javascript:void(0)" className="bg-transparent">
+              <a
+                href="javascript:void(0)"
+                className="px-4 py-4 text-sm bg-transparent border border-transparent lg:px-6 rounded-xl hover:border-black gap-x-1 hover:bg-transparent"
+              >
                 Explore Domain Names
-              </button>
+              </a>
             </div>
           </div>
           <div className="flex flex-col items-end justify-end w-full h-full col-span-2 gap-4">
             <Link
-              href="names"
+              href="/names"
               className="lg:max-w-[30vw] gap-4 grid p-4 px-6 bg-dark min-h-[20vh] rounded-2xl w-full group"
             >
               <h2 className="font-bold text-white space">BLOCKCHAIN NAMES</h2>
@@ -60,7 +63,7 @@ const Landing = () => {
               </a>
             </Link>
             <Link
-              href="spaces"
+              href="/spaces"
               className="lg:max-w-[30vw] gap-4 grid p-4 px-6 bg-dark min-h-[20vh] rounded-2xl w-full group"
             >
               <h2 className="font-bold text-white space">BLOCKCHAIN SPACES</h2>
@@ -97,8 +100,8 @@ const Landing = () => {
       <section className="p-4 border-b-2 border-black lg:p-4">
         <div className="flex flex-col justify-between grid-cols-4 gap-8 px-4 py-8 lg:grid">
           <h3 className="col-span-1 text-lg text-center lg:text-left">
-            Supported by industry experts at the world’s leading blockchain
-            networks
+            Supported by industry experts from the world's leading blockchain
+            networks.
           </h3>
           <div
             className="flex flex-wrap items-center justify-center col-span-3 gap-4 lg:justify-between lg:ml-16 brand"

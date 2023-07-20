@@ -46,7 +46,7 @@ const Navigation = () => {
           : ""
       }`}
     >
-      <div className="items-center px-4 py-3 mx-auto border-b-2 border-black gap-x-14 md:flex md:px-4">
+      <div className="items-center h-[55px] px-4 py-3 mx-auto border-b-2 border-black gap-x-14 md:flex md:px-4">
         <div className="flex items-center justify-between md:block">
           <Link href="/">
             <img
@@ -108,7 +108,7 @@ const Navigation = () => {
           </ul>
           <div className="items-center justify-end flex-1 mt-6 space-y-6 gap-x-2 md:flex md:space-y-0 md:mt-0">
             <button
-              className="w-full bg-transparent lg:w-fit"
+              className="w-full px-4 py-2 bg-transparent lg:w-fit"
               onClick={() => switchEvm(!evm)}
             >
               Switch to {evm ? "Aptos" : "EVM Chain"}

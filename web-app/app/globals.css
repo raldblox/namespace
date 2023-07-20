@@ -88,9 +88,9 @@ span::selection {
   }
 
   button {
-    @apply flex items-center justify-center px-4 py-2 border border-transparent rounded-xl hover:border-black bg-accent gap-x-1 hover:bg-transparent;
-    padding-top: 0.5rem !important;
-    padding-bottom: 0.5rem !important;
+    @apply flex items-center justify-center border border-transparent rounded-xl hover:border-black bg-accent gap-x-1 hover:bg-transparent;
+    /* padding-top: 0.5rem !important;
+    padding-bottom: 0.5rem !important; */
   }
 
   input {
@@ -113,4 +113,5 @@ span::selection {
   .brand h2 {
     @apply scale-100 hover:scale-105;
   }
+
 }
