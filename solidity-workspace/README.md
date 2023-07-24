@@ -13,6 +13,7 @@ npx hardhat run --network mumbai scripts/deploy.js
 npx hardhat run --network zkevmt scripts/deploy.js
 npx hardhat run --network mainnet scripts/deploy.js
 npx hardhat verify --network mumbai [CONTRACT_ADDRESS]
+npx hardhat run scripts/deploy.js --network xinfin
 ```
 
 ## FEATURE/S CHECKLIST

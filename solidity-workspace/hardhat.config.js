@@ -6,6 +6,9 @@ require("dotenv").config();
 
 const { mnemonic } = require("./secrets.json");
 
+const XINFIN_NETWORK_URL = process.env.XINFIN_NETWORK_URL;
+const XINFIN_PRIVATE_KEY = process.env.XINFIN_PRIVATE_KEY;
+
 task("accounts", "Prints the list of accounts", async () => {
   const accounts = await ethers.getSigners();
 
@@ -76,6 +79,10 @@ module.exports = {
       chainId: 314,
       url: "https://api.node.glif.io",
       accounts: [process.env.PRIVATE_KEY],
+    },
+    xinfin: {
+      url: XINFIN_NETWORK_URL,
+      accounts: [XINFIN_PRIVATE_KEY],
     },
   },
   etherscan: {
