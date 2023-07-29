@@ -54,15 +54,14 @@ const Footer = () => {
           <div className="col-span-1">
             <img src="/namespace-dark.svg" className="w-40" />
             <p className="leading-relaxed mt-4 text-[15px]">
-              Namespace is a decentralized naming and identity system that
-              revolutionizes the web3 landscape, empowering individuals and
-              communities to claim their unique identities and foster growth.
-              With Namespace, you can unlock new possibilities for recognition,
-              visibility, and engagement on the blockchain of your choice.
+              Namespace is a next-generation naming and identity system revolutionizing the way
+              users interact with decentralized networks. Beyond traditional wallet address replacement,
+              we provide a powerful platform for users and communities to establish their unique digital
+              identities, create holistic web3 profile, and share contents across multiple blockchain networks.
             </p>
           </div>
           <div className="flex items-start col-span-1 text-black lg:justify-end gap-x-6">
-            <a href="javascript:void()">
+            <a href="https://twitter.com/_namespaces">
               <svg
                 className="w-10 h-10 p-2 duration-150 border border-black rounded-full hover:accent hover:bg-black"
                 fill="none"
@@ -81,7 +80,7 @@ const Footer = () => {
                 </defs>
               </svg>
             </a>
-            <a href="javascript:void()">
+            <a href="https://github.com/raldblox/namespace">
               <svg
                 className="w-10 h-10 p-2 duration-150 border border-black rounded-full hover:accent hover:bg-black"
                 fill="none"
@@ -126,7 +125,7 @@ const Footer = () => {
       </div>
       <div className="items-center justify-between pt-8 mt-8 border-t sm:flex">
         <div className="mt-4 sm:mt-0">
-          &copy; 2023 Namespace All rights reserved.
+          &copy; 2023 Namespace. All rights reserved.
         </div>
         <div className="mt-4 sm:mt-0">
           <a href="https://www.zoociety.org">A Product of Zoociety</a>

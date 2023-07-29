@@ -14,7 +14,7 @@ const index = () => {
             Search
           </button>
         </div>
-        <ul className="flex gap-4">
+        <ul className="flex gap-4 select">
           <li className="px-4 py-2 border rounded-full hover:border-black">
             .eth
           </li>

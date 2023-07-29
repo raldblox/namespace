@@ -55,11 +55,11 @@ const Highlight = () => {
               <h2 className="px-4 py-2 rounded-2xl bg-dark w-fit group-hover:bg-accent">
                 O3
               </h2>
-              <h2 className="font-bold ">Customize and Curate Contents</h2>
+              <h2 className="font-bold ">Control Your Blockchain Presence</h2>
               <p className="text-gray-700 lg:max-w-[75%]">
                 Customize your profile, create engaging content, upload
-                easy-to-identify files, add blockchain records, and explore the
-                diverse array of contents available on decentralized networks.
+                easy-to-identify files, add blockchain records, or explore the
+                diverse array of contents recorded on decentralized networks.
               </p>
             </div>
           </div>

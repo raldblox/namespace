@@ -1,11 +1,12 @@
 import Link from "next/link";
 import React from "react";
+import Typing from "../effects/Typing";
 
 const Landing = () => {
   return (
     <>
       <section className="p-4 border-b-2 border-black lg:p-8">
-        <div className="grid grid-cols-2 lg:grid-cols-4 min-h-[115vh] gap-8 py-8">
+        <div className="grid min-h-[110vh] grid-cols-2 gap-8 py-8 lg:grid-cols-4">
           <div className="flex flex-col col-span-2 space-y-5">
             <a
               href="https://dorahacks.io/aptos/round-3/buidl"
@@ -23,7 +24,7 @@ const Landing = () => {
               </p>
             </a>
             <h1 className="max-w-2xl">
-              Unlock boundless possibilities of blockchain names
+              Unlock boundless possibilities of <br /><Typing toRotate={["blockchain names", "blockchain spaces", "storage networks", "community identity", "holistic profile", "names services"]} />
             </h1>
             <p className="text-lg">
               One Name, Multiple Spaces, Infinite Possibilities
@@ -46,14 +47,14 @@ const Landing = () => {
               </a>
             </div>
           </div>
-          <div className="flex flex-col items-end justify-end w-full h-full col-span-2 gap-4">
+          <div className="grid content-end w-full h-full grid-cols-2 col-span-2 gap-4 ">
             <Link
               href="/names"
               className="lg:max-w-[30vw] gap-4 grid p-4 px-6 bg-dark min-h-[20vh] rounded-2xl w-full group"
             >
               <h2 className="font-bold text-white space">BLOCKCHAIN NAMES</h2>
-              <p className="text-gray-400 max-w-[70%] text-sm">
-                Cement your place on web3 and start exploring blockchain spaces.
+              <p className="text-gray-400 max-w-[75%] text-sm">
+                Cement your place on web3 and start exploring new blockchain experiences with namespace.
               </p>
               <a className="pt-2 uppercase accent space group-hover:text-white">
                 Claim unique names
@@ -67,7 +68,7 @@ const Landing = () => {
               className="lg:max-w-[30vw] gap-4 grid p-4 px-6 bg-dark min-h-[20vh] rounded-2xl w-full group"
             >
               <h2 className="font-bold text-white space">BLOCKCHAIN SPACES</h2>
-              <p className="text-gray-400 max-w-[70%] text-sm">
+              <p className="text-gray-400 max-w-[75%] text-sm">
                 Own your distinct community identities on the blockchain of your
                 choice.
               </p>
@@ -82,13 +83,27 @@ const Landing = () => {
               href="records"
               className="lg:max-w-[30vw] gap-4 grid p-4 px-6 bg-dark min-h-[20vh] rounded-2xl w-full group"
             >
-              <h2 className="font-bold text-white space">NAMESPACE RECORDS</h2>
-              <p className="text-gray-400 max-w-[70%] text-sm">
-                Securely store contents on decentralized networks with your
-                blockchain names.
+              <h2 className="font-bold text-white space">NAMESPACE LINKS</h2>
+              <p className="text-gray-400 max-w-[75%] text-sm">
+                Securely store your contents on decentralized networks and access them faster with namespace.
               </p>
               <a className="pt-2 uppercase accent space group-hover:text-white">
                 Go To Namespace Link
+                <span className="inline-block pl-2 transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
+                  &gt;
+                </span>
+              </a>
+            </Link>
+            <Link
+              href="profile"
+              className="lg:max-w-[30vw] gap-4 grid p-4 px-6 bg-dark min-h-[20vh] rounded-2xl w-full group"
+            >
+              <h2 className="font-bold text-white space">NAMESPACE PROFILE</h2>
+              <p className="text-gray-400 max-w-[80%] text-sm">
+                Showcase your personalized identity, curated contents, and achievements in one interactive profile.
+              </p>
+              <a className="pt-2 uppercase accent space group-hover:text-white">
+                VISIT MY PROFILE
                 <span className="inline-block pl-2 transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
                   &gt;
                 </span>
