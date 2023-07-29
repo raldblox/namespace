@@ -47,7 +47,7 @@ const Landing = () => {
               </a>
             </div>
           </div>
-          <div className="grid content-end w-full h-full grid-cols-2 col-span-2 gap-4 ">
+          <div className="grid content-end w-full h-full grid-cols-1 col-span-2 gap-4 lg:grid-cols-2">
             <Link
               href="/names"
               className="lg:max-w-[30vw] gap-4 grid p-4 px-6 bg-dark min-h-[20vh] rounded-2xl w-full group"

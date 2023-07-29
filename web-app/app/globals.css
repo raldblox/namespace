@@ -65,7 +65,7 @@ span::selection {
 
   h1 {
     font-family: "IBM Plex Mono";
-    @apply text-[2rem] leading-[2.5rem] lg:text-[4rem] lg:leading-[4.5rem] font-bold;
+    @apply text-[2rem] leading-[2.5rem] lg:text-[3.5rem] lg:leading-[4rem] font-bold;
   }
 
   .space {
@@ -78,7 +78,7 @@ span::selection {
 
   h2 {
     font-family: "IBM Plex Mono";
-    @apply text-[1.5rem] leading-[1.5rem] lg:text-[1.8rem] lg:leading-[1.8rem] font-bold;
+    @apply text-[1.5rem] leading-[1.5rem] lg:text-[1.5rem] lg:leading-[1.5rem] font-bold;
   }
 
   h3 {
@@ -107,11 +107,14 @@ span::selection {
     color: #f5f6f6;
     background: #15141d !important;
     border: 0 !important;
-    @apply px-4 py-2 rounded-2xl hover:text-white;
+    @apply w-full px-4 py-2 lg:w-fit rounded-2xl hover:text-white;
   }
 
   .brand h2 {
     @apply scale-100 hover:scale-105;
   }
 
+  .select li {
+    @apply cursor-pointer;
+  }
 }
