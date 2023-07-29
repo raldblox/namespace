@@ -10,3 +10,6 @@
 [submodule "patex-workspace"]
 	path = patex-workspace
 	url = https://github.com/raldblox/patex-workspace
+[submodule "opbnb-namespace"]
+	path = opbnb-namespace
+	url = https://github.com/raldblox/opbnb-namespace
