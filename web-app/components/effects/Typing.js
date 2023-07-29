@@ -1,7 +1,6 @@
 "use client"
 
 import React, { useEffect, useState } from "react";
-import "animate.css";
 
 const Typing = ({ toRotate }) => {
     const [loopNum, setLoopNum] = useState(0);
