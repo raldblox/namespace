@@ -103,4 +103,17 @@ export const ChainNetwork = {
             blockExplorerUrls: ["https://testnet.explorer.zora.energy"]
         }],
     },
+    "pego-mainnet": {
+        params: [{
+            chainId: 20201022,
+            rpcUrls: ["https://pegorpc.com"],
+            chainName: "PEGO Mainnet",
+            nativeCurrency: {
+                name: "PEGO",
+                symbol: "PG",
+                decimals: 18
+            },
+            blockExplorerUrls: [""]
+        }],
+    },
 };
