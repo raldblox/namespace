@@ -116,4 +116,30 @@ export const ChainNetwork = {
             blockExplorerUrls: [""]
         }],
     },
+    "xdc-mainnet": {
+        params: [{
+            chainId: 50,
+            rpcUrls: ["https://rpc.xinfin.network"],
+            chainName: "XinFin",
+            nativeCurrency: {
+                name: "XDC",
+                symbol: "XDC",
+                decimals: 18
+            },
+            blockExplorerUrls: ["https://explorer.xinfin.network/"]
+        }],
+    },
+    "xdc-testnet": {
+        params: [{
+            chainId: 50,
+            rpcUrls: ["https://rpc.xinfin.network"],
+            chainName: "Apothem",
+            nativeCurrency: {
+                name: "TXDC",
+                symbol: "TXDC",
+                decimals: 18
+            },
+            blockExplorerUrls: ["https://explorer.apothem.network/"]
+        }],
+    },
 };
