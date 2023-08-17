@@ -57,9 +57,9 @@ const SwitchNetwork = () => {
     return (
         <div>
             <select className='p-2' value={selectedNetwork} onChange={handleNetworkChange}>
-                {Object.keys(ChainNetwork).map((network) => (
-                    <option key={network} value={network}>
-                        {ChainNetwork[network].params[0].chainName}
+                {Object.keys(ChainNetwork).map((chain) => (
+                    <option key={chain} value={chain}>
+                        {ChainNetwork[chain].params[0].chainName}
                     </option>
                 ))}
             </select>

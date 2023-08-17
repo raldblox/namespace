@@ -127,11 +127,12 @@ const Navigation = () => {
                     "Connect Wallet"
                   )}
                 </button>
+                <SwitchNetwork />
               </>
             ) : (
               <WalletSelector />
             )}
-            <SwitchNetwork />
+
           </div>
         </div>
       </div>
