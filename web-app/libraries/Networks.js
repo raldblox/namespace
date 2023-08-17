@@ -14,8 +14,8 @@ export const ChainNetwork = {
     },
     "polygon-mainnet": {
         params: [{
-            chainId: "0x89",
-            rpcUrls: ["https://rpc-mainnet.matic.network/"],
+            chainId: 137,
+            rpcUrls: ["https://polygon.llamarpc.com"],
             chainName: "Polygon Mainnet",
             nativeCurrency: {
                 name: "MATIC",
@@ -25,17 +25,30 @@ export const ChainNetwork = {
             blockExplorerUrls: ["https://polygonscan.com/"]
         }],
     },
+    "polygon-zkEVM": {
+        params: [{
+            chainId: 1101,
+            rpcUrls: ["https://rpc.ankr.com/polygon_zkevm"],
+            chainName: "Polygon Mainnet",
+            nativeCurrency: {
+                name: "ETH",
+                symbol: "ETH",
+                decimals: 18
+            },
+            blockExplorerUrls: ["https://zkevm.polygonscan.com"]
+        }],
+    },
     "polygon-mumbai": {
         params: [{
-            chainId: "0x89",
-            rpcUrls: ["https://rpc-mainnet.matic.network/"],
-            chainName: "Polygon Mumbai Testnet",
+            chainId: 80001,
+            rpcUrls: ["https://rpc-mumbai.maticvigil.com"],
+            chainName: "Polygon Mumbai",
             nativeCurrency: {
                 name: "MATIC",
                 symbol: "MATIC",
                 decimals: 18
             },
-            blockExplorerUrls: ["https://polygonscan.com/"]
+            blockExplorerUrls: ["https://mumbai.polygonscan.com"]
         }],
     },
     "optimism-goerli": {
