@@ -6,6 +6,7 @@ import { WalletSelector } from "@aptos-labs/wallet-adapter-ant-design";
 import { Provider, Network } from "aptos";
 import { Context } from "@/app/layout";
 import Link from "next/link";
+import SwitchNetwork from "./utilities/SwitchNetwork";
 
 const Navigation = () => {
   const [state, setState] = useState(false);
@@ -130,6 +131,7 @@ const Navigation = () => {
             ) : (
               <WalletSelector />
             )}
+            <SwitchNetwork />
           </div>
         </div>
       </div>
