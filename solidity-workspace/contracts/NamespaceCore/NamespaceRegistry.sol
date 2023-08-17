@@ -44,8 +44,8 @@ contract NamespaceRegistry {
         mapping(string => address) creators;
         mapping(string => uint256) namespaceIds; // @note TokenIDs of Blockchain Namespaces
         mapping(string => string[]) names;
-        mapping(string => string[]) links;
-        mapping(string => uint256) membershipFees;
+        mapping(string => mapping(string => string)) textRecords; // subdomain
+        mapping(string => mapping(string => uint256)) createdTokens; // subdomain
         mapping(string => mapping(address => bool)) isAllowed;
     }
 
@@ -58,7 +58,26 @@ contract NamespaceRegistry {
         blockchainSpace = new BlockchainSpace();
     }
 
-    function registerName(string memory _name) public {
+    modifier NameNotTaken(string memory _name) {
+        require(name.creators[_name] == address(0), "Name is already taken");
+        _;
+    }
+
+    modifier SpaceNotTaken(string memory _space) {
+        require(space.creators[_space] == address(0), "Space is already taken");
+        _;
+    }
+
+    modifier NamespaceNotTaken(string memory _name, string memory _space) {
+        string memory namespace_ = string(abi.encodePacked(_name, ".", _space));
+        require(
+            namespace.creators[namespace_] == address(0),
+            "Namespace is already taken"
+        );
+        _;
+    }
+
+    function registerName(string memory _name) public NameNotTaken(_name) {
         name.names.push(_name);
         name.creators[_name] = msg.sender;
     }
@@ -66,7 +85,7 @@ contract NamespaceRegistry {
     function registerSpace(
         string memory _space,
         string memory _symbol
-    ) public returns (address) {
+    ) public SpaceNotTaken(_space) returns (address) {
         space.spaces.push(_space);
         space.creators[_space] = msg.sender;
         // create namespace collection
@@ -88,7 +107,12 @@ contract NamespaceRegistry {
     function createNamespace(
         string memory _name,
         string memory _space
-    ) public {}
+    ) public NamespaceNotTaken(_name, _space) {
+        string memory namespace_ = string(abi.encodePacked(_name, ".", _space));
+        namespace.creators[namespace_] = msg.sender;
+    }
 
-    function createLink() public {}
+    function linkTextRecords() public {}
+
+    function linkAddresses() public {}
 }
