@@ -16,7 +16,7 @@ export const ChainNetwork = {
         params: [{
             chainId: "0x89",
             rpcUrls: ["https://rpc-mainnet.matic.network/"],
-            chainName: "Matic Mainnet",
+            chainName: "Polygon Mainnet",
             nativeCurrency: {
                 name: "MATIC",
                 symbol: "MATIC",
@@ -29,7 +29,7 @@ export const ChainNetwork = {
         params: [{
             chainId: "0x89",
             rpcUrls: ["https://rpc-mainnet.matic.network/"],
-            chainName: "Matic Mainnet",
+            chainName: "Polygon Mumbai Testnet",
             nativeCurrency: {
                 name: "MATIC",
                 symbol: "MATIC",
@@ -55,7 +55,7 @@ export const ChainNetwork = {
         params: [{
             chainId: 5611,
             rpcUrls: ["https://opbnb-testnet-rpc.bnbchain.org/"],
-            chainName: "Optimism Goerli Testnet",
+            chainName: "opBNB Testnet",
             nativeCurrency: {
                 name: "tcBNB",
                 symbol: "tcBNB",
@@ -81,7 +81,7 @@ export const ChainNetwork = {
         params: [{
             chainId: 999,
             rpcUrls: ["https://testnet.rpc.zora.energy"],
-            chainName: "Base Goerli Testnet",
+            chainName: "Zora Goerli Testnet",
             nativeCurrency: {
                 name: "ETH",
                 symbol: "ETH",
