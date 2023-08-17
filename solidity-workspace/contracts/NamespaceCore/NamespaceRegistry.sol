@@ -20,21 +20,18 @@ contract NamespaceRegistry {
         mapping(string => address) creators;
         mapping(string => uint256) nameIds; // @note TokenIDs of Blockchain Names
         mapping(string => string[]) blockchainSpaces;
-        mapping(string => mapping(string => uint256[])) namespaceLinks; // @note mappin name.space to links to LinkID
-        mapping(string => mapping(string => address)) walletAddresses; // @note map address to name to space to addresses
     }
 
     struct Space {
         string[] spaces;
         mapping(string => NamespaceFactory) collections;
         mapping(string => address) creators;
-        mapping(string => address) collectionAddresses;
         mapping(string => uint256) spaceIds; // @note TokenIDs of Blockchain Spaces
-        mapping(string => string[]) spaceMembers;
         mapping(string => bool) isPrivate;
         mapping(string => string) spaceName;
-        mapping(string => string[]) names;
-        mapping(string => string[]) links;
+        mapping(string => string) spaceDesc;
+        mapping(string => string) spaceCover;
+        mapping(string => string[]) spaceMember;
         mapping(string => uint256) membershipFees;
         mapping(string => mapping(address => bool)) isAllowed;
     }
@@ -56,6 +53,14 @@ contract NamespaceRegistry {
     constructor() {
         blockchainName = new BlockchainName();
         blockchainSpace = new BlockchainSpace();
+    }
+
+    modifier OnlyCreator(string memory name_) {
+        require(
+            name.creators[name_] == msg.sender,
+            "Sender is not the creator"
+        );
+        _;
     }
 
     modifier NameNotTaken(string memory _name) {
@@ -102,6 +107,19 @@ contract NamespaceRegistry {
         // record namespace to registry
         namespace.namespaces.push(newNamespace);
         return address(collection);
+    }
+
+    function updateSpace(
+        string memory _space,
+        string memory _spaceCover,
+        string memory _spaceName,
+        string memory _spaceDesc,
+        bool _isPrivate
+    ) public OnlyCreator(_space) returns (address) {
+        space.spaceCover[_space] = _spaceCover;
+        space.spaceName[_space] = _spaceName;
+        space.spaceDesc[_space] = _spaceDesc;
+        space.isPrivate[_space] = _isPrivate;
     }
 
     function createNamespace(
