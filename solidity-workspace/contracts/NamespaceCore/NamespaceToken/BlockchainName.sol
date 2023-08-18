@@ -2,6 +2,7 @@
 
 pragma solidity >=0.8.2 <0.9.0;
 
+import "./interfaces/IBlockchainName.sol";
 import "../../NamespaceGraphics/BlockchainNameOCVG.sol";
 import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
 import "@openzeppelin/contracts/access/Ownable2Step.sol";
@@ -11,6 +12,7 @@ import "@openzeppelin/contracts/access/Ownable2Step.sol";
 /// @notice
 /// @dev
 contract BlockchainName is
+    IBlockchainName,
     ERC721("Namespace Blockchain Name", "NAME"),
     Ownable2Step
 {
@@ -19,9 +21,12 @@ contract BlockchainName is
     BlockchainNameOCVG private onchainvision;
 
     mapping(uint256 => string) names;
+    mapping(uint256 => string) bgColors;
 
     constructor() {
-        BlockchainNameOCVG onchainvision_ = new BlockchainNameOCVG();
+        BlockchainNameOCVG onchainvision_ = new BlockchainNameOCVG(
+            address(this)
+        );
         onchainvision = onchainvision_;
     }
 
@@ -32,6 +37,7 @@ contract BlockchainName is
         uint256 newToken = tokenIds;
         _safeMint(_receiver, tokenIds);
         names[newToken] = _name;
+        bgColors[newToken] = "white";
         tokenIds++;
         return newToken;
     }
@@ -76,5 +82,17 @@ contract BlockchainName is
 
     function viewOCVG() public view returns (address) {
         return address(onchainvision);
+    }
+
+    function getNameByTokenId(
+        uint256 tokenId
+    ) external view returns (string memory) {
+        return names[tokenId];
+    }
+
+    function getBgColorByTokenId(
+        uint256 tokenId
+    ) external view returns (string memory) {
+        return bgColors[tokenId];
     }
 }

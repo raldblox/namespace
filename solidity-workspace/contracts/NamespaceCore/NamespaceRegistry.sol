@@ -250,4 +250,12 @@ contract NamespaceRegistry {
         description = space.spaceDesc[_space];
         cover = space.spaceCover[_space];
     }
+
+    function viewBlockchainName() external view returns (address) {
+        return address(blockchainName);
+    }
+
+    function viewBlockchainSpace() external view returns (address) {
+        return address(blockchainSpace);
+    }
 }
