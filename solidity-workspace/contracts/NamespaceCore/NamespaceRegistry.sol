@@ -8,7 +8,7 @@ import "./NamespaceToken/BlockchainSpace.sol";
 
 /// @title Namespace Registry Core Contract
 /// @author raldblox.eth
-/// @notice Handles of all Namespace Records
+/// @notice Handle of all Name, Space, and Namespace Records
 /// @dev The Namespace Storage Contract
 contract NamespaceRegistry {
     address admin;
@@ -18,15 +18,15 @@ contract NamespaceRegistry {
     struct Name {
         string[] names;
         mapping(string => address) creators;
-        mapping(string => uint256) nameIds; // @note TokenIDs of Blockchain Names
+        mapping(string => uint256) tokenIds; // @note TokenIDs of Blockchain Names
         mapping(string => string[]) blockchainSpaces;
     }
 
     struct Space {
         string[] spaces;
-        mapping(string => NamespaceFactory) collections;
+        mapping(string => NamespaceFactory) factories;
         mapping(string => address) creators;
-        mapping(string => uint256) spaceIds; // @note TokenIDs of Blockchain Spaces
+        mapping(string => uint256) tokenIds; // @note TokenIDs of Blockchain Spaces
         mapping(string => bool) isPrivate;
         mapping(string => string) spaceName;
         mapping(string => string) spaceDesc;
@@ -39,7 +39,7 @@ contract NamespaceRegistry {
     struct Namespace {
         string[] namespaces;
         mapping(string => address) creators;
-        mapping(string => uint256) namespaceIds; // @note TokenIDs of Blockchain Namespaces
+        mapping(string => uint256) tokenIds; // @note TokenIDs of Blockchain Namespaces
         mapping(string => string[]) names;
         mapping(string => mapping(string => string)) textRecords; // subdomain
         mapping(string => mapping(string => uint256)) createdTokens; // subdomain
@@ -50,6 +50,10 @@ contract NamespaceRegistry {
     Space private space;
     Namespace private namespace;
 
+    event NameRegistered(string indexed _name, address indexed _creator);
+    event SpaceRegistered(string indexed _space, address indexed _creator);
+    event NamespaceCreated(string indexed _namespace, address indexed _creator);
+
     constructor() {
         blockchainName = new BlockchainName();
         blockchainSpace = new BlockchainSpace();
@@ -58,6 +62,23 @@ contract NamespaceRegistry {
     modifier OnlyCreator(string memory name_) {
         require(
             name.creators[name_] == msg.sender,
+            "Sender is not the creator"
+        );
+        _;
+    }
+
+    modifier OnlyNameOwner(string memory name_) {
+        require(
+            ERC721(blockchainName).ownerOf(name.tokenIds[name_]) == msg.sender,
+            "Sender is not the creator"
+        );
+        _;
+    }
+
+    modifier OnlySpaceOwner(string memory name_) {
+        require(
+            ERC721(blockchainSpace).ownerOf(space.tokenIds[name_]) ==
+                msg.sender,
             "Sender is not the creator"
         );
         _;
@@ -73,8 +94,10 @@ contract NamespaceRegistry {
         _;
     }
 
-    modifier NamespaceNotTaken(string memory _name, string memory _space) {
-        string memory namespace_ = string(abi.encodePacked(_name, ".", _space));
+    modifier NamespaceNotTaken(string memory _name, string memory _spaceTld) {
+        string memory namespace_ = string(
+            abi.encodePacked(_name, ".", _spaceTld)
+        );
         require(
             namespace.creators[namespace_] == address(0),
             "Namespace is already taken"
@@ -85,28 +108,72 @@ contract NamespaceRegistry {
     function registerName(string memory _name) public NameNotTaken(_name) {
         name.names.push(_name);
         name.creators[_name] = msg.sender;
+
+        // mint name token
+        uint256 newNameToken = blockchainName.mint(msg.sender, _name);
+        name.tokenIds[_name] = newNameToken;
+
+        emit NameRegistered(_name, msg.sender);
     }
 
     function registerSpace(
-        string memory _space,
-        string memory _symbol
-    ) public SpaceNotTaken(_space) returns (address) {
-        space.spaces.push(_space);
-        space.creators[_space] = msg.sender;
+        string memory _spaceName,
+        string memory _spaceTld
+    ) public SpaceNotTaken(_spaceTld) returns (address) {
+        space.spaces.push(_spaceTld);
+        space.creators[_spaceTld] = msg.sender;
+
+        // mint space token
+        uint256 newSpaceToken = blockchainName.mint(msg.sender, _spaceName);
+
+        // record tokenId to space records
+        name.tokenIds[_spaceName] = newSpaceToken;
+
         // create namespace collection
         NamespaceFactory collection = new NamespaceFactory(
-            string(abi.encodePacked(_space, " Namespace Token")),
+            string(abi.encodePacked(_spaceName, " Namespace Token")),
             string("NAMESPACE"),
             address(this)
         );
+
         // record collection address
-        space.collections[_space] = collection;
+        space.factories[_spaceTld] = collection;
+        string memory namespace_ = string(
+            abi.encodePacked(_spaceName, ".", _spaceTld)
+        );
+
         // mint admin token in collection
-        string memory newNamespace = NamespaceFactory(collection)
-            .createNamespace(msg.sender, "admin", _symbol);
+        uint256 newNamespaceToken = NamespaceFactory(collection).mintNamespace(
+            msg.sender,
+            "admin",
+            _spaceTld
+        );
+
+        // record tokenId to namespace records
+        namespace.tokenIds[namespace_] = newNamespaceToken;
+
         // record namespace to registry
-        namespace.namespaces.push(newNamespace);
+        namespace.namespaces.push(namespace_);
+        emit SpaceRegistered(_spaceTld, msg.sender);
         return address(collection);
+    }
+
+    function createNamespace(
+        string memory _spaceName,
+        string memory _spaceTld
+    ) public NamespaceNotTaken(_spaceName, _spaceTld) {
+        uint256 newNamespaceToken = NamespaceFactory(space.factories[_spaceTld])
+            .mintNamespace(msg.sender, _spaceName, _spaceTld);
+        string memory namespace_ = string(
+            abi.encodePacked(_spaceName, ".", _spaceTld)
+        );
+
+        namespace.namespaces.push(namespace_);
+
+        // record tokenId to namespace records
+        namespace.tokenIds[namespace_] = newNamespaceToken;
+        namespace.creators[namespace_] = msg.sender;
+        emit NamespaceCreated(namespace_, msg.sender);
     }
 
     function updateSpace(
@@ -115,22 +182,30 @@ contract NamespaceRegistry {
         string memory _spaceName,
         string memory _spaceDesc,
         bool _isPrivate
-    ) public OnlyCreator(_space) returns (address) {
+    ) public OnlySpaceOwner(_space) {
         space.spaceCover[_space] = _spaceCover;
         space.spaceName[_space] = _spaceName;
         space.spaceDesc[_space] = _spaceDesc;
         space.isPrivate[_space] = _isPrivate;
     }
 
-    function createNamespace(
-        string memory _name,
-        string memory _space
-    ) public NamespaceNotTaken(_name, _space) {
-        string memory namespace_ = string(abi.encodePacked(_name, ".", _space));
-        namespace.creators[namespace_] = msg.sender;
+    function getNameCreators(
+        string memory _name
+    ) public view returns (address) {
+        return name.creators[_name];
     }
 
-    function linkTextRecords() public {}
+    function getSpaceCreators(
+        string memory _space
+    ) public view returns (address) {
+        return space.creators[_space];
+    }
 
-    function linkAddresses() public {}
+    function getNamespaceCreators(
+        string memory _name,
+        string memory _space
+    ) public view returns (address) {
+        string memory namespace_ = string(abi.encodePacked(_name, ".", _space));
+        return namespace.creators[namespace_];
+    }
 }
