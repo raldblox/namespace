@@ -21,14 +21,14 @@ contract NamespaceFactory is ERC721, Ownable2Step {
         registry = registryAddress;
     }
 
-    function createNamespace(
+    function mintNamespace(
         address _receiver,
         string memory _name,
         string memory _space
-    ) public returns (string memory) {
-        _safeMint(_receiver, tokenIds);
+    ) public returns (uint256) {
+        uint256 newToken = tokenIds;
+        _safeMint(_receiver, newToken);
         tokenIds++;
-
-        return string(abi.encodePacked(_name, ".", _space));
+        return newToken;
     }
 }

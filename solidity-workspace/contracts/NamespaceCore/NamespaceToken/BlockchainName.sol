@@ -42,7 +42,8 @@ contract BlockchainName is
         require(_exists(tokenId), "Nonexistent Token");
 
         string memory name_ = names[tokenId];
-        string memory image_ = onchainvision.generateImage(name_);
+        string memory description_ = "";
+        string memory image_ = onchainvision.generateImage(name_, tokenId);
         string memory attribute_ = "";
         string memory visualizer_ = "";
 
@@ -71,5 +72,9 @@ contract BlockchainName is
                     )
                 )
             );
+    }
+
+    function viewOCVG() public view returns (address) {
+        return address(onchainvision);
     }
 }

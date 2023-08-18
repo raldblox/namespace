@@ -17,8 +17,13 @@ contract BlockchainSpace is
 
     constructor() {}
 
-    function mint(address _receiver) public {
+    function mint(
+        address _receiver,
+        string memory _space
+    ) public returns (uint256) {
+        uint256 newToken = tokenIds;
         _safeMint(_receiver, tokenIds);
         tokenIds++;
+        return newToken;
     }
 }
