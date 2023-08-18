@@ -54,8 +54,8 @@ contract NamespaceRegistry {
     event SpaceRegistered(string indexed _space, address indexed _creator);
     event NamespaceCreated(string indexed _namespace, address indexed _creator);
 
-    constructor() {
-        blockchainName = new BlockchainName();
+    constructor(string memory _chainNetwork) {
+        blockchainName = new BlockchainName(_chainNetwork);
         blockchainSpace = new BlockchainSpace();
     }
 
@@ -257,5 +257,11 @@ contract NamespaceRegistry {
 
     function viewBlockchainSpace() external view returns (address) {
         return address(blockchainSpace);
+    }
+
+    function viewNameTokenURI(
+        uint256 tokenId
+    ) external view returns (string memory) {
+        return BlockchainName(blockchainName).tokenURI(tokenId);
     }
 }

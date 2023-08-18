@@ -17,15 +17,18 @@ contract BlockchainName is
     Ownable2Step
 {
     uint256 tokenIds;
+    string chainNetwork;
 
     BlockchainNameOCVG private onchainvision;
 
     mapping(uint256 => string) names;
     mapping(uint256 => string) bgColors;
 
-    constructor() {
+    constructor(string memory _chainNetwork) {
+        chainNetwork = _chainNetwork;
         BlockchainNameOCVG onchainvision_ = new BlockchainNameOCVG(
-            address(this)
+            address(this),
+            chainNetwork
         );
         onchainvision = onchainvision_;
     }

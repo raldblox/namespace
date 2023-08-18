@@ -7,9 +7,11 @@ import "@zoociety/nifty-contracts/contracts/onchainvision/libraries/OCVG.sol";
 
 contract BlockchainNameOCVG {
     address public blockchainName;
+    string chainNetwork;
 
-    constructor(address _blockchainName) {
+    constructor(address _blockchainName, string memory _chainNetwork) {
         blockchainName = _blockchainName;
+        chainNetwork = _chainNetwork;
     }
 
     function generateImage(
@@ -26,7 +28,7 @@ contract BlockchainNameOCVG {
     function generateDesign(
         string memory _name,
         uint256 _tokenId
-    ) public pure returns (string memory) {
+    ) public view returns (string memory) {
         string memory style = OCVG.style(
             "text {fill:#131313;font-weight: bold; font-family: sans-serif;}",
             ""
@@ -48,7 +50,7 @@ contract BlockchainNameOCVG {
             30,
             "",
             "bold",
-            "CHAIN",
+            chainNetwork,
             "",
             ""
         );
@@ -70,7 +72,7 @@ contract BlockchainNameOCVG {
             20,
             "middle",
             "bold",
-            "0 member/s",
+            "0 space/s",
             "",
             ""
         );
