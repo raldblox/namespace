@@ -9,10 +9,10 @@
 
 pragma solidity >=0.8.2 <0.9.0;
 
-/// @title Namespace Registry
+/// @title Namespace Cross-Chain Bridging
 /// @author raldblox.eth
 /// @notice Explain to an end user what this does
 /// @dev Explain to a developer any extra details
-contract NamespaceRegistry {
+contract NamespaceBridge {
     constructor() {}
 }
