@@ -4,7 +4,7 @@ require("@nomiclabs/hardhat-etherscan");
 require("hardhat-contract-sizer");
 require("dotenv").config();
 
-const { mnemonic } = require("./secrets.json");
+// const { mnemonic } = require("./secrets.json");
 
 const XINFIN_NETWORK_URL = process.env.XINFIN_NETWORK_URL;
 const XINFIN_PRIVATE_KEY = process.env.XINFIN_PRIVATE_KEY;
@@ -28,71 +28,111 @@ module.exports = {
     },
   },
   networks: {
+    hardhat: {},
     localhost: {
       url: "http://127.0.0.1:8545",
     },
-    mumbai: {
-      url: process.env.ALCHEMY_MUMBAI,
-      accounts: [process.env.PRIVATE_KEY],
-    },
-    goerli: {
-      timeout: 60000,
-      gasPrice: 50000000000,
-      url: process.env.ALCHEMY_ARBGOERLI,
-      accounts: [process.env.PRIVATE_KEY],
-    },
-    hardhat: {},
-    testnet: {
-      url: "https://data-seed-prebsc-1-s1.binance.org:8545",
-      chainId: 97,
-      gasPrice: 20000000000,
-      accounts: { mnemonic: mnemonic },
-    },
-    mumbai: {
-      timeout: 60000,
-      gasPrice: 50000000000,
-      url: process.env.INFURA_MUMBAI,
-      accounts: [process.env.ZOOCIETY],
-    },
-    zkevmt: {
-      timeout: 60000,
-      gasPrice: 50000000000,
-      url: process.env.ALCHEMY_ZKEVMT,
-      accounts: [process.env.PRIVATE_KEY],
-    },
-    mainnet: {
+    "eth-mainnet": {
       timeout: 60000,
       // gasPrice: 50000000000,
       url: process.env.INFURA_MAINNET,
-      accounts: [process.env.ZOOCIETY],
+      accounts: [process.env.PRIVATE_KEY],
     },
-    cic: {
+    "poly-mumbai": {
+      url: process.env.MUMBAI_URL,
+      accounts: [process.env.PRIVATE_KEY],
+    },
+    "arb-goerli": {
+      timeout: 60000,
+      gasPrice: 50000000000,
+      url: process.env.ARB_GOERLI_URL,
+      accounts: [process.env.PRIVATE_KEY],
+    },
+    // "bsc-testnet": {
+    //   url: "https://data-seed-prebsc-1-s1.binance.org:8545",
+    //   chainId: 97,
+    //   gasPrice: 20000000000,
+    //   accounts: { mnemonic: mnemonic },
+    // },
+    "zkevm-testnet": {
+      timeout: 60000,
+      gasPrice: 50000000000,
+      url: process.env.ZKEVMT_URL,
+      accounts: [process.env.PRIVATE_KEY],
+    },
+
+    "cic-mainnet": {
       url: "https://xapi.cicscan.com",
       accounts: [process.env.PRIVATE_KEY],
     },
-    hyperspace: {
+    "fil-hyperspace": {
       chainId: 3141,
       url: "https://api.hyperspace.node.glif.io/rpc/v1",
       accounts: [process.env.PRIVATE_KEY],
     },
-    filecoinmainnet: {
+    "fil-mainnet": {
       chainId: 314,
       url: "https://api.node.glif.io",
       accounts: [process.env.PRIVATE_KEY],
     },
-    xinfin: {
-      url: XINFIN_NETWORK_URL,
-      accounts: [XINFIN_PRIVATE_KEY],
+    "xdc-xinfin": {
+      url: "https://rpc.xinfin.network",
+      accounts: [process.env.PRIVATE_KEY],
+    },
+    "xdc-apothem": {
+      url: "https://rpc.apothem.network",
+      accounts: [process.env.PRIVATE_KEY],
+    },
+    "op-goerli": {
+      url: process.env.OPTIMISM_GOERLI_URL,
+      accounts: [process.env.PRIVATE_KEY],
+    },
+    "op-mainnet": {
+      url: process.env.OPTIMISM_MAINNET_URL,
+      accounts: [process.env.PRIVATE_KEY],
+    },
+    "base-mainnet": {
+      url: 'https://mainnet.base.org',
+      accounts: [process.env.PRIVATE_KEY],
+      gasPrice: 1000000000,
+    },
+    "base-goerli": {
+      url: 'https://goerli.base.org',
+      accounts: [process.env.PRIVATE_KEY],
+      gasPrice: 1000000000,
+    },
+    "zora-goerli": {
+      url: 'https://testnet.rpc.zora.energy/',
+      accounts: [process.env.PRIVATE_KEY],
+    },
+    "zora-mainnet": {
+      url: 'https://mainnet.rpc.zora.energy/',
+      accounts: [process.env.PRIVATE_KEY],
     },
   },
   etherscan: {
     apiKey: {
-      bscTestnet: process.env.BSCTESTNET,
+      "base-goerli": process.env.BASE_ETHERSCAN,
+      "zora-goerli": process.env.ZORA_ETHERSCAN,
     },
-    apiKey: {
-      arbGoerli: process.env.ARBGOERLI,
-    },
-    // apiKey: process.env.API_ARBISCAN, // arb
-    apiKey: process.env.API_POLYGONSCAN, // polygon
+    apiKey: process.env.OP_ETHERSCAN,
+    customChains: [
+      {
+        network: "base-goerli",
+        chainId: 84531,
+        urls: {
+          apiURL: "https://api-goerli.basescan.org/api",
+          browserURL: "https://goerli.basescan.org"
+        }
+      },
+      {
+        network: "zora-goerli",
+        chainId: 999,
+        urls: {
+          apiURL: "https://testnet.rpc.zora.energy/",
+          browserURL: "https://testnet.explorer.zora.energy/"
+        }
+      }
+    ]
   },
 };
