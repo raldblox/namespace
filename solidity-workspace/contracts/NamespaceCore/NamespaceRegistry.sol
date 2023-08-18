@@ -159,13 +159,19 @@ contract NamespaceRegistry {
     }
 
     function createNamespace(
-        string memory _spaceName,
+        string memory _name,
         string memory _spaceTld
-    ) public NamespaceNotTaken(_spaceName, _spaceTld) {
+    ) public NamespaceNotTaken(_name, _spaceTld) {
+        require(
+            ERC721(blockchainName).ownerOf(name.tokenIds[_name]) == msg.sender,
+            "Sender is not the name owner"
+        );
+
         uint256 newNamespaceToken = NamespaceFactory(space.factories[_spaceTld])
-            .mintNamespace(msg.sender, _spaceName, _spaceTld);
+            .mintNamespace(msg.sender, _name, _spaceTld);
+
         string memory namespace_ = string(
-            abi.encodePacked(_spaceName, ".", _spaceTld)
+            abi.encodePacked(_name, ".", _spaceTld)
         );
 
         namespace.namespaces.push(namespace_);
@@ -207,5 +213,41 @@ contract NamespaceRegistry {
     ) public view returns (address) {
         string memory namespace_ = string(abi.encodePacked(_name, ".", _space));
         return namespace.creators[namespace_];
+    }
+
+    function getNameTokenId(string memory _name) public view returns (uint256) {
+        return name.tokenIds[_name];
+    }
+
+    function getSpaceTokenId(
+        string memory _space
+    ) public view returns (uint256) {
+        return name.tokenIds[_space];
+    }
+
+    function getNamespaceTokenId(
+        string memory _name,
+        string memory _space
+    ) public view returns (uint256) {
+        string memory namespace_ = string(abi.encodePacked(_name, ".", _space));
+        return namespace.tokenIds[namespace_];
+    }
+
+    function getNamespaceFactory(
+        string memory _space
+    ) public view returns (address) {
+        return address(space.factories[_space]);
+    }
+
+    function getSpaceDetails(
+        string memory _space
+    )
+        public
+        view
+        returns (bool isPrivate, string memory description, string memory cover)
+    {
+        isPrivate = space.isPrivate[_space];
+        description = space.spaceDesc[_space];
+        cover = space.spaceCover[_space];
     }
 }
