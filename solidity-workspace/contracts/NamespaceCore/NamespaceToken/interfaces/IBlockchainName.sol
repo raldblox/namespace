@@ -10,4 +10,8 @@ interface IBlockchainName {
     function getBgColorByTokenId(
         uint256 tokenId
     ) external view returns (string memory);
+
+    function getFontColorByTokenId(
+        uint256 tokenId
+    ) external view returns (string memory);
 }
