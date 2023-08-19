@@ -16,9 +16,10 @@ contract BlockchainNameOCVG {
 
     function generateImage(
         string memory _name,
-        uint256 _tokenId
+        uint256 _tokenId,
+        uint256 _spacesCount
     ) public view returns (string memory) {
-        string memory content = generateDesign(_name, _tokenId);
+        string memory content = generateDesign(_name, _tokenId, _spacesCount);
         string memory background = IBlockchainName(blockchainName)
             .getBgColorByTokenId(_tokenId);
         string memory ocvg = OCVG.init(500, "", content, background);
@@ -27,10 +28,11 @@ contract BlockchainNameOCVG {
 
     function generateDesign(
         string memory _name,
-        uint256 _tokenId
+        uint256 _tokenId,
+        uint256 _spacesCount
     ) public view returns (string memory) {
         string memory style = OCVG.style(
-            "text {fill:#131313;font-weight: bold; font-family: sans-serif;}",
+            "text {fill:#131313; font-weight: bold; font-family: sans-serif;}",
             ""
         );
         string memory tokenId = OCVG.text(
@@ -72,7 +74,9 @@ contract BlockchainNameOCVG {
             20,
             "middle",
             "bold",
-            "0 space/s",
+            string(
+                abi.encodePacked(Strings.toString(_spacesCount), " space/s")
+            ),
             "",
             ""
         );
