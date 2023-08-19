@@ -37,10 +37,26 @@ contract BlockchainName is
         onchainvision = onchainvision_;
     }
 
+    modifier TokenOwner(uint256 tokenId) {
+        require(
+            ownerOf(tokenId) == msg.sender,
+            "Sender is not the token owner"
+        );
+        _;
+    }
+
+    modifier OnlyRegistry() {
+        require(
+            registry == msg.sender,
+            "Sender is not the Namespace Registry Contract"
+        );
+        _;
+    }
+
     function mint(
         address _receiver,
         string memory _name
-    ) public returns (uint256) {
+    ) public OnlyRegistry returns (uint256) {
         uint256 newToken = tokenIds;
         _safeMint(_receiver, tokenIds);
         names[newToken] = _name;
@@ -48,6 +64,15 @@ contract BlockchainName is
         fontColors[newToken] = "#131313"; // @note default fontCcolor is darkgray
         tokenIds++;
         return newToken;
+    }
+
+    function updateColors(
+        uint256 tokenId,
+        string memory _font,
+        string memory _background
+    ) public TokenOwner(tokenId) {
+        fontColors[tokenId] = _font;
+        bgColors[tokenId] = _background;
     }
 
     function tokenURI(

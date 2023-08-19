@@ -6,4 +6,8 @@ interface INamespaceRegistry {
     function viewBlockchainName() external view returns (address);
 
     function viewBlockchainSpace() external view returns (address);
+
+    function getSpacesConnectedToName(
+        string memory _name
+    ) external view returns (string[] memory);
 }

@@ -13,6 +13,11 @@ contract NamespaceFactory is ERC721, Ownable2Step {
     uint256 tokenIds;
     address registry;
 
+    modifier onlyRegistry() {
+        require(msg.sender == registry, "Only the registry can call this");
+        _;
+    }
+
     constructor(
         string memory name,
         string memory symbol,
@@ -25,7 +30,7 @@ contract NamespaceFactory is ERC721, Ownable2Step {
         address _receiver,
         string memory _name,
         string memory _space
-    ) public returns (uint256) {
+    ) public onlyRegistry returns (uint256) {
         uint256 newToken = tokenIds;
         _safeMint(_receiver, newToken);
         tokenIds++;

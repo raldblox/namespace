@@ -2,6 +2,7 @@
 
 pragma solidity >=0.8.2 <0.9.0;
 
+import "./interfaces/INamespaceRegistry.sol";
 import "./NamespaceFactory.sol";
 import "./NamespaceToken/BlockchainName.sol";
 import "./NamespaceToken/BlockchainSpace.sol";
@@ -10,7 +11,7 @@ import "./NamespaceToken/BlockchainSpace.sol";
 /// @author raldblox.eth
 /// @notice Handle of all Name, Space, and Namespace Records
 /// @dev The Namespace Storage Contract
-contract NamespaceRegistry {
+contract NamespaceRegistry is INamespaceRegistry {
     address admin;
     BlockchainName public blockchainName;
     BlockchainSpace public blockchainSpace;
@@ -19,7 +20,7 @@ contract NamespaceRegistry {
         string[] names;
         mapping(string => address) creators;
         mapping(string => uint256) tokenIds; // @note TokenIDs of Blockchain Names
-        mapping(string => string[]) blockchainSpaces;
+        mapping(string => string[]) connectedSpaces;
     }
 
     struct Space {
@@ -55,7 +56,7 @@ contract NamespaceRegistry {
     event NamespaceCreated(string indexed _namespace, address indexed _creator);
 
     constructor(string memory _chainNetwork) {
-        blockchainName = new BlockchainName(_chainNetwork);
+        blockchainName = new BlockchainName(_chainNetwork, address(this));
         blockchainSpace = new BlockchainSpace();
     }
 
@@ -179,6 +180,10 @@ contract NamespaceRegistry {
         // record tokenId to namespace records
         namespace.tokenIds[namespace_] = newNamespaceToken;
         namespace.creators[namespace_] = msg.sender;
+
+        // Connect the space to the name
+        name.connectedSpaces[_name].push(_spaceTld);
+
         emit NamespaceCreated(namespace_, msg.sender);
     }
 
@@ -249,6 +254,12 @@ contract NamespaceRegistry {
         isPrivate = space.isPrivate[_space];
         description = space.spaceDesc[_space];
         cover = space.spaceCover[_space];
+    }
+
+    function getSpacesConnectedToName(
+        string memory _name
+    ) external view returns (string[] memory) {
+        return name.connectedSpaces[_name];
     }
 
     function viewBlockchainName() external view returns (address) {
