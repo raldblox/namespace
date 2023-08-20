@@ -142,4 +142,30 @@ export const ChainNetwork = {
             blockExplorerUrls: ["https://explorer.apothem.network/"]
         }],
     },
+    "patex-mainnet": {
+        params: [{
+            chainId: 789,
+            rpcUrls: ["https://rpc.patex.io/"],
+            chainName: "Patex Network",
+            nativeCurrency: {
+                name: "ETH",
+                symbol: "ETH",
+                decimals: 18
+            },
+            blockExplorerUrls: ["https://patexscan.io/"]
+        }],
+    },
+    "patex-sepolia": {
+        params: [{
+            chainId: 471100,
+            rpcUrls: ["https://test-rpc.patex.io/"],
+            chainName: "Patex Sepolia Testnet",
+            nativeCurrency: {
+                name: "ETH",
+                symbol: "ETH",
+                decimals: 18
+            },
+            blockExplorerUrls: ["https://testnet.patexscan.io/"]
+        }],
+    },
 };
