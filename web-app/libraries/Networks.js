@@ -29,13 +29,52 @@ export const ChainNetwork = {
         params: [{
             chainId: 1101,
             rpcUrls: ["https://rpc.ankr.com/polygon_zkevm"],
-            chainName: "Polygon Mainnet",
+            chainName: "Polygon zkEVM Mainnet",
             nativeCurrency: {
                 name: "ETH",
                 symbol: "ETH",
                 decimals: 18
             },
             blockExplorerUrls: ["https://zkevm.polygonscan.com"]
+        }],
+    },
+    "patex-mainnet": {
+        params: [{
+            chainId: 789,
+            rpcUrls: ["https://rpc.patex.io/"],
+            chainName: "Patex Network",
+            nativeCurrency: {
+                name: "ETH",
+                symbol: "ETH",
+                decimals: 18
+            },
+            blockExplorerUrls: ["https://patexscan.io/"]
+        }],
+    },
+    "pego-mainnet": {
+        params: [{
+            chainId: 20201022,
+            rpcUrls: ["https://pegorpc.com"],
+            chainName: "PEGO Mainnet",
+            nativeCurrency: {
+                name: "PEGO",
+                symbol: "PG",
+                decimals: 18
+            },
+            blockExplorerUrls: [""]
+        }],
+    },
+    "xdc-mainnet": {
+        params: [{
+            chainId: 50,
+            rpcUrls: ["https://rpc.xinfin.network"],
+            chainName: "XinFin",
+            nativeCurrency: {
+                name: "XDC",
+                symbol: "XDC",
+                decimals: 18
+            },
+            blockExplorerUrls: ["https://explorer.xinfin.network/"]
         }],
     },
     "polygon-mumbai": {
@@ -103,32 +142,7 @@ export const ChainNetwork = {
             blockExplorerUrls: ["https://testnet.explorer.zora.energy"]
         }],
     },
-    "pego-mainnet": {
-        params: [{
-            chainId: 20201022,
-            rpcUrls: ["https://pegorpc.com"],
-            chainName: "PEGO Mainnet",
-            nativeCurrency: {
-                name: "PEGO",
-                symbol: "PG",
-                decimals: 18
-            },
-            blockExplorerUrls: [""]
-        }],
-    },
-    "xdc-mainnet": {
-        params: [{
-            chainId: 50,
-            rpcUrls: ["https://rpc.xinfin.network"],
-            chainName: "XinFin",
-            nativeCurrency: {
-                name: "XDC",
-                symbol: "XDC",
-                decimals: 18
-            },
-            blockExplorerUrls: ["https://explorer.xinfin.network/"]
-        }],
-    },
+
     "xdc-testnet": {
         params: [{
             chainId: 50,
@@ -142,19 +156,7 @@ export const ChainNetwork = {
             blockExplorerUrls: ["https://explorer.apothem.network/"]
         }],
     },
-    "patex-mainnet": {
-        params: [{
-            chainId: 789,
-            rpcUrls: ["https://rpc.patex.io/"],
-            chainName: "Patex Network",
-            nativeCurrency: {
-                name: "ETH",
-                symbol: "ETH",
-                decimals: 18
-            },
-            blockExplorerUrls: ["https://patexscan.io/"]
-        }],
-    },
+
     "patex-sepolia": {
         params: [{
             chainId: 471100,
