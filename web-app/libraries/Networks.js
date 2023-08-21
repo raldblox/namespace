@@ -1,4 +1,5 @@
 export const ChainNetwork = {
+
     "ethereum-mainnet": {
         params: [{
             chainId: 1,
@@ -12,6 +13,7 @@ export const ChainNetwork = {
             blockExplorerUrls: ["https://etherscan.io"]
         }],
     },
+
     "polygon-mainnet": {
         params: [{
             chainId: 137,
@@ -25,6 +27,7 @@ export const ChainNetwork = {
             blockExplorerUrls: ["https://polygonscan.com/"]
         }],
     },
+
     "polygon-zkEVM": {
         params: [{
             chainId: 1101,
@@ -38,6 +41,7 @@ export const ChainNetwork = {
             blockExplorerUrls: ["https://zkevm.polygonscan.com"]
         }],
     },
+
     "patex-mainnet": {
         params: [{
             chainId: 789,
@@ -51,6 +55,7 @@ export const ChainNetwork = {
             blockExplorerUrls: ["https://patexscan.io/"]
         }],
     },
+
     "pego-mainnet": {
         params: [{
             chainId: 20201022,
@@ -64,6 +69,7 @@ export const ChainNetwork = {
             blockExplorerUrls: [""]
         }],
     },
+
     "xdc-mainnet": {
         params: [{
             chainId: 50,
@@ -77,6 +83,7 @@ export const ChainNetwork = {
             blockExplorerUrls: ["https://explorer.xinfin.network/"]
         }],
     },
+
     "polygon-mumbai": {
         params: [{
             chainId: 80001,
@@ -90,6 +97,7 @@ export const ChainNetwork = {
             blockExplorerUrls: ["https://mumbai.polygonscan.com"]
         }],
     },
+
     "optimism-goerli": {
         params: [{
             chainId: 420,
@@ -103,6 +111,7 @@ export const ChainNetwork = {
             blockExplorerUrls: ["https://optimism-goerli.blockscout.com"]
         }],
     },
+
     "opbnb-testnet": {
         params: [{
             chainId: 5611,
@@ -116,6 +125,7 @@ export const ChainNetwork = {
             blockExplorerUrls: ["https://bscscan.com"]
         }],
     },
+
     "base-goerli": {
         params: [{
             chainId: 84531,
@@ -129,6 +139,7 @@ export const ChainNetwork = {
             blockExplorerUrls: ["https://goerli.basescan.org"]
         }],
     },
+
     "zora-goerli": {
         params: [{
             chainId: 999,
@@ -145,7 +156,7 @@ export const ChainNetwork = {
 
     "xdc-testnet": {
         params: [{
-            chainId: 50,
+            chainId: 51,
             rpcUrls: ["https://rpc.xinfin.network"],
             chainName: "Apothem",
             nativeCurrency: {
