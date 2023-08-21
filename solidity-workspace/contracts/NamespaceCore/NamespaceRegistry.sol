@@ -173,7 +173,7 @@ contract NamespaceRegistry is INamespaceRegistry {
             abi.encodePacked(_name, ".", _spaceTld)
         );
         require(_receiver != address(0), "Zero address not allowed");
-        require(space.creators[namespace_] != address(0), "Non-existent space");
+        require(space.creators[_spaceTld] != address(0), "Non-existent space");
         require(
             namespace.creators[namespace_] == address(0),
             "Namespace is taken"
