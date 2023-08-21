@@ -6,9 +6,6 @@ require("dotenv").config();
 
 // const { mnemonic } = require("./secrets.json");
 
-const XINFIN_NETWORK_URL = process.env.XINFIN_NETWORK_URL;
-const XINFIN_PRIVATE_KEY = process.env.XINFIN_PRIVATE_KEY;
-
 task("accounts", "Prints the list of accounts", async () => {
   const accounts = await ethers.getSigners();
 
@@ -23,7 +20,7 @@ module.exports = {
     settings: {
       optimizer: {
         enabled: true,
-        runs: 200,
+        runs: 2,
       },
     },
   },
@@ -38,7 +35,7 @@ module.exports = {
       url: process.env.INFURA_MAINNET,
       accounts: [process.env.PRIVATE_KEY],
     },
-    "poly-mumbai": {
+    "mumbai": {
       url: process.env.MUMBAI_URL,
       accounts: [process.env.PRIVATE_KEY],
     },
@@ -76,12 +73,12 @@ module.exports = {
       accounts: [process.env.PRIVATE_KEY],
     },
     "xdc-xinfin": {
-      url: "https://rpc.xinfin.network",
-      accounts: [process.env.PRIVATE_KEY],
+      url: "https://erpc.xinfin.network",
+      accounts: [process.env.XDC_PRIVATE_KEY],
     },
     "xdc-apothem": {
-      url: "https://rpc.apothem.network",
-      accounts: [process.env.PRIVATE_KEY],
+      url: "https://erpc.apothem.network",
+      accounts: [process.env.XDC_PRIVATE_KEY],
     },
     "op-goerli": {
       url: process.env.OPTIMISM_GOERLI_URL,
@@ -109,13 +106,19 @@ module.exports = {
       url: 'https://mainnet.rpc.zora.energy/',
       accounts: [process.env.PRIVATE_KEY],
     },
+    "patex-sepolia": {
+      url: "https://test-rpc.patex.io",
+      accounts: [process.env.PRIVATE_KEY],
+    }
   },
   etherscan: {
     apiKey: {
       "base-goerli": process.env.BASE_ETHERSCAN,
       "zora-goerli": process.env.ZORA_ETHERSCAN,
+      "patex-sepolia": process.env.PATEX_ETHERSCAN,
     },
-    apiKey: process.env.OP_ETHERSCAN,
+    // apiKey: process.env.OP_ETHERSCAN,
+    // apiKey: process.env.POLYGON_ETHERSCAN,
     customChains: [
       {
         network: "base-goerli",

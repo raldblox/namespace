@@ -157,7 +157,7 @@ export const ChainNetwork = {
     "xdc-testnet": {
         params: [{
             chainId: 51,
-            rpcUrls: ["https://rpc.xinfin.network"],
+            rpcUrls: ["https://rpc.apothem.network"],
             chainName: "Apothem",
             nativeCurrency: {
                 name: "TXDC",
