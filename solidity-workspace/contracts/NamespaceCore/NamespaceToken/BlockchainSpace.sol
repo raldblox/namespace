@@ -10,8 +10,6 @@ import "@openzeppelin/contracts/access/Ownable2Step.sol";
 
 /// @title Namespace: Blockchain Spaces
 /// @author raldblox.eth
-/// @notice
-/// @dev
 contract BlockchainSpace is
     IBlockchainSpace,
     ERC721("Namespace: Blockchain Space", "SPACE"),

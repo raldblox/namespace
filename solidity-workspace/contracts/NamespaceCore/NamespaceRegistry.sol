@@ -11,7 +11,6 @@ import "@openzeppelin/contracts/utils/math/SafeMath.sol";
 /// @title Namespace Registry Core Contract
 /// @author raldblox.eth
 /// @notice Handle of all Name, Space, and Namespace Records
-/// @dev The Namespace Storage Contract
 contract NamespaceRegistry is INamespaceRegistry {
     using SafeMath for uint256;
 
@@ -132,22 +131,27 @@ contract NamespaceRegistry is INamespaceRegistry {
         _;
     }
 
-    function updateOCVG(address _newOCVG) public {
+    function updateOCVG(address _newOCVG) external {
         require(admin == msg.sender);
         NamespaceOCVG onchainvision_ = NamespaceOCVG(_newOCVG);
         onchainvision = onchainvision_;
     }
 
-    function updateServiceFees(address _newOCVG) public {
+    function updateServiceFees(
+        uint256 _nameFee,
+        uint256 _spaceFee,
+        uint256 _namespaceFee
+    ) external {
         require(admin == msg.sender);
-        NamespaceOCVG onchainvision_ = NamespaceOCVG(_newOCVG);
-        onchainvision = onchainvision_;
+        nameServiceFee = _nameFee;
+        spaceServiceFee = _spaceFee;
+        namespaceServiceFee = _namespaceFee;
     }
 
     function registerName(
         address _receiver,
         string memory _name
-    ) public payable NameNotTaken(_name) {
+    ) external payable NameNotTaken(_name) {
         require(_receiver != address(0), "Zero address not allowed");
         require(msg.value >= nameServiceFee, "Name service fee not met");
         _registerName(_receiver, _name);
@@ -157,7 +161,7 @@ contract NamespaceRegistry is INamespaceRegistry {
         address _receiver,
         string memory _spaceName,
         string memory _spaceTld
-    ) public payable SpaceNotTaken(_spaceTld) returns (address) {
+    ) external payable SpaceNotTaken(_spaceTld) returns (address) {
         require(_receiver != address(0), "Zero address not allowed");
         require(msg.value >= nameServiceFee, "Space service fee not met");
         address collection = _registerSpace(_receiver, _spaceName, _spaceTld);
@@ -168,7 +172,7 @@ contract NamespaceRegistry is INamespaceRegistry {
         address _receiver,
         string memory _name,
         string memory _spaceTld
-    ) public payable NamespaceNotTaken(_name, _spaceTld) {
+    ) external payable NamespaceNotTaken(_name, _spaceTld) {
         string memory namespace_ = string(
             abi.encodePacked(_name, ".", _spaceTld)
         );
@@ -280,7 +284,7 @@ contract NamespaceRegistry is INamespaceRegistry {
         string memory _spaceName,
         string memory _spaceDesc,
         bool _isPrivate
-    ) public OnlySpaceOwner(_space) {
+    ) external OnlySpaceOwner(_space) {
         space.spaceCover[_space] = _spaceCover;
         space.spaceName[_space] = _spaceName;
         space.spaceDesc[_space] = _spaceDesc;
@@ -289,52 +293,54 @@ contract NamespaceRegistry is INamespaceRegistry {
 
     function getNameCreators(
         string memory _name
-    ) public view returns (address) {
+    ) external view returns (address) {
         return name.creators[_name];
     }
 
     function getSpaceCreators(
         string memory _space
-    ) public view returns (address) {
+    ) external view returns (address) {
         return space.creators[_space];
     }
 
     function getNamespaceCreators(
         string memory _name,
         string memory _space
-    ) public view returns (address) {
+    ) external view returns (address) {
         string memory namespace_ = string(abi.encodePacked(_name, ".", _space));
         return namespace.creators[namespace_];
     }
 
-    function getNameTokenId(string memory _name) public view returns (uint256) {
+    function getNameTokenId(
+        string memory _name
+    ) external view returns (uint256) {
         return name.tokenIds[_name];
     }
 
     function getSpaceTokenId(
         string memory _space
-    ) public view returns (uint256) {
+    ) external view returns (uint256) {
         return name.tokenIds[_space];
     }
 
     function getNamespaceTokenId(
         string memory _name,
         string memory _space
-    ) public view returns (uint256) {
+    ) external view returns (uint256) {
         string memory namespace_ = string(abi.encodePacked(_name, ".", _space));
         return namespace.tokenIds[namespace_];
     }
 
     function getNamespaceFactory(
         string memory _space
-    ) public view returns (address) {
+    ) external view returns (address) {
         return address(space.factories[_space]);
     }
 
     function getSpaceDetails(
         string memory _space
     )
-        public
+        external
         view
         returns (bool isPrivate, string memory description, string memory cover)
     {

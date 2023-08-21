@@ -10,8 +10,6 @@ import "@openzeppelin/contracts/access/Ownable2Step.sol";
 
 /// @title Namespace: Blockchain Names
 /// @author raldblox.eth
-/// @notice
-/// @dev
 contract BlockchainName is
     IBlockchainName,
     ERC721("Namespace: Blockchain Name", "NAME"),

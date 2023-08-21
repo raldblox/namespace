@@ -11,8 +11,6 @@ import "@openzeppelin/contracts/access/Ownable2Step.sol";
 
 /// @title Namespace Collection
 /// @author raldblox.eth
-/// @notice
-/// @dev
 contract NamespaceFactory is ERC721, Ownable2Step {
     address immutable registry;
     uint256 tokenIds;

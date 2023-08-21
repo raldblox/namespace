@@ -4,7 +4,7 @@ require("@nomiclabs/hardhat-etherscan");
 require("hardhat-contract-sizer");
 require("dotenv").config();
 
-// const { mnemonic } = require("./secrets.json");
+const { mnemonic } = require("./secrets.json");
 
 task("accounts", "Prints the list of accounts", async () => {
   const accounts = await ethers.getSigners();
@@ -45,12 +45,12 @@ module.exports = {
       url: process.env.ARB_GOERLI_URL,
       accounts: [process.env.PRIVATE_KEY],
     },
-    // "bsc-testnet": {
-    //   url: "https://data-seed-prebsc-1-s1.binance.org:8545",
-    //   chainId: 97,
-    //   gasPrice: 20000000000,
-    //   accounts: { mnemonic: mnemonic },
-    // },
+    "bsc-testnet": {
+      url: "https://data-seed-prebsc-1-s1.binance.org:8545",
+      chainId: 97,
+      gasPrice: 20000000000,
+      accounts: { mnemonic: mnemonic },
+    },
     "zkevm-testnet": {
       timeout: 60000,
       gasPrice: 50000000000,
@@ -109,13 +109,20 @@ module.exports = {
     "patex-sepolia": {
       url: "https://test-rpc.patex.io",
       accounts: [process.env.PRIVATE_KEY],
-    }
+    },
+    "opbnb": {
+      url: "https://opbnb-testnet-rpc.bnbchain.org/",
+      chainId: 5611,
+      accounts: [process.env.PRIVATE_KEY],
+      gasPrice: 20000000000,
+    },
   },
   etherscan: {
     apiKey: {
-      "base-goerli": process.env.BASE_ETHERSCAN,
-      "zora-goerli": process.env.ZORA_ETHERSCAN,
-      "patex-sepolia": process.env.PATEX_ETHERSCAN,
+      opbnb: process.env.NODEREAL_API,
+      // "base-goerli": process.env.BASE_ETHERSCAN,
+      // "zora-goerli": process.env.ZORA_ETHERSCAN,
+      // "patex-sepolia": process.env.PATEX_ETHERSCAN,
     },
     // apiKey: process.env.OP_ETHERSCAN,
     // apiKey: process.env.POLYGON_ETHERSCAN,
@@ -135,7 +142,15 @@ module.exports = {
           apiURL: "https://testnet.rpc.zora.energy/",
           browserURL: "https://testnet.explorer.zora.energy/"
         }
-      }
+      },
+      {
+        network: "opbnb",
+        chainId: 5611,
+        urls: {
+          apiURL: process.env.NODEREAL_URL,
+          browserURL: "https://opbnbscan.com/",
+        },
+      },
     ]
   },
 };
