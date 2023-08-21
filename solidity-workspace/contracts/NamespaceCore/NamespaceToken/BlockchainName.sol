@@ -8,18 +8,19 @@ import "../../NamespaceGraphics/BlockchainNameOCVG.sol";
 import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
 import "@openzeppelin/contracts/access/Ownable2Step.sol";
 
-/// @title Namespace Blockchain Names
+/// @title Namespace: Blockchain Names
 /// @author raldblox.eth
 /// @notice
 /// @dev
 contract BlockchainName is
     IBlockchainName,
-    ERC721("Namespace Blockchain Name", "NAME"),
+    ERC721("Namespace: Blockchain Name", "NAME"),
     Ownable2Step
 {
-    uint256 tokenIds;
+    address immutable registry;
     string chainNetwork;
-    address registry;
+    uint256 tokenIds;
+    address admin;
 
     BlockchainNameOCVG private onchainvision;
 
@@ -27,14 +28,14 @@ contract BlockchainName is
     mapping(uint256 => string) bgColors;
     mapping(uint256 => string) fontColors;
 
-    constructor(string memory _chainNetwork, address _registry) {
+    constructor(
+        string memory _chainNetwork,
+        address _registry,
+        address _admin
+    ) {
         chainNetwork = _chainNetwork;
         registry = _registry;
-        BlockchainNameOCVG onchainvision_ = new BlockchainNameOCVG(
-            address(this),
-            chainNetwork
-        );
-        onchainvision = onchainvision_;
+        admin = _admin;
     }
 
     modifier TokenOwner(uint256 tokenId) {
@@ -75,10 +76,16 @@ contract BlockchainName is
         bgColors[tokenId] = _background;
     }
 
+    function updateOCVG(address _newOCVG) public {
+        require(admin == msg.sender);
+        BlockchainNameOCVG onchainvision_ = BlockchainNameOCVG(_newOCVG);
+        onchainvision = onchainvision_;
+    }
+
     function tokenURI(
         uint256 tokenId
     ) public view virtual override returns (string memory) {
-        require(_exists(tokenId), "Nonexistent Token");
+        require(_exists(tokenId), "Non-existent Token");
 
         string memory name_ = names[tokenId];
         string[] memory spaces_ = INamespaceRegistry(registry)
