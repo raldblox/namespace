@@ -181,4 +181,18 @@ export const ChainNetwork = {
             blockExplorerUrls: ["https://testnet.patexscan.io/"]
         }],
     },
+
+    "pego-testnet": {
+        params: [{
+            chainId: 123456,
+            rpcUrls: ["https://rpc.pegotest.net/"],
+            chainName: "PEGO Testnet",
+            nativeCurrency: {
+                name: "PG",
+                symbol: "PG",
+                decimals: 18
+            },
+            blockExplorerUrls: ["https://scan.pegotest.net/"]
+        }],
+    },
 };
