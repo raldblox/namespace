@@ -74,7 +74,7 @@ export const ChainNetwork = {
         params: [{
             chainId: 50,
             rpcUrls: ["https://rpc.xinfin.network"],
-            chainName: "XinFin",
+            chainName: "XDC XinFin",
             nativeCurrency: {
                 name: "XDC",
                 symbol: "XDC",
@@ -158,7 +158,7 @@ export const ChainNetwork = {
         params: [{
             chainId: 51,
             rpcUrls: ["https://rpc.apothem.network"],
-            chainName: "Apothem",
+            chainName: "XDC Apothem",
             nativeCurrency: {
                 name: "TXDC",
                 symbol: "TXDC",
