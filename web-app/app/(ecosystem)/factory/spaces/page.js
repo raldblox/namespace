@@ -44,7 +44,7 @@ const page = () => {
         <NsCard chain="OPTIMISM" tokenId="123" spaceTld=".xyz" spaceName="XYZ Innovators" spaceDesc="Exploring the unknown in the world of XYZ." />
         <NsCard chain="BASE" tokenId="102" spaceTld=".defi" spaceName="DEFI SPACE" spaceDesc="Community for DeFi related topics" spaceCover="" />
         <NsCard chain="BSC" tokenId="456" spaceTld=".crypto" spaceName="Crypto Enthusiasts" spaceDesc="Diving deep into the world of cryptocurrencies." />
-        <NsCard chain="BASE" tokenId="102" spaceTld=".defi" spaceName="DEFI SPACE" spaceDesc="Community for DeFi related topics" spaceCover="" />
+        <NsCard chain="POLYGON" tokenId="102" spaceTld=".defi" spaceName="DEFI SPACE" spaceDesc="Community for DeFi related topics" spaceCover="" />
         <NsCard chain="AVAX" tokenId="789" spaceTld=".dream" spaceName="Dreamer's Hub" spaceDesc="Where dreams turn into reality, one project at a time." />
 
       </div>
@@ -54,9 +54,9 @@ const page = () => {
           <NsCard chain="PATEX" tokenId="101" spaceTld=".stars" spaceName="Stargazers Society" spaceDesc="Exploring the universe through technology and curiosity." />
           <NsCard chain="BNB" tokenId="303" spaceTld=".crypto" spaceName="CryptoPioneers" spaceDesc="For those leading the way in the world of crypto." />
           <NsCard chain="XDC" tokenId="202" spaceTld=".innovation" spaceName="Tech Innovation Hub" spaceDesc="Fostering innovation and creativity in the tech world." />
-          <NsCard chain="EARTH" tokenId="42" spaceTld=".wander" spaceName="Wanderlust Dreamers" spaceDesc="Embark on global adventures and share travel stories." />
-          <NsCard chain="PIXEL" tokenId="123" spaceTld=".art" spaceName="Pixel Perfectionists" spaceDesc="Celebrating the beauty of digital art, one pixel at a time." />
-          <NsCard chain="DREAM" tokenId="777" spaceTld=".fantasy" spaceName="Fantasy Realm Explorers" spaceDesc="Unveiling the magical mysteries of enchanting worlds." />
+          <NsCard chain="TON" tokenId="42" spaceTld=".wander" spaceName="Wanderlust Dreamers" spaceDesc="Embark on global adventures and share travel stories." />
+          <NsCard chain="ZORA" tokenId="123" spaceTld=".art" spaceName="Pixel Perfectionists" spaceDesc="Celebrating the beauty of digital art, one pixel at a time." />
+          <NsCard chain="PEGO" tokenId="777" spaceTld=".fantasy" spaceName="Fantasy Realm Explorers" spaceDesc="Unveiling the magical mysteries of enchanting worlds." />
         </div>
       </div>
 

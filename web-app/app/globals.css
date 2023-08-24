@@ -21,6 +21,7 @@ body {
   color: var(--dark-color);
   font-family: "Poppins", sans-serif;
   scroll-behavior: smooth;
+  background-image: url(../public/grid.webp);
 }
 
 * {
