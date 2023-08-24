@@ -1,3 +1,4 @@
+import Link from "next/link";
 import React from "react";
 
 const index = () => {
@@ -24,9 +25,9 @@ const index = () => {
           <li className="px-4 py-2 border rounded-full hover:border-black">
             .fil
           </li>
-          <li className="px-4 py-2 border rounded-full hover:border-black">
+          <Link className="px-4 py-2 border rounded-full hover:border-black">
             Create Custom Space
-          </li>
+          </Link>
         </ul>
       </div>
       <div></div>

@@ -56,7 +56,24 @@ export const ContextProvider = (props) => {
     } else {
       console.log("No authorized account found");
     }
+
+    const chainId = await ethereum.request({ method: "eth_chainId" });
+
+    if (ChainNetwork[chainId]) {
+      setNetwork(ChainNetwork[chainId].params[0]);
+    } else {
+      console.log("Network not found in ChainNetwork");
+    }
+
+    ethereum.on("chainChanged", handleChainChanged);
+
+    function handleChainChanged(_chainId) {
+      window.location.reload();
+    }
   };
+
+  
+
 
   useEffect(() => {
     checkIfWalletIsConnected();

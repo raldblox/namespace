@@ -94,7 +94,7 @@ span::selection {
   }
 
   input {
-    @apply flex items-center justify-center px-4 py-2 border rounded-xl hover:border-black gap-x-1 hover:bg-transparent;
+    @apply flex items-center justify-center px-4 py-2 rounded-xl hover:border-green-600 gap-x-1;
   }
 
   section {
@@ -107,7 +107,7 @@ span::selection {
     color: #f5f6f6;
     background: #15141d !important;
     border: 0 !important;
-    @apply w-full px-4 py-2 lg:w-fit rounded-2xl hover:text-white;
+    @apply w-full px-4 py-2 lg:w-fit hover:text-white;
   }
 
   .brand h2 {
