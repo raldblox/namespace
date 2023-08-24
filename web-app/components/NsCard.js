@@ -3,7 +3,7 @@ import React from 'react'
 const NsCard = ({ chain, tokenId, spaceTld, spaceName, spaceDesc, spaceCover }) => {
     return (
         <div
-            className="gap-1 lg:gap-4 content-between grid p-4 aspect-square bg-dark min-h-[20vh] w-full group rounded-md"
+            className="gap-1 lg:gap-4 content-between grid p-2 lg:p-4 aspect-square bg-dark min-h-[20vh] w-full group rounded-md"
         >
             <p className="flex justify-between text-sm font-bold text-white">
                 {chain}
