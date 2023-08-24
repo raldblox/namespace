@@ -57,7 +57,7 @@ const Navigation = () => {
             />
           </Link>
           <div className="md:hidden">
-            <button className="menu-btn" onClick={() => setState(!state)}>
+            <button className="p-1 menu-btn" onClick={() => setState(!state)}>
               {state ? (
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
