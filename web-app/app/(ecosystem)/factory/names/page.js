@@ -25,7 +25,9 @@ const index = () => {
           <li className="px-4 py-2 border rounded-full hover:border-black">
             .fil
           </li>
-          <Link className="px-4 py-2 border rounded-full hover:border-black">
+          <Link
+            href="/factory/spaces"
+            className="px-4 py-2 border rounded-full hover:border-black">
             Create Custom Space
           </Link>
         </ul>
