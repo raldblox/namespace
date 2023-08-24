@@ -42,12 +42,12 @@ const Navigation = () => {
   return (
     <nav
       className={`sticky z-50 top-0 bg-white ${state
-        ? "shadow-lg  rounded-xl border md:shadow-none md:border-none md:mx-2 md:mt-0"
+        ? "shadow-lg lg:shadow-none lg:border-none"
         : ""
         }`}
     >
-      <div className="items-center h-[55px] px-4 py-3 mx-auto border-b-2 border-black gap-x-14 md:flex md:px-4">
-        <div className="flex items-center justify-between md:block">
+      <div className="items-center h-[55px] px-4 py-3 mx-auto border-b-2 border-black gap-x-14 lg:flex lg:px-4">
+        <div className="flex items-center justify-between lg:block">
           <Link href="/">
             <img
               src="/namespace-dark.svg"
@@ -56,7 +56,7 @@ const Navigation = () => {
               alt="Namespace Logo"
             />
           </Link>
-          <div className="md:hidden">
+          <div className="lg:hidden">
             <button className="p-1 menu-btn" onClick={() => setState(!state)}>
               {state ? (
                 <svg
@@ -91,10 +91,10 @@ const Navigation = () => {
           </div>
         </div>
         <div
-          className={`flex-1 items-center mt-8 md:mt-0 md:flex bg-white ${state ? "block" : "hidden"
+          className={`flex-1 items-center mt-8 lg:mt-0 lg:flex bg-white ${state ? "block shadow-lg rounded-2xl" : "hidden"
             } `}
         >
-          <ul className="items-center justify-center p-5 space-y-6 lg:p-0 md:flex md:space-x-6 md:space-y-0">
+          <ul className="items-center justify-center p-5 space-y-6 lg:p-0 lg:flex lg:space-x-6 lg:space-y-0">
             {navigation.map((item, idx) => {
               return (
                 <li key={idx} className="text-center">
@@ -105,7 +105,7 @@ const Navigation = () => {
               );
             })}
           </ul>
-          <div className="items-center justify-end flex-1 p-5 space-y-6 lg:p-0 gap-x-2 md:flex md:space-y-0 md:mt-0">
+          <div className="items-center justify-end flex-1 p-5 space-y-6 lg:p-0 gap-x-2 lg:flex lg:space-y-0 lg:mt-0">
             <button
               className="w-full px-4 py-2 bg-transparent lg:w-fit"
               onClick={() => switchEvm(!evm)}

@@ -18,8 +18,8 @@ const NsCard = ({ chain, tokenId, spaceTld, spaceName, spaceDesc, spaceCover }) 
                 </span>
             </p>
             <div className='hidden group-hover:grid'>
-                <p>{spaceName}</p>
-                <p className='text-xs'>{spaceDesc}</p>
+                <p className='text-sm lg:text-base group-hover:accent'>{spaceName}</p>
+                <p className='overflow-y-scroll text-xs'>{spaceDesc}</p>
             </div>
         </div>
     )
