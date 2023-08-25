@@ -11,7 +11,7 @@ const NamespaceCard = ({ chain, tokenId, spaceTld, name }) => {
                     {tokenId}
                 </span>
             </p>
-            <p className="text-xs duration-100 lg:text-sm accent space group-hover:text-white">
+            <p className="text-xs duration-100 lg:text-base accent space group-hover:text-white">
                 {name}.{spaceTld}
             </p>
         </div>
