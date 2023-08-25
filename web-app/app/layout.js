@@ -10,6 +10,7 @@ import Footer from "@/components/sections/Footer";
 import { PetraWallet } from "petra-plugin-wallet-adapter";
 import { AptosWalletAdapterProvider } from "@aptos-labs/wallet-adapter-react";
 import "@aptos-labs/wallet-adapter-ant-design/dist/index.css";
+import { ChainNetwork } from "@/libraries/Networks";
 
 const wallets = [new PetraWallet()];
 
@@ -59,6 +60,10 @@ export const ContextProvider = (props) => {
 
     const chainId = await ethereum.request({ method: "eth_chainId" });
 
+    if (ChainNetwork) {
+      return;
+    }
+
     if (ChainNetwork[chainId]) {
       setNetwork(ChainNetwork[chainId].params[0]);
     } else {
@@ -71,9 +76,6 @@ export const ContextProvider = (props) => {
       window.location.reload();
     }
   };
-
-  
-
 
   useEffect(() => {
     checkIfWalletIsConnected();

@@ -1,5 +1,5 @@
 "use client"
-
+import "animate.css"
 import React, { useEffect, useState } from "react";
 
 const Typing = ({ toRotate }) => {

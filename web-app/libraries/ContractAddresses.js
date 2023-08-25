@@ -1,13 +1,13 @@
-export const ContractAddresses = {
+export const contractAddresses = {
     "polygon": {
-        mumbai: [{
+        mumbai: {
             namespaceRegistry: "0xa3c051096675546b5b444db481f4092A5b00BC52",
             blockchainName: "0xd8f9C07f85010B4FBF4a2F47a56372594dd1Be52",
             blockchainSpace: "0xBD17a094e435E9496359D354a98271887cC8906e",
             namespaceOCVG: "0x564067F3A4E4A99DC5bc1EEFA1f2926cF1Fd8B20",
             nameOCVG: "0x7a2e6d15127d535E948904Cc9d4fa599AA890611",
             spaceOCVG: "0xe631fdf2434Eb39880B7863fC222808cd195D0Ed",
-        }],
+        },
         mainnet: [{
             namespaceRegistry: "",
             blockchainName: "",
