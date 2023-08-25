@@ -72,7 +72,7 @@ const page = () => {
             DISCOVER
           </span>
           <p className="flex items-center">
-            Blockchain Space Features
+            Blockchain Space
             <span className="inline-block pl-2 transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
               &gt;
             </span>
