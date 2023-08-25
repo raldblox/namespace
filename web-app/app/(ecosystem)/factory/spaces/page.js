@@ -115,15 +115,18 @@ const page = () => {
         {spaceTld &&
           <div className='grid grid-cols-2 col-span-3 gap-4 lg:grid-cols-3 '>
             {spaceName &&
-              <div className='grid grid-cols-2 col-span-2 border border-black shadow-sm rounded-2xl backdrop-blur-sm'>
+              <div className='grid content-start grid-cols-2 col-span-2 gap-4 border border-black shadow-sm rounded-2xl backdrop-blur-sm'>
                 <div className='grid col-span-1 p-4'>
-                  <p className='text-lg font-bold'>{spaceName}<br />Namespace<br />Service</p>
-                  {spaceDesc && <p>About: {spaceDesc}</p>}
+                  <p className='px-2 text-xs border border-black rounded-full h-fit w-fit'>NFT COLLECTION</p>
+                  <p className='text-lg font-bold leading-none'>
+                    {spaceName}<br />Namespace<br />Service
+                  </p>
+                  {spaceDesc && <p>{spaceDesc}</p>}
                 </div>
                 <div className='col-span-1 p-4'>
                   <NamespaceCard chain="ETHEREUM" spaceTld={spaceTld} name="admin" tokenId="0" />
                 </div>
-                <p className='col-span-2 px-4 py-2 text-xs font-thin opacity-80'>Note: The "admin.{spaceTld}" token is the first namespace token to be minted in ${spaceName} Namespace Service. It is binded to its creator and is non-transferable.</p>
+                <p className='col-span-2 px-4 py-2 text-xs font-thin opacity-80'>Note: The "admin.{spaceTld}" token is the first namespace token to be minted in <bold>{spaceName} Namespace Service</bold>. It is binded to its creator and is non-transferable.</p>
               </div>}
             <div className='flex col-span-2 gap-4 p-4 border border-black shadow-sm lg:col-span-1 lg:grid rounded-2xl backdrop-blur-sm'>
               <SpaceCard chain="ETHEREUM" spaceTld={`.${spaceTld}`} spaceName={spaceName} spaceDesc={spaceDesc} />
