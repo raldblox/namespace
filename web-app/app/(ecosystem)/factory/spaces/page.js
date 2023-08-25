@@ -113,7 +113,7 @@ const page = () => {
         </div>
 
         {spaceTld &&
-          <div className='grid grid-cols-3 col-span-3 gap-4 '>
+          <div className='grid grid-cols-2 col-span-3 gap-4 lg:grid-cols-3 '>
             {spaceName &&
               <div className='grid grid-cols-2 col-span-2 border border-black shadow-sm rounded-2xl backdrop-blur-sm'>
                 <div className='grid col-span-1 p-4'>
@@ -123,11 +123,11 @@ const page = () => {
                 <div className='col-span-1 p-4'>
                   <NamespaceCard chain="ETHEREUM" spaceTld={spaceTld} name="admin" tokenId="0" />
                 </div>
-                <p className='col-span-2 px-4 py-2 text-xs font-thin text-justify opacity-80'>Note: The "admin.{spaceTld}" token is the first namespace token to be minted in ${spaceName} Namespace Service. It is binded to its creator and is non-transferable.</p>
+                <p className='col-span-2 px-4 py-2 text-xs font-thin opacity-80'>Note: The "admin.{spaceTld}" token is the first namespace token to be minted in ${spaceName} Namespace Service. It is binded to its creator and is non-transferable.</p>
               </div>}
-            <div className='col-span-1 p-4 border border-black shadow-sm rounded-2xl backdrop-blur-sm'>
+            <div className='flex col-span-2 gap-4 p-4 border border-black shadow-sm lg:col-span-1 lg:grid rounded-2xl backdrop-blur-sm'>
               <SpaceCard chain="ETHEREUM" spaceTld={`.${spaceTld}`} spaceName={spaceName} spaceDesc={spaceDesc} />
-              <p className='mt-2 text-xs font-thin text-justify opacity-80'>Note: This is a Space Token that can be traded and represents ownership of the admin access to its corresponding Namespace Service NFT Collection.</p>
+              <p className='mt-2 text-xs font-thin opacity-80'>Note: This is a Space Token that can be traded and represents ownership of the admin access to its corresponding Namespace Service NFT Collection.</p>
             </div>
           </div>
         }
